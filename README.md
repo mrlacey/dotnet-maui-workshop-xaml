@@ -1,1 +1,42 @@
-# dotnet-maui-workshop-xaml
+# .NET MAUI - Workshop : Focus on XAML
+
+Today we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
+
+While the XAML you created as part of that workshop is functional, there are many opportunities to improve it.
+
+Many people criticize XAML as being verbose and hard to maintain. By completing this workshop, you'll see how that doesn't have to be the case and that it is possible to create XAML that is easy to write, read, understand, and maintain.
+
+While this workshop exclusively focuses on .NET MAUI, the principles can be applied to any use of XAML files, whether that be WPF, UWP, WinUI, [Avalonia](https://www.avaloniaui.net/), [Uno Platform](https://platform.uno/), or something else.
+
+## Setup
+
+This workshop is a direct follow-on from the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
+You can follow their [setup guide](https://github.com/mrlacey/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're skipping straight to this workshop.
+
+## Agenda
+
+This workshop is made up of the following parts.
+
+* [Part 0](Part%200%20-%20Overview/README.md) - Overview
+* [Part 1]() - Fundamentals
+* [Part 2]() - Responsibility
+* [Part 3]() - Magic Values
+* [Part 4]() - Naming
+* [Part 5]() - Custom Types
+* [Part 6]() - Bonus
+
+In each folder for parts 1 to 5, you'll find a **README.md** file with directions for that part, along with folders containing the code at the `Start` and `End` of the part.
+
+But before any of that, let's [get started with Part 0](Part%200%20-%20Overview/README.md).
+
+## More links and resources
+
+There are very few people striving to make improve the experience of working with XAML.
+
+If you know of any more I'd love to add their details here.  
+For now you can check out:
+
+* [My YouTube channel](https://www.youtube.com/@MRLacey) - Where I create videos about working with XAML.
+* [My Blog](https://www.mrlacey.com/) - Where I often write about .NET MAUI and XAML.
+
+If you have any questions please reach out to me on Twitter ([@MRLacey](https://twitter.com/mrlacey)) or Mastodon ([@mrlacey@fosstodon.org](https://fosstodon.org/@mrlacey)).
