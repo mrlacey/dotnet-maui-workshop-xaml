@@ -9,43 +9,49 @@
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
         <Grid RowDefinitions="Auto,Auto,*">
             <BoxView
-                BackgroundColor="{StaticResource Primary}"
                 Grid.RowSpan="2"
+                BackgroundColor="{StaticResource Primary}"
                 HorizontalOptions="Fill"
-                VerticalOptions="Fill"/>
+                VerticalOptions="Fill" />
 
-            <Border StrokeShape="RoundRectangle 80"
-                    Stroke="White"
-                    StrokeThickness="6"
+            <Border
+                Margin="0,8,0,0"
+                HeightRequest="160"
+                HorizontalOptions="Center"
+                Stroke="White"
+                StrokeShape="RoundRectangle 80"
+                StrokeThickness="6"
+                VerticalOptions="Center"
+                WidthRequest="160">
+                <Image
+                    Aspect="AspectFill"
                     HeightRequest="160"
-                    WidthRequest="160"
-                    Margin="0,8,0,0"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center">
-                    <Image Aspect="AspectFill"
-                        HeightRequest="160"
-                        HorizontalOptions="Center"
-                        VerticalOptions="Center"
-                        Source="{Binding Monkey.Image}"
-                        WidthRequest="160"/>
+                    Source="{Binding Monkey.Image}"
+                    VerticalOptions="Center"
+                    WidthRequest="160" />
             </Border>
 
-            <Label Style="{StaticResource LargeLabel}" 
-                   Grid.Row="1"
-                   TextColor="White"
-                   FontAttributes="Bold"
-                   Text="{Binding Monkey.Name}" 
-                   HorizontalOptions="Center"
-                   Margin="0,0,0,8"/>
+            <Label
+                Grid.Row="1"
+                Margin="0,0,0,8"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                Style="{StaticResource LargeLabel}"
+                Text="{Binding Monkey.Name}"
+                TextColor="White" />
 
-            <VerticalStackLayout Grid.Row="2" Padding="10" Spacing="10">
-                <!-- Add this -->
-                <Button Text="Show on Map" 
-                        Command="{Binding OpenMapCommand}"
-                        HorizontalOptions="Center" 
-                        WidthRequest="200" 
-                        Margin="8"
-                        Style="{StaticResource ButtonOutline}"/>
+            <VerticalStackLayout
+                Grid.Row="2"
+                Padding="10"
+                Spacing="10">
+                <Button
+                    Margin="8"
+                    Command="{Binding OpenMapCommand}"
+                    HorizontalOptions="Center"
+                    Style="{StaticResource ButtonOutline}"
+                    Text="Show on Map"
+                    WidthRequest="200" />
 
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding Monkey.Details}" />
                 <Label Style="{StaticResource SmallLabel}" Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
