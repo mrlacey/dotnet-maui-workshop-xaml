@@ -320,15 +320,10 @@ Update `App.xaml` so that it looks like this:
 </Application>
 ```
 
+`App.xaml` is now responsible for bringing all the different `Resources` together, rather than defining them. As a general rule it's easier to work with multiple, smaller files that are each focused on one thing, than it is to work with one large file that tries to do everything.
 
+You may recognize the files we've added as being the same as those included by default in a new .NET MAUI project. This isn't a coincidence. Grouping resources like this has been popular from before .NET MAUI was released. It isn't a requirement or a rule that you use these files and only these files. Create files that group like Resources together and give the files appropriate names. Just make sure you're consistent.
 
-`App.xaml` is now responsible for bringing all the different 
-
-after changing solution structure lead into thinking about the SRP
-
-If you run the app now it will still look and behave in exactly the same way. All we've done is change the structure and formatting of some files. There haven't been any big 
-
-
-
+If you run the app now it will still look and behave in exactly the same way as at the start of this part. All we've done is change the structure and formatting of some files. There haven't been any big changes yet as we've only been focusing on the fundamentals. Things we need to get right before making more profound changes. Like the ones coming in the next parts.
 
  [Now, head over to Part 2 and start thinking about responsibility](../Part%202%20-%20Responsibility/README.md)!
