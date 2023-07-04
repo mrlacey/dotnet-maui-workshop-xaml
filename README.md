@@ -11,19 +11,18 @@ While this workshop exclusively focuses on .NET MAUI, the principles can be appl
 ## Setup
 
 This workshop is a direct follow-on from the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
-You can follow their [setup guide](https://github.com/mrlacey/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're skipping straight to this workshop.
+You can follow their [setup guide](https://github.com/mrlacey/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're coming straight to this workshop.
 
 ## Agenda
 
-This workshop is made up of the following parts.
+This workshop is made up of the following parts:
 
 * [Part 0](Part%200%20-%20Overview/README.md) - Overview
-* [Part 1]() - Fundamentals
-* [Part 2]() - Responsibility
+* [Part 1](Part%200%20-%20Fundamentals/README.md) - Fundamentals
+* [Part 2](Part%200%20-%20Responsibility/README.md) - Responsibility
 * [Part 3]() - Magic Values
 * [Part 4]() - Naming
 * [Part 5]() - Custom Types
-* [Part 6]() - Bonus
 
 In each folder for parts 1 to 5, you'll find a **README.md** file with directions for that part, along with folders containing the code at the `Start` and `End` of the part.
 
