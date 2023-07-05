@@ -1,3 +1,14 @@
+> **NOTES FOR REVIEWERS**  
+> Current development status:  
+> Part 0: first draft complete - feedback welcome  
+> Part 1: first draft complete - feedback welcome  
+> Part 2: still in planning  
+> Part 3: still in planning  
+> Part 4: still in planning  
+> Part 5: still in planning  
+
+---
+
 # .NET MAUI - Workshop : Focus on XAML
 
 Today we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
@@ -18,11 +29,11 @@ You can follow their [setup guide](https://github.com/mrlacey/dotnet-maui-worksh
 This workshop is made up of the following parts:
 
 * [Part 0](Part%200%20-%20Overview/README.md) - Overview
-* [Part 1](Part%200%20-%20Fundamentals/README.md) - Fundamentals
-* [Part 2](Part%200%20-%20Responsibility/README.md) - Responsibility
-* [Part 3]() - Magic Values
-* [Part 4]() - Naming
-* [Part 5]() - Custom Types
+* [Part 1](Part%201%20-%20Fundamentals/README.md) - Fundamentals
+* [Part 2](Part%202%20-%20Responsibility/README.md) - Responsibility
+* [Part 3](Part%203%20-%20Magic%20Values/README.md) - Magic Values
+* [Part 4](Part%204%20-%20Naming/README.md) - Naming
+* [Part 5](Part%205%20-%20Custom%20Types/README.md) - Custom Types
 
 In each folder for parts 1 to 5, you'll find a **README.md** file with directions for that part, along with folders containing the code at the `Start` and `End` of the part.
 
