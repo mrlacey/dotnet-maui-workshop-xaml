@@ -6,20 +6,22 @@ The code examples in this part will continue on from the previous part. If you h
 
 ## Outline
 
-[[Part introduction]]
+[[Part introduction - how the SRP relates to XAML]]
+At it's simplest, the Single Responsibility Principle is expressed as "A class should have only one reason to change." It can be easy to see how this can be applied to an object-oriented language like C# but it isn't always obvious how this can relate to XAML files.
+
+Instead of thinking about classes, we can apply this rule by asserting that **an _element_ should only have one reason to change**.
 
 In this part, we'll look at:
 
-- Point 1
-- point 2
-- point 3
-- point 4
+- How this helps make maintainable code
+- Separating content and layout
 
-[[transition sentence]]
+Yes, there are only two parts to this section but they're the building blocks of making XAML files that are easy to maintain.
 
-## Point 1
+## How this helps make maintainable code(Point 1)
 
 [[point 1 introduction]]
+how this helps you (why this matters)
 
 [[point 1 example and steps]]
 
@@ -27,34 +29,14 @@ In this part, we'll look at:
 
 [[transition sentence]]
 
-## Point 2
+## Separating content and layout(Point 2)
 
 [[point 2 introduction]]
+more than just ViewModels
 
 [[point 2 example and steps]]
 
 [[point 2 summary]]
-
-[[transition sentence]]
-
-## Point 3
-
-[[point 3 introduction]]
-
-[[point 3 example and steps]]
-
-[[point 3 summary]]
-
-[[transition sentence]]
-
-## Point 4
-
-[[point 4 introduction]]
-
-[[point 4 example and steps]]
-
-[[point 4 summary]]
-
 
 [[PART SUMMARY]]
 
