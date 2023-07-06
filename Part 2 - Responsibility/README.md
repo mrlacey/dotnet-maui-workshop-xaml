@@ -21,9 +21,11 @@ Yes, there are only two parts to this section but they're the building blocks of
 ## How this helps make maintainable code(Point 1)
 
 [[point 1 introduction]]
-how this helps you (why this matters)
+<<more than just ViewModels>>
+<<how this helps you (why this matters)>>
 
 [[point 1 example and steps]]
+<<example with adding an extra button to the main page>>
 
 [[point 1 summary]]
 
@@ -32,12 +34,13 @@ how this helps you (why this matters)
 ## Separating content and layout(Point 2)
 
 [[point 2 introduction]]
-more than just ViewModels
 
 [[point 2 example and steps]]
+<<add button container on main page>>
+<<replace grid with VSP on detail page>>
 
 [[point 2 summary]]
 
-[[PART SUMMARY]]
+As with the last part, if you run the app now you'll see no visual or behavioral difference with the app. We have, however, started making practical changes that make our XAML file easier to maintain.
 
  [Now, head over to Part 3 and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
