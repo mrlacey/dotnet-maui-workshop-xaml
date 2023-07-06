@@ -10,6 +10,15 @@ The code examples in this part will continue on from the previous part. If you h
 
 In this part, we'll look at:
 
+<<
+- what makes a good name
+- of styles
+- of types
+- creating semantically meaningful types to represent our styles
+  - by hand
+  - with nuget package
+>>
+
 - Point 1
 - point 2
 - point 3
@@ -54,7 +63,6 @@ In this part, we'll look at:
 [[point 4 example and steps]]
 
 [[point 4 summary]]
-
 
 [[PART SUMMARY]]
 
