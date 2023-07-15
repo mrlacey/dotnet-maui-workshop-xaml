@@ -12,6 +12,7 @@ In this part, we'll look at:
 
 <<
 - reused names (or color values)
+- page background
 - reused numbers
 - move repeated properties into a style
 - creating a markup extension to enable simple math
