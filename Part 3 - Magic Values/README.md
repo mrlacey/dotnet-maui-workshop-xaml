@@ -13,10 +13,11 @@ In this part, we'll look at:
 <<
 - reused names (or color values)
 - page background
+  - move to base
 - reused numbers
 - move repeated properties into a style
-- creating a markup extension to enable simple math
-- use attached properties to remove duplication & simplify code
+- creating a markup extension to enable simple math - details page
+- use attached properties to remove duplication & simplify code - image sizes on mainpage layoutoptions
 - enabling binding to a struct
 >>
 

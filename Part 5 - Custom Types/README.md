@@ -12,7 +12,12 @@ In this part, we'll look at:
 
 <<
 - combining types for simplicity
+  - VerticallyScrollingPage (with Header)
+  - RoundImage (with border)
 - isolating stand alone pieces of logic
+- 
+
+- 
 >>
 
 - Point 1
