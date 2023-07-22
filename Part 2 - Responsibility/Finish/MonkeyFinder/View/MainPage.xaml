@@ -9,17 +9,8 @@
     Title="Monkeys"
     ios:Page.UseSafeArea="True"
     x:DataType="viewmodel:MonkeysViewModel">
-    <Grid
-        BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground},
-                                          Dark={StaticResource DarkBackground}}"
-        ColumnDefinitions="*,*"
-        ColumnSpacing="5"
-        RowDefinitions="*,Auto"
-        RowSpacing="0">
-        <RefreshView
-            Grid.ColumnSpan="2"
-            Command="{Binding GetMonkeysCommand}"
-            IsRefreshing="{Binding IsRefreshing}">
+    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" RowDefinitions="*,Auto">
+        <RefreshView Command="{Binding GetMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
             <ContentView>
                 <CollectionView ItemsSource="{Binding Monkeys}" SelectionMode="None">
                     <CollectionView.EmptyView>
@@ -62,31 +53,29 @@
         </RefreshView>
 
         <ActivityIndicator
-            Grid.RowSpan="2"
-            Grid.ColumnSpan="2"
-            HorizontalOptions="Fill"
+            HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             VerticalOptions="Center"
             Color="{StaticResource Primary}" />
 
-        <Button
+        <HorizontalStackLayout
             Grid.Row="1"
-            Grid.Column="0"
-            Margin="8"
-            Command="{Binding GetMonkeysCommand}"
-            IsEnabled="{Binding IsNotBusy}"
-            Style="{StaticResource ButtonOutline}"
-            Text="Get Monkeys" />
+            Padding="8"
+            HorizontalOptions="Center"
+            Spacing="21">
+            <Button
+                Command="{Binding GetMonkeysCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Get Monkeys" />
 
-        <Button
-            Grid.Row="1"
-            Grid.Column="1"
-            Margin="8"
-            Command="{Binding GetClosestMonkeyCommand}"
-            IsEnabled="{Binding IsNotBusy}"
-            Style="{StaticResource ButtonOutline}"
-            Text="Find Closest" />
+            <Button
+                Command="{Binding GetClosestMonkeyCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Style="{StaticResource ButtonOutline}"
+                Text="Find Closest" />
+        </HorizontalStackLayout>
 
     </Grid>
 </ContentPage>
