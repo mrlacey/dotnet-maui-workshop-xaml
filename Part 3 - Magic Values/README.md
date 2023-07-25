@@ -10,6 +10,17 @@ The code examples in this part will continue on from the previous part. If you h
 
 In this part, we'll look at:
 
+<<
+- reused names (or color values)
+- page background
+  - move to base
+- reused numbers
+- move repeated properties into a style
+- creating a markup extension to enable simple math - details page
+- use attached properties to remove duplication & simplify code - image sizes on mainpage layoutoptions
+- enabling binding to a struct
+>>
+
 - Point 1
 - point 2
 - point 3
@@ -55,7 +66,6 @@ In this part, we'll look at:
 
 [[point 4 summary]]
 
-
 [[PART SUMMARY]]
 
- [Now, head over to Part 4 to learn the impact that different names can have in XAML files](../Part%204%20-%20Naming/README.md)
+[Now, head over to Part 4 to learn the impact that different names can have in XAML files](../Part%204%20-%20Naming/README.md)

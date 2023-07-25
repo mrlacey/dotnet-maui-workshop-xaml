@@ -7,42 +7,31 @@
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
     <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
-        <Grid RowDefinitions="Auto,Auto,*">
-            <BoxView
-                Grid.RowSpan="2"
-                BackgroundColor="{StaticResource Primary}"
-                HorizontalOptions="Fill"
-                VerticalOptions="Fill" />
-
-            <Border
-                Margin="0,8,0,0"
-                HeightRequest="160"
-                HorizontalOptions="Center"
-                Stroke="White"
-                StrokeShape="RoundRectangle 80"
-                StrokeThickness="6"
-                VerticalOptions="Center"
-                WidthRequest="160">
-                <Image
-                    Aspect="AspectFill"
+        <Grid RowDefinitions="Auto,*">
+            <VerticalStackLayout Padding="8" BackgroundColor="{StaticResource Primary}">
+                <Border
                     HeightRequest="160"
-                    HorizontalOptions="Center"
-                    Source="{Binding Monkey.Image}"
-                    VerticalOptions="Center"
-                    WidthRequest="160" />
-            </Border>
-
-            <Label
-                Grid.Row="1"
-                Margin="0,0,0,8"
-                FontAttributes="Bold"
-                HorizontalOptions="Center"
-                Style="{StaticResource LargeLabel}"
-                Text="{Binding Monkey.Name}"
-                TextColor="White" />
+                    Stroke="White"
+                    StrokeShape="RoundRectangle 80"
+                    StrokeThickness="6"
+                    WidthRequest="160">
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        Source="{Binding Monkey.Image}"
+                        VerticalOptions="Center"
+                        WidthRequest="160" />
+                </Border>
+                <Label
+                    FontAttributes="Bold"
+                    Style="{StaticResource LargeLabel}"
+                    Text="{Binding Monkey.Name}"
+                    TextColor="White" />
+            </VerticalStackLayout>
 
             <VerticalStackLayout
-                Grid.Row="2"
+                Grid.Row="1"
                 Padding="10"
                 Spacing="10">
                 <Button
