@@ -68,4 +68,4 @@ In this part, we'll look at:
 
 [[PART SUMMARY]]
 
- [Now, head over to Part 4 to learn the impact that different names can have in XAML files](../Part%204%20-%20Naming/README.md)
+[Now, head over to Part 4 to learn the impact that different names can have in XAML files](../Part%204%20-%20Naming/README.md)

@@ -19,6 +19,9 @@ In this part, we'll look at:
   - SmallLabel
 - of types
   - RowOfButtons
+    - make sure all buttons are the same size
+  - Header
+  - PageBody
 - creating semantically meaningful types to represent our styles
   - by hand
   - with nuget package
@@ -71,4 +74,4 @@ In this part, we'll look at:
 
 [[PART SUMMARY]]
 
- [Now, head over to Part 5 and we'll see how we can use custom types](../Part%205%20-%20Custom%20Types/README.md)
+[Now, head over to Part 5 and we'll see how we can use custom types](../Part%205%20-%20Custom%20Types/README.md)

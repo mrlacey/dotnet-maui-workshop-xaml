@@ -167,17 +167,158 @@ With that page changed, we can now focus on the other page in the app.
 
 ### DetailsPage.xaml
 
-<<replace grid with VSP on detail page>>
+As with the `MainPage`, the grid on the `DetailsPage` is doing more work than is helpful for making the page easy to maintain. At a high level, the page has two key areas: the colored header at the top; and the details below. The current implementation uses two rows of the Grid to display the header and a third row for the rest of the content.
 
+Let's simplify the header so that it can all fit in a single row of the `Grid`.
 
-<<summarize all the changes made above>>
+For the header, the current solution uses a `BoxView` stretched over two rows as the background and then puts the `Image` in the first row and the `Label` in the second row. By requiring multiple rows for something that could easily be argued should be a single thing (the header), it makes it harder to modify (and particularly to add more elements) without impacting or needing to change other elements on the page also.
 
-[[point 2 summary]]
-<<separation and isolation of elements so that if we need to change or add something we don't have to change things elsewhere too>>
+Let's start our modifications to this page by removing the unnecessary `RowDefinition`.
 
+```diff
+-        <Grid RowDefinitions="Auto,Auto,*">
++        <Grid RowDefinitions="Auto,*">
+```
 
-<<compare large file vs small one - would you rather maintain large code files with lots of duplication and unnecessary complexity, or a smaller file where the author has taken time, effort, and consideration to make it easier for those that have to work with the code base after them?>>
+We must also update the `VerticalStackLayout` that holds the body content of the page (displaying the details of the Monkey) so that it is in the correct row (**1**).
 
-As with the last part, if you run the app now you'll see no visual or behavioral difference with the app. At this point it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part and they will become clearer as we continue.
+```diff
+        <VerticalStackLayout
+-            Grid.Row="2"
++            Grid.Row="1"
+            Padding="10"
+            Spacing="10">
+```
 
- [Now, head over to Part 3 and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
+We can now return to thinking about the elements that make up the page header.
+
+In the previous version, the `BoxView` was separate from the elements that appear within it. This separation is unnecessary and can make it harder for someone unfamiliar with the code to see how the different elements are related. We'll replace it with something that can have the `Border` (containing the `Image`) and `Label` as its children. There are many controls that support multiple children, but as we want the children to be stacked vertically we'll replace it with a `VerticalStackLayout`.
+
+Yes, this now means we have a `Grid` containing 2 rows and each row contains a `VerticalStackLayout`. It's perfectly reasonable to ask why we don't replace this with a single `VerticalStackLayout`. There are two reasons.
+
+1. We want to create a clear separation between the part that is the "header" and the part that is the "body".
+2. More importantly, we want to apply different styling and layout to the different parts.
+
+We want the "header" to have a colored background and to go all the way to the edges of the page.  
+We want the "body" to have the default page background and not go all the way to the edges of the page.
+
+We can now change the `BoxView` to be a `VerticalStackLayout`. The `BoxView` (now `VerticalStackLayout`) was "Empty" (or "self-contained") but now must have a separate closing element. This means we need to change the element so that it is not empty (remove the `/` before the `>`.)
+
+```diff
+-        VerticalOptions="Fill" />
++        VerticalOptions="Fill" >
+```
+
+Then add the closing element after the `Label` and before the other `VerticalStackLayout`.
+
+```diff
+            TextColor="White" />
++        </VerticalStackLayout>
+        <VerticalStackLayout
+```
+
+There's still more we can do to simplify the code.
+
+If you look at the `Border` and the `Label` within our new `VerticalStackLayout` you'll see that they both have a `Margin` specified. The `Border` places the `Margin` above it, while the `Label` places the `Margin` below it. Both of these `Margin`s are instances of controls influencing their "container". Ideally, as far as is possible, we want elements that are displayed to be separate from those that control how others are positioned.
+
+So, rather than use a `Margin` to put additional [white] space around the elements in the header, we can add `Padding` to the inside of the 
+
+```diff
+    <VerticalStackLayout
++        Padding="8"
+        BackgroundColor="{StaticResource Primary}"
+```
+
+Then remove the `Margin` from the `Border`.
+
+```diff
+-        Margin="0,8,0,0"
+```
+
+And, remove the `Margin` from the `Label`.
+
+```diff
+-        Margin="0,0,0,8"
+```
+
+We can now add, remove, or reorder elements within the "header" without needing to do anything to ensure that there is the desired space at the top and bottom of the header.
+
+There are further simplifications we can make to the `VerticalStackLayout` that is the container for the "header".
+
+- Remove `Grid.RowSpan="2"` as it now only occupies a single row.
+- Remove `VerticalOptions="Fill` as the `VerticalStackLayout` will take as much space as it needs within the defined row and setting this property now has no effect here.
+- Remove the `HorizontalOptions` attribute as it is the default behavior of the `VerticalStackLayout` in this position.
+- Leave the `BackgroundColor` attribute as we still want this color to be shown.
+
+We can also simplify the definition of the `Border`:
+
+- We can remove the `VerticalOptions` attribute as the `VerticalStackLayout` it is now within will not allocate it more vertical space than it needs and so there is no need to center it.
+- We can remove the `HorizontalOptions` attribute as this is the default option for a `Border`.
+
+There's an improvement we can make to the `Label` too:
+
+- Remove the setting of the `Grid.Row` as the element is no longer directly within a `Grid` and so this will have no effect.
+- We cannot remove the `HorizontalOptions` attribute as we did for the `Border` as the default value for this property in a `Label` is for it to be at the `Start` (which is the **Left** in left-to-right language configurations.)
+
+> **Note**:  
+> By having to set the `HorizontalOptions` attribute for the `Label` we are forced to break one of the principles of this part of the workshop as the element is specifying its position within its container. Sadly there are situations where this is unavoidable without wrapping the element in another container. When it's a choice between adding an attribute and adding another element (and another layer of nesting), I prefer adding an attribute as it reduces the total amount of code needed.
+
+In summary, the changes we've made to the "Header" look like this:
+
+```diff
+-    <BoxView
++    <VerticalStackLayout
++        Padding="8"
+-        Grid.RowSpan="2"
+-        BackgroundColor="{StaticResource Primary}"
++        BackgroundColor="{StaticResource Primary}">
+-        HorizontalOptions="Fill"
+-        VerticalOptions="Fill" />
+    <Border
+-        Margin="0,8,0,0"
+        HeightRequest="160"
+-        HorizontalOptions="Center"
+        Stroke="White"
+        StrokeShape="RoundRectangle 80"
+        StrokeThickness="6"
+-        VerticalOptions="Center"
+        WidthRequest="160">
+        <Image
+            Aspect="AspectFill"
+            HeightRequest="160"
+-            HorizontalOptions="Center"
+            Source="{Binding Monkey.Image}"
+-            VerticalOptions="Center"
+            WidthRequest="160" />
+    </Border>
+    <Label
+-        Grid.Row="1"
+-        Margin="0,0,0,8"
+        FontAttributes="Bold"
+        HorizontalOptions="Center"
+        Style="{StaticResource LargeLabel}"
+        Text="{Binding Monkey.Name}"
+        TextColor="White" />
++    </VerticalStackLayout>
+```
+
+These changes amount to the following:
+
+- Removed 10 attributes from existing elements.
+- Replaced 1 element with another and made it a container for the others.
+- Added 1 attribute (to the replaced element).
+
+More importantly, we've:
+
+- Encapsulated logic.
+- Simplified the code.
+
+## Summary
+
+This whole part has been about making the XAML simpler for those (possibly including ourselves) who may have to try and understand and modify the code in the future.
+
+Try and forget everything you know about this code and imagine you're coming to it without having seen it before or in a long time. In trying to understand a piece of code so that you can change it, wouldn't you rather than code was shorter rather than longer? And, wouldn't you rather that the code didn't have unnecessary internal connections and dependencies that aren't immediately obvious? Of course you would, and that's what we've created.
+
+As with the last part, if you run the app now you'll see no behavioral difference with the app. There is a small visual difference in the size of the buttons on the MainPage but we'll address this in a future part. At this point it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part and they will become clearer as we continue and build on what we've just done.
+
+[Now, head over to Part 3 and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
