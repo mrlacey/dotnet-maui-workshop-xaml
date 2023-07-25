@@ -2,7 +2,7 @@
 > Current development status:  
 > Part 0: first draft complete - feedback welcome  
 > Part 1: first draft complete - feedback welcome  
-> Part 2: still in planning  
+> Part 2: first draft complete - feedback welcome  
 > Part 3: still in planning  
 > Part 4: still in planning  
 > Part 5: still in planning  
@@ -13,7 +13,7 @@
 
 Today we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
 
-While the XAML you created as part of that workshop is functional, there are many opportunities to improve it.
+While the XAML you created as part of that workshop is functional, there are many opportunities to make it better.
 
 Many people criticize XAML as being verbose and hard to maintain. By completing this workshop, you'll see how that doesn't have to be the case and that it is possible to create XAML that is easy to write, read, understand, and maintain.
 
@@ -37,16 +37,16 @@ This workshop is made up of the following parts:
 
 In each folder for parts 1 to 5, you'll find a **README.md** file with directions for that part, along with folders containing the code at the `Start` and `End` of the part.
 
-But before any of that, let's [get started with Part 0](Part%200%20-%20Overview/README.md).
+But before that, let's [get started with Part 0](Part%200%20-%20Overview/README.md).
 
 ## More links and resources
 
 There are very few people striving to make improve the experience of working with XAML.
 
-If you know of any more I'd love to add their details here.  
-For now you can check out:
+If you know of any more, I'd love to add their details here.  
+For now, you can check out:
 
 * [My YouTube channel](https://www.youtube.com/@MRLacey) - Where I create videos about working with XAML.
 * [My Blog](https://www.mrlacey.com/) - Where I often write about .NET MAUI and XAML.
 
-If you have any questions please reach out to me on Twitter ([@MRLacey](https://twitter.com/mrlacey)) or Mastodon ([@mrlacey@fosstodon.org](https://fosstodon.org/@mrlacey)).
+If you have any questions, please reach out to me on Twitter ([@MRLacey](https://twitter.com/mrlacey)) or Mastodon ([@mrlacey@fosstodon.org](https://fosstodon.org/@mrlacey)).
