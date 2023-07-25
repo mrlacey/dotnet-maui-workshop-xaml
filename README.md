@@ -2,7 +2,7 @@
 > Current development status:  
 > Part 0: first draft complete - feedback welcome  
 > Part 1: first draft complete - feedback welcome  
-> Part 2: first draft complete - feedback welcome 
+> Part 2: first draft complete - feedback welcome  
 > Part 3: still in planning  
 > Part 4: still in planning  
 > Part 5: still in planning  
