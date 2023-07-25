@@ -25,6 +25,7 @@
                 </Border>
                 <Label
                     FontAttributes="Bold"
+                    HorizontalOptions="Center"
                     Style="{StaticResource LargeLabel}"
                     Text="{Binding Monkey.Name}"
                     TextColor="White" />
