@@ -18,9 +18,7 @@
                     <Image
                         Aspect="AspectFill"
                         HeightRequest="160"
-                        HorizontalOptions="Center"
                         Source="{Binding Monkey.Image}"
-                        VerticalOptions="Center"
                         WidthRequest="160" />
                 </Border>
                 <Label

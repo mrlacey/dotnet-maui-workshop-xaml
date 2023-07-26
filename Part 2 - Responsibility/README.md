@@ -221,7 +221,7 @@ There's still more we can do to simplify the code.
 
 If you look at the `Border` and the `Label` within our new `VerticalStackLayout` you'll see that they both have a `Margin` specified. The `Border` places the `Margin` above it, while the `Label` places the `Margin` below it. Both of these `Margin`s are instances of controls influencing their "container". Ideally, as far as is possible, we want elements that are displayed to be separate from those that control how others are positioned.
 
-So, rather than use a `Margin` to put additional [white] space around the elements in the header, we can add `Padding` to the inside of the 
+So, rather than use a `Margin` to put additional [white] space around the elements in the header, we can add `Padding` to the inside of the `VerticalStackLayout`.
 
 ```diff
     <VerticalStackLayout
@@ -254,6 +254,23 @@ We can also simplify the definition of the `Border`:
 
 - We can remove the `VerticalOptions` attribute as the `VerticalStackLayout` it is now within will not allocate it more vertical space than it needs and so there is no need to center it.
 - We can remove the `HorizontalOptions` attribute as this is the default option for a `Border`.
+
+Within the `Image` there are currently more properties specified than necessary and so they can be removed.
+
+Because all the images that might be loaded are all square (or almost all--one of them is 422x456 or 1:0806) we don't need to account for moving the image to be in the center of the circle. For this reason we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
+
+```diff
+        <Image
+            Aspect="AspectFill"
+            HeightRequest="160"
+-            HorizontalOptions="Center"
+            Source="{Binding Monkey.Image}"
+-            VerticalOptions="Center"
+            WidthRequest="160" />
+```
+
+> **Note**:  
+> When loading images that are of unknown aspect ratios, you must carefully consider how they will be aligned and/or stretched into the space you have within the app. In an ideal world, you'd always be guaranteed images of known dimensions. Sadly, in your apps you will be unlikely to always be guaranteed this. There's more on the considerations when working with images of different sizes in chapter 8 of https://www.manning.com/books/usability-matters ;)
 
 There's an improvement we can make to the `Label` too:
 
