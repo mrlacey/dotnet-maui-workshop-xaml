@@ -190,10 +190,7 @@ In the previous version, the `BoxView` was separate from the elements that appea
 
 Yes, this now means we have a `Grid` containing 2 rows and each row contains a `VerticalStackLayout`. It's perfectly reasonable to ask why we don't replace this with a single `VerticalStackLayout`. There are two reasons.
 
-1. We want to create a clear separation between the part that is the "header" and the part that is the "body".
-2. More importantly, we want to apply different styling and layout to the different parts.
-
-To achieve this we can consider the following approaches:
+We want to create a clear separation between the part that is the "header" and the part that is the "body". More importantly, we want to apply different styling and layout to the different parts.
 
 - We want the "header" to have a colored background and to go all the way to the edges of the page.  
 - We want the "body" to have the default page background and not go all the way to the edges of the page.
@@ -253,7 +250,7 @@ We can also simplify the definition of the `Border`:
 
 Within the `Image` there are currently more properties specified than necessary and so they can be removed.
 
-Because all the images that might be loaded are all square (or almost all... one of them is 422x456 or 1:0806) we don't need to account for moving the image to be in the center of the circle. For this reason, we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
+Because all the images that might be loaded are all square (or almost all--one of them is 422x456 or 1:0806) we don't need to account for moving the image to be in the center of the circle. For this reason, we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
 
 ```diff
         <Image
