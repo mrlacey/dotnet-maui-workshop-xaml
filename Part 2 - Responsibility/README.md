@@ -19,10 +19,9 @@ Yes, there are only two parts to this section, but they're the building blocks o
 
 ## How this helps make code easier to maintain
 
-If you have previous experience with .NET MAUI (or other platforms that use XAML), you've probably encountered the idea of putting the data and logic for a particular piece of UI in a `ViewModel`. ViewModels are great at separating the logic from the UI, but they don't do a lot to help make it easier to maintain the XAML files.  
-When we think about "maintaining" code, we normally mean **changing** it. And, before we can change code, we, ideally, need to first **understand** it.
+If you have previous experience with .NET MAUI (or other platforms that use XAML), you've probably encountered the idea of putting the data and logic for a particular piece of UI in a `ViewModel`. ViewModels are great at separating the logic from the UI, but they don't do a lot to help make it easier to maintain the XAML files.
 
-So, to make our XAML code easier to maintain, we want it to be easier to understand. Making something easier to understand starts by making it easier to read. Then, once we've read it, we can more easily understand the consequences of the changes we want to make.
+When we think about "maintaining" code, we normally mean **changing** it. And, before we can change code, we, ideally, need to first **understand** it. So, to make our XAML code easier to maintain, we want it to be easier to understand. Making something easier to understand starts by making it easier to read. Then, once we've read it, we can more easily understand the consequences of the changes we want to make.
 
 At the start of this workshop, I said we wouldn't change the functionality of the app. That's still the case, and so we'll have to imagine a theoretical change we might make to the app in the future. This is probably  reflective of many apps you'll build. You'll build what you need now but also have ideas of things that are likely to be added in the future. In these situations, it is wise to do what you can to make those future changes easier. There will be times when you don't know what future changes might be required, and in these instances that applying general good practices for increased maintainability is even more important.
 
@@ -92,9 +91,11 @@ In the `RefreshView`, we can remove the need to span multiple columns.
 -            Grid.ColumnSpan="2"
 ```
 
-In the `ActivityIndicator`, we can remove the need to span multiple columns.  
-Additionally, we can also remove the need to span multiple rows. (If set to span over the two rows, no one is likely to notice the difference, but spanning both rows is unnecessary, and by assigning the `ActivityIndicator` to the same cell in the `Grid` as the `RefreshView` we make it clearer that these are intended to be displayed in the same place on the screen.)  
-Finally, we also want the indicator to be centered horizontally. When set to `Fill` as the value for `HorizontalOptions` the visible parts of the indicator will be centered and space allocated to stretch it to fill the full width of the container, but by explicitly setting the value to `Center` we make it clear that this "centering" is what we want and not simply the side-effect of another option that produces the same visible result.
+In the `ActivityIndicator`, we can remove the need to span multiple columns.
+
+Additionally, we can also remove the need to span multiple rows (if set to span over the two rows, no one is likely to notice the difference, but spanning both rows is unnecessary, and by assigning the `ActivityIndicator` to the same cell in the `Grid` as the `RefreshView` we make it clearer that these are intended to be displayed in the same place on the screen).
+
+Finally, we also want the indicator to be centered horizontally. When set to `Fill` as the value for `HorizontalOptions` the visible parts of the indicator will be centered and space allocated to stretch it to fill the full width of the container. However, by explicitly setting the value to `Center` we make it clear that this "centering" is what we want and not simply the side-effect of another option that produces the same visible result.
 
 ```diff
         <ActivityIndicator
@@ -106,21 +107,14 @@ Finally, we also want the indicator to be centered horizontally. When set to `Fi
 
 Now we can turn our attention to the buttons at the bottom of the screen.
 
-The first thing we can do is add a new container for all the buttons we want to add (both now and in the future.)
+The first thing we can do is add a new container for all the buttons we want to add (both now and in the future). As we want the buttons to be displayed horizontally, we can use a `HorizontalStackLayout` for this.
 
-As we want the buttons to be displayed horizontally, we can use a `HorizontalStackLayout` for this.
-
-We also need to make sure it is placed in the bottom row of the Grid, so set `Grid.Row="1"`.
-
-Now that the `Button`s are no longer directly children of the `Grid`, we can remove the attached properties that specify the `Row` and `Column` they were previously positioned in.
-
-Previously, the spacing between and around the buttons was specified as part of the `Grid` and each individual `Button`. We can now simplify things by moving all that logic to the element that contains all the buttons.
-
-Rather than put space (a `Margin`) around each individual `Button` we can instead put an equivalent sized `Padding` around the inside of the `HorizontalStackLayout`.
-
-This leaves the space between `Button`s. Previously, this was a combination of the `ColumnSpacing` specified on the `Grid` and the `Margin` applied to the sides of the `Button`s. We can simplify this by combining these values into the `Spacing` property of the `HorizontalStackLayout`.
-
-Let's combine `5` from the `GridSpacing` and `8` from each side of the `Button` into a single value, so (5 + 8 + 8 = 21) `Spacing="21"`.
+- We also need to make sure it is placed in the bottom row of the Grid, so set `Grid.Row="1"`.
+- Now that the `Button`s are no longer directly children of the `Grid`, we can remove the attached properties that specify the `Row` and `Column` they were previously positioned in.
+- Previously, the spacing between and around the buttons was specified as part of the `Grid` and each individual `Button`. We can now simplify things by moving all that logic to the element that contains all the buttons.
+- Rather than put space (a `Margin`) around each individual `Button` we can instead put an equivalent sized `Padding` around the inside of the `HorizontalStackLayout`.
+- This leaves the space between `Button`s. Previously, this was a combination of the `ColumnSpacing` specified on the `Grid` and the `Margin` applied to the sides of the `Button`s. We can simplify this by combining these values into the `Spacing` property of the `HorizontalStackLayout`.
+- Let's combine `5` from the `GridSpacing` and `8` from each side of the `Button` into a single value, so (5 + 8 + 8 = 21) `Spacing="21"`.
 
 If we now wanted to add another `Button`, we'd just put it inside the `HorizontalStackLayout`, and it would be positioned relative to the other `Button`s such that the order in the xaml file would reflect the order they're shown in the running app. Spacing between the buttons would also be taken care of without needing to specify anything on the new `Button`.
 
@@ -196,11 +190,10 @@ In the previous version, the `BoxView` was separate from the elements that appea
 
 Yes, this now means we have a `Grid` containing 2 rows and each row contains a `VerticalStackLayout`. It's perfectly reasonable to ask why we don't replace this with a single `VerticalStackLayout`. There are two reasons.
 
-1. We want to create a clear separation between the part that is the "header" and the part that is the "body".
-2. More importantly, we want to apply different styling and layout to the different parts.
+We want to create a clear separation between the part that is the "header" and the part that is the "body". More importantly, we want to apply different styling and layout to the different parts.
 
-We want the "header" to have a colored background and to go all the way to the edges of the page.  
-We want the "body" to have the default page background and not go all the way to the edges of the page.
+- We want the "header" to have a colored background and to go all the way to the edges of the page.  
+- We want the "body" to have the default page background and not go all the way to the edges of the page.
 
 We can now change the `BoxView` to a `VerticalStackLayout`. The `BoxView` (now `VerticalStackLayout`) was "Empty" (or "self-contained") but now must have a separate closing element. This means we need to change the element so that it is not empty (remove the `/` before the `>`.)
 
