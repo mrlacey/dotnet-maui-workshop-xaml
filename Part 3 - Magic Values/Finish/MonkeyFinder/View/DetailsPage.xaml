@@ -12,9 +12,11 @@
                 <Border
                     HeightRequest="160"
                     Stroke="White"
-                    StrokeShape="RoundRectangle 80"
                     StrokeThickness="6"
                     WidthRequest="160">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="80" />
+                    </Border.StrokeShape>
                     <Image
                         Aspect="AspectFill"
                         HeightRequest="160"
