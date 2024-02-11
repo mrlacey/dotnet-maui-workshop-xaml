@@ -8,14 +8,14 @@ The code examples in this part will continue on from the previous part. If you h
 
 [[Part introduction]]
 
-look at the xaml files in the project.
-You'll see lots of numbers and string values repeated many times
-Are these the same because the represent the same underlying value, or is it coincidence? How can you be sure? How would someone coming along to modify the code in the future know which should al be change together and which shouldn't
-what if there's a typo in a string or a number? Would you know? When would you know?
+Look at the xaml files in the project.
+You'll see lots of numbers and string values repeated many times.
+Are these the same because they represent the same underlying value, or is it a coincidence? How can you be sure? How would someone modifying the code in the future know which should all be changed together and which shouldn't?
+What if there's a typo in a string or a number? Would you know? When would you know?
 
-If we need to modify a value and it's used "everywhere" we really only want to have to change that value in a single place. We don't want to have to reason over the entire codebase and try and work out where all the identical changes should be made.
+If we need to modify a value and it's used "everywhere" we really only want to have to change that value in a single place. We don't want to have to reason over the entire codebase and try to work out where all the identical changes should be made.
 
-These are just some of the  issues with with using "magic values" and they make the code harder to modify.
+These are just some of the issues with with using "magic values" and they make the code harder to modify.
 
 
 
@@ -30,6 +30,7 @@ In this part, we'll look at:
 - creating a markup extension to enable simple math - details page
 - use attached properties to remove duplication & simplify code - image sizes on mainpage layoutoptions
 - enabling binding to a struct
+- reference text in a resource file (typically for localization) but also provides an opportunity for reuse
 >>
 
 - Point 1
