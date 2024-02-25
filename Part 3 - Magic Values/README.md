@@ -27,16 +27,25 @@ In this part, we'll look at:
 
 ## Defining things once, in a base class
 
-- page background (actually Grid & ScrollViewer)
-  - move to base
-
 No one likes doing the same thing more than once. Similarly, you don't want to write the same code multiple times.
+
+The two pages in our app contain duplicate functionality we can encapsulate and simplify. Technically this isn't a "magic value", but the principles of streamlining it apply in the same way as "magic values".
+
+The commonality we'll address is the background of these two pages. If you look at the two files, you may notice that the background isn't specified on the `ContentPage`. Instead, it's defined on the child/content element of each `Page`. Not only does this make it unclear that the colors apply at the page level, it also makes it less obvious that these are the same thing and could be centralized.
 
 [[point 1 example and steps]]
 
-[[point 1 summary]]
+- create controls folder
+- create class
+- set background with app theme binding
+- update pages to use the base (in XAML & cs)
 
-[[transition sentence]]
+We now have a custom`Page` class we'd use for all pages in the app. If we added another page, we'd use this new page unless there was a good reason not to.
+
+> **Note**:  
+> Creating a base class isn't the only way approach that would be appropriate here, but I've walked you through this approach as creating a page to use as the standard for an app is common for apps with more than a handful of different pages.
+
+Creating a base class isn't the only way to simplify our XAML. Let's look at removing duplication by redefining some values as resources we can reuse in multiple places.
 
 ## Defining numbers once, as resources
 

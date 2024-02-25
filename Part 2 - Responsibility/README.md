@@ -237,7 +237,7 @@ And, remove the `Margin` from the `Label`.
 
 We can now add, remove, or reorder elements within the "header" without needing to do anything to ensure there is the desired space at the top and bottom of the header.
 
-There are further simplifications we can make to the `VerticalStackLayout` that is the container for the "header".
+There are further simplifications we can make to the `VerticalStackLayout` which is the container for the "header".
 
 - Remove `Grid.RowSpan="2"` as it now only occupies a single row.
 - Remove `VerticalOptions="Fill` as the `VerticalStackLayout` will take as much space as it needs within the defined row, and setting this property now has no effect here.
