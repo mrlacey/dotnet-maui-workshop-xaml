@@ -35,12 +35,121 @@ The commonality we'll address is the background of these two pages. If you look 
 
 [[point 1 example and steps]]
 
-- create controls folder
-- create class
-- set background with app theme binding
-- update pages to use the base (in XAML & cs)
+- Let's start by creating a new folder at the root of our app. Call this `Controls`. The name could be anything, but this name is a common convention.
 
-We now have a custom`Page` class we'd use for all pages in the app. If we added another page, we'd use this new page unless there was a good reason not to.
+- Inside this new folder, create a new class called `StandardPage.cs`. This name hopefully communicates that this page is used as a standard throughout the app. You could use another name if it makes more sense to you. If you needed to add a page that was very different from the others, you may inherit from this or ate something afresh and give it a name that makes it clear where and when it should be used. There's more on this in the next part.
+- Have this class inherit from `ContentPage`.
+- Add a constructor to the class that sets the `BackgroundColor` based on the App Theme, like this:
+
+```diff
++namespace MonkeyFinder.Controls;
++
++public class StandardPage : ContentPage
++{
++    public StandardPage()
++    {
++        App.Current.Resources.TryGetValue("LightBackground", out object lightColor);
++        App.Current.Resources.TryGetValue("DarkBackground", out object darkColor);
++
++        this.SetAppThemeColor(ContentPage.BackgroundColorProperty, lightColor as Color, darkColor as Color);
++    }
++}
+```
+
+Note that we need to use the `TryGetValue` method to access the application resources in C#, rather than accessing them via a string index. This behavior is by design, even though it is different from what you may be familiar with in other platforms that use XAML.
+
+It is also possible to use a XAML file to configure the binding to the App Theme. I've used a C# file here because it means only adding to a single new file and it highlights that it's perfectly acceptable and even expected to mix the use of C# and XAML in your code. It is left as an exercise for you to explore how you might do this with XAML if that's your preference.
+
+**But, wait.** Our `StandardPage` includes strings that need to match what's specified in `Colors.xaml`. This is the classic example of a "magic string". If we had a typo or difference in one of these strings, we'd end up with functionality that wouldn't work as expected, and we might only find out at runtime.
+
+Fortunately, I have a simple solution.
+
+- Add a NuGet package reference to `RapidXaml.CodeGen.Maui`.
+- Rebuild the project.
+- If you look in the `Resources/Styles` folder, you'll notice the new file `Colors.cs`. (We'll look at the other added file, `Styles.cs`, later.)
+- Inside this file, which was based on Colors.xaml`, you'll find constant values we can reference.
+- We can now update `StandardPage.cs` to reference these constants.
+
+```diff
+-        App.Current.Resources.TryGetValue("LightBackground", out object lightColor);
+-        App.Current.Resources.TryGetValue("DarkBackground", out object darkColor);
++        App.Current.Resources.TryGetValue(AppColors.LightBackground, out object lightColor);
++        App.Current.Resources.TryGetValue(AppColors.DarkBackground, out object darkColor);
+```
+
+With these constants now being used, if the keys in `Colors.xaml` were ever changed, we'd get a compile-time error that there was an inconsistency. This is another benefit we get from not using "magic values".
+
+With our new Page class defied and not using any magic strings, we can start using it in other parts of the app.
+
+- In `GlobalUsings.cs`, add a global using declaration for the namespace containing our new class.
+
+```diff
+global using MonkeyFinder.Controls;
+```
+
+- Update `MainPage.xaml.cs` so that it inherits from our new class
+
+```diff
+-public partial class MainPage : ContentPage
++public partial class MainPage : StandardPage
+```
+
+- Update `MainPage.xaml`:
+  - So it uses our new class.
+  - Set the XMLNamespace and alias so the new class can be found.
+  - Remove the BackgroundColor from the Grid.
+
+```diff
+-<ContentPage
++<c:StandardPage
+
+...
+
++    xmlns:c="clr-namespace:MonkeyFinder.Controls"
+
+...
+
+-    <Grid BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" RowDefinitions="*,Auto">
++    <Grid RowDefinitions="*,Auto">
+
+...
+
+-</ContentPage>
++</c:StandardPage>
+```
+
+- Update `DetailsPage.xaml.cs` so that it inherits from our new class
+
+```diff
+-public partial class DetailsPage : ContentPage
++public partial class DetailsPage : StandardPage
+```
+
+- Update `DetailsPage.xaml`:
+  - So it uses our new class.
+  - Set the XMLNamespace and alias so the new class can be found.
+  - Remove the BackgroundColor from the ScrollView.
+
+```diff
+-<ContentPage
++<c:StandardPage
+
+...
+
++    xmlns:c="clr-namespace:MonkeyFinder.Controls"
+
+...
+
+-    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
++    <ScrollView>
+
+...
+
+-</ContentPage>
++</c:StandardPage>
+```
+
+We now have a custom`Page` class we'd use for all pages in the app, and that has the BackgroundColor defined in only one place. If we added another page, we'd use this new page unless there was a good reason not to.
 
 > **Note**:  
 > Creating a base class isn't the only way approach that would be appropriate here, but I've walked you through this approach as creating a page to use as the standard for an app is common for apps with more than a handful of different pages.

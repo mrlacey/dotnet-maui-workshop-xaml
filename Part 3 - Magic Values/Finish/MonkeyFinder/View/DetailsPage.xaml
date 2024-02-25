@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<c:StandardPage
     x:Class="MonkeyFinder.DetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:c="clr-namespace:MonkeyFinder.Controls"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
-    <ScrollView BackgroundColor="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}">
+    <ScrollView>
         <Grid RowDefinitions="Auto,*">
             <VerticalStackLayout Padding="8" BackgroundColor="{StaticResource Primary}">
                 <Border
@@ -47,4 +48,4 @@
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
-</ContentPage>
+</c:StandardPage>
