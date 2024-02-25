@@ -6,8 +6,6 @@ The code examples in this part will continue on from the previous part. If you h
 
 ## Outline
 
-[[Part introduction]]
-
 Look at the xaml files in the project.
 You'll see lots of numbers and string values repeated many times.
 Are these the same because they represent the same underlying value, or is it a coincidence? How can you be sure? How would someone modifying the code in the future know which should all be changed together and which shouldn't?
@@ -19,41 +17,20 @@ These are just some of the issues with using "magic values" and how they make th
 
 In this part, we'll look at:
 
-<<
-
-- reused names (or color values)
-- page background (actually Grid & ScrollViewer)
-  - move to base
-- reused numbers
-  - add new resource file
-  - large image
-  - small image
-  - also in grid  & border dimensions
-    - Padding/spacing/margin 8 or 10
-- move repeated properties into a style
-  - AspectFill in images on both pages
-  - ActivityIndicator only one in app so can set more properties there
-- creating a markup extension to enable simple math - details page
-  - stroke shape in border
-- use attached properties to remove duplication & simplify code - image sizes on mainpage layoutoptions
-  - NO DO THIS SEPARATELY NOT IN This workshop
-- enabling binding to a struct
-  - NO DO THIS SEPARATELY NOT IN This workshop
-- reference text in a resource file (typically for localization) but also provides an opportunity for reuse
-  - Not directly applicable here but showing how
-
->>
-
-- Point 1
-- point 2
-- point 3
-- point 4
+- Defining things once, in a base class.
+- Defining numbers once, as resources.
+- Making the most of implicit styles.
+- Doing simple math in a XAML file.
+- Text resources do more than enable localization.
 
 [[transition sentence]]
 
-## Point 1
+## Defining things once, in a base class
 
-[[point 1 introduction]]
+- page background (actually Grid & ScrollViewer)
+  - move to base
+
+No one likes doing the same thing more than once. Similarly, you don't want to write the same code multiple times.
 
 [[point 1 example and steps]]
 
@@ -61,7 +38,14 @@ In this part, we'll look at:
 
 [[transition sentence]]
 
-## Point 2
+## Defining numbers once, as resources
+
+- reused numbers
+  - add new resource file
+  - large image
+  - small image
+  - also in grid  & border dimensions
+    - Padding/spacing/margin 8 or 10
 
 [[point 2 introduction]]
 
@@ -71,7 +55,11 @@ In this part, we'll look at:
 
 [[transition sentence]]
 
-## Point 3
+## Making the most of implicit styles
+
+- move repeated properties into a style
+  - AspectFill in images on both pages
+  - ActivityIndicator only one in app so can set more properties there
 
 [[point 3 introduction]]
 
@@ -81,13 +69,24 @@ In this part, we'll look at:
 
 [[transition sentence]]
 
-## Point 4
+## Doing simple math in a XAML file
+
+- creating a markup extension to enable simple math - details page
+  - stroke shape in border
 
 [[point 4 introduction]]
 
 [[point 4 example and steps]]
 
 [[point 4 summary]]
+
+## Text resources do more than enable localization
+
+[[point 5 introduction]]
+
+[[point 4 example and steps]]
+
+[[point 5 summary]]
 
 [[PART SUMMARY]]
 
