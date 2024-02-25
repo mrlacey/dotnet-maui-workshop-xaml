@@ -13,24 +13,35 @@ You'll see lots of numbers and string values repeated many times.
 Are these the same because they represent the same underlying value, or is it a coincidence? How can you be sure? How would someone modifying the code in the future know which should all be changed together and which shouldn't?
 What if there's a typo in a string or a number? Would you know? When would you know?
 
-If we need to modify a value and it's used "everywhere" we really only want to have to change that value in a single place. We don't want to have to reason over the entire codebase and try to work out where all the identical changes should be made.
+If we need to modify a value and it's used "everywhere," we really only want to have to change that value in a single place. We don't want to have to reason over the entire codebase and try to work out where all the identical changes should be made.
 
-These are just some of the issues with with using "magic values" and they make the code harder to modify.
-
-
+These are just some of the issues with using "magic values" and how they make the code harder to modify.
 
 In this part, we'll look at:
 
 <<
+
 - reused names (or color values)
-- page background
+- page background (actually Grid & ScrollViewer)
   - move to base
 - reused numbers
+  - add new resource file
+  - large image
+  - small image
+  - also in grid  & border dimensions
+    - Padding/spacing/margin 8 or 10
 - move repeated properties into a style
+  - AspectFill in images on both pages
+  - ActivityIndicator only one in app so can set more properties there
 - creating a markup extension to enable simple math - details page
+  - stroke shape in border
 - use attached properties to remove duplication & simplify code - image sizes on mainpage layoutoptions
+  - NO DO THIS SEPARATELY NOT IN This workshop
 - enabling binding to a struct
+  - NO DO THIS SEPARATELY NOT IN This workshop
 - reference text in a resource file (typically for localization) but also provides an opportunity for reuse
+  - Not directly applicable here but showing how
+
 >>
 
 - Point 1
