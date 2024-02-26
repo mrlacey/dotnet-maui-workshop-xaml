@@ -17,29 +17,33 @@
                     <CollectionView.EmptyView>
                         <StackLayout Padding="100">
                             <Image
-                                HeightRequest="160"
+                                HeightRequest="{StaticResource LargeSquareImageSize}"
                                 HorizontalOptions="Center"
                                 Source="nodata.png"
                                 VerticalOptions="Center"
-                                WidthRequest="160" />
+                                WidthRequest="{StaticResource LargeSquareImageSize}" />
                         </StackLayout>
                     </CollectionView.EmptyView>
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Monkey">
-                            <Grid Padding="10" HorizontalOptions="Fill">
-                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Grid Padding="{StaticResource StandardItemPadding}" HorizontalOptions="Fill">
+                                <Frame HeightRequest="{StaticResource SmallSquareImageSize}" Style="{StaticResource CardView}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
-                                    <Grid Padding="0" ColumnDefinitions="125,*">
+                                    <Grid Padding="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="{StaticResource SmallSquareImageSize}" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
                                         <Image
                                             Aspect="AspectFill"
-                                            HeightRequest="125"
+                                            HeightRequest="{StaticResource SmallSquareImageSize}"
                                             Source="{Binding Image}"
-                                            WidthRequest="125" />
+                                            WidthRequest="{StaticResource SmallSquareImageSize}" />
                                         <VerticalStackLayout
                                             Grid.Column="1"
-                                            Padding="10"
+                                            Padding="{StaticResource StandardItemPadding}"
                                             VerticalOptions="Center">
                                             <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
                                             <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />

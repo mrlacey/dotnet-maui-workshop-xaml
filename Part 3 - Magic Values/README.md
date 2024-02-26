@@ -19,8 +19,8 @@ In this part, we'll look at:
 
 - Defining things once, in a base class.
 - Defining numbers once, as resources.
-- Making the most of implicit styles.
 - Doing simple math in a XAML file.
+- Making the most of implicit styles.
 - Text resources do more than enable localization.
 
 Yes, this is a lot to look at, but we want to eliminate all the "magic" so we can clearly and easily follow and understand the code.
@@ -32,8 +32,6 @@ No one likes doing the same thing more than once. Similarly, you don't want to w
 The two pages in our app contain duplicate functionality we can encapsulate and simplify. Technically this isn't a "magic value", but the principles of streamlining it apply in the same way as "magic values".
 
 The commonality we'll address is the background of these two pages. If you look at the two files, you may notice that the background isn't specified on the `ContentPage`. Instead, it's defined on the child/content element of each `Page`. Not only does this make it unclear that the colors apply at the page level, it also makes it less obvious that these are the same thing and could be centralized.
-
-[[point 1 example and steps]]
 
 - Let's start by creating a new folder at the root of our app. Call this `Controls`. The name could be anything, but this name is a common convention.
 
@@ -158,26 +156,155 @@ Creating a base class isn't the only way to simplify our XAML. Let's look at rem
 
 ## Defining numbers once, as resources
 
-- reused numbers
-  - add new resource file
-  - large image
-  - small image
-  - also in grid  & border dimensions
-    - Padding/spacing/margin 8 or 10
+Numbers (integers, doubles, etc.) are widely used when defining a UI. If you were using C# to create your UI, you'd quickly spot that you were typing the same values in multiple places and create a variable (or a constant) to store them, give them meaning, and make future changes to those values easier. Because we're defining the UI in XAML doesn't mean we should avoid what would be considered good practice in any other programming language.
 
-[[point 2 introduction]]
+Let's start by creating a place to put the resources we're going to create.
 
-[[point 2 example and steps]]
+- In the `Resources\Styles` folder, create a new `ResourceDictionary` called `Sizes.xaml`. (Of course, you could put the new file somewhere else if you prefer.)
 
-[[point 2 summary]]
+We'll use this file to store the constant values for the sizes of things we define in the UI. As with elsewhere in this workshop, we're only defining a few things, but other apps you make will likely be larger and contain much more code. You could put everything in one big file, but as we've looked at previously, this isn't conducive to creating code that's easy to understand and maintain.
 
-[[transition sentence]]
+- In `App.xaml` add a reference to this new file so that the compiler knows to make the resources available to the rest of the code in the application.
 
-## Making the most of implicit styles
+```diff
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
++               <ResourceDictionary Source="Resources/Styles/Sizes.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+```
 
-- move repeated properties into a style
-  - AspectFill in images on both pages
-  - ActivityIndicator only one in app so can set more properties there
+> **Note**:  
+> By defining this before the reference to `Styles.xaml` means that you will be able to reference the "Sizes" in the "Styles" file. We're not doing that here but it's something you're likely to want to do in your own apps. If you find that your resources aren't available where you expect, check the order they are loaded.
+
+We're now ready to extract our repeated size values into reusable resources.
+
+Let's start by looking at `MainPage.xaml`.
+
+The `EmptyView` of the `CollectionView` contains a square `Image`. The `HeightRequest` and `WidthRequest` are both the same. Let's create a new resource for this.
+
+In `Sizes.xaml`, add `<x:Double x:Key="LargeSquareImageSize">160</x:Double>`.
+
+We can then update the `Image` to use this new resource.
+
+```diff
+    <Image
+-       HeightRequest="160"
++       HeightRequest="{StaticResource LargeSquareImageSize}"
+        HorizontalOptions="Center"
+        Source="nodata.png"
+        VerticalOptions="Center"
+-       WidthRequest="160" />
++       WidthRequest="{StaticResource LargeSquareImageSize}" />
+```
+
+Yes, it looks like we've made the XAML code longer. While that's the case, we've made it easier to modify in the future. When you're working with a large code base with lots of images, and you need to change the size of all your large, square, images, this will make your life easier. There are actually other ways of making that situation easier to manage and work with, but we'll get to them in Part 5.
+
+This image is in a `StackLayout` with a `Padding` around it. If you want you can also create a resource for this. However, as this is the only location that this padding is used, I'll leave this to you to implement if you so desire.
+
+Instead, let's look at another `Padding` used in this file.
+
+The `Grid` used for each item in the `CollectionView` has a `Padding` of **10**, as does the `VerticalStackLayout` it contains. There's also a `VerticalStackLayout` on the details page which also uses a `Padding` with the same value. In fact, you could argue that **10** is the "Standard" padding size used throughout this app. Let's create a resource that defines this.
+
+In `Sizes.xaml` create a `Thickness` for the `StandardItemPadding`.
+
+```diff
++    <Thickness x:Key="StandardItemPadding">10</Thickness>
+```
+
+We can then use this value in the two pages:
+
+```diff
+-    Padding="10"
++    Padding="{StaticResource StandardItemPadding}"
+```
+
+Notice that the `VerticalStackLayout` on the DetailsPage also uses a `Spacing` value of **10**. You cannot use the "StandardItemPadding" value here though, as `Spacing` of type `double`, whereas `Padding` is a `Thickness`.
+
+We can create a separate resource for this:
+
+```diff
++    <x:Double x:Key="InternalSpacing">10</x:Double>
+```
+
+and used in `DetailsPage.xaml` like this:
+
+```diff
+-    Spacing="10">
++    Spacing="{StaticResource InternalSpacing}">
+```
+
+We've created a resource that we're only using in one place in this app, but it is common for most designs to have standardization of the spacing around and between related UI elements. By clearly defining these values within the code of an app makes it obvious when something is inconsistent.
+
+> **Note**:  
+> Both `StandardItemPadding` and `InternalSpacing` use the same number "10". This duplication of a numeric value may be something you want to avoid. Sadly, XAML does not make it easy to remove this duplication. There are solutions but they are not currently covered in this workshop.
+
+`MainPage.xaml` also includes a smaller image within the `ItemTemplate`. The size of this is **125**, but you will notice that the same value is also used for the `Frame` and one of the `ColumnDefinitions`. Is it a coincidence that this value appears in multiple places?  It's not, but we can make it clearer to someone looking at this code in the future by creating a singel resource and using that everywhere.
+
+As this is for a smaller image than the other one, let's call this the "SmallSquareImageSize". You create it in `Sizes.xaml` like this:
+
+```diff
++    <x:Double x:Key="SmallSquareImageSize">125</x:Double>
+```
+
+We can now use this in `MainPage.xaml`:
+
+```diff
+-       <Frame HeightRequest="125" Style="{StaticResource CardView}">
++       <Frame HeightRequest="{StaticResource SmallSquareImageSize}" Style="{StaticResource CardView}">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
+            </Frame.GestureRecognizers>
+-           <Grid Padding="0" ColumnDefinitions="125,*">
++           <Grid Padding="0">
++               <Grid.ColumnDefinitions>
++                   <ColumnDefinition Width="{StaticResource SmallSquareImageSize}" />
++                   <ColumnDefinition Width="*" />
++               </Grid.ColumnDefinitions>
+               <Image
+                    Aspect="AspectFill"
+-                   HeightRequest="125"
++                   HeightRequest="{StaticResource SmallSquareImageSize}"
+                    Source="{Binding Image}"
+-                   WidthRequest="125" />
++                   WidthRequest="{StaticResource SmallSquareImageSize}" />
+```
+
+Notice that we've had to change the format used to define the `ColumnDefinitions` to do this.
+
+Finally, for this section, let's look at the image on the Details Page.
+
+This is the same size as the large image on the Main Page, so we can reuse the resource we created earlier. Note that the image is also inside a Frame that is the same size. This means we can use the resource in 4 places:
+
+```diff
+    <Border
+-       HeightRequest="160"
++       HeightRequest="{StaticResource LargeSquareImageSize}"
+        Stroke="White"
+        StrokeShape="RoundRectangle 80"
+        StrokeThickness="6"
+-       WidthRequest="160">
++       WidthRequest="{StaticResource LargeSquareImageSize}">
+        <Image
+            Aspect="AspectFill"
+-           HeightRequest="160"
++           HeightRequest="{StaticResource LargeSquareImageSize}"
+            Source="{Binding Monkey.Image}"
+-           WidthRequest="160" />
++           WidthRequest="{StaticResource LargeSquareImageSize}" />
+    </Border>
+```
+
+The result is that if we ever wished to change the size of the image, we'd only have to change one value, not four.
+
+We've now removed all the repeated values that are semantically the same and replaced them with constant resources we can use in all the places it makes semantic sense to do so.
+
+The `Border` on `DetailsPage.xaml` includes a number (80) in the `StrokeShape` definition that is exactly half the value used for the Height and Width. This value would need to be changed if the height and width of the border changed. We could extract this to a resource and give it a name or add a comment to try and help ensure that any future changes are applied correctly, or we could do it another way. We'll look at that next.
+
+## Doing simple math in a XAML file
+
+- creating a markup extension to enable simple math - details page
+  - stroke shape in border
 
 [[point 3 introduction]]
 
@@ -185,12 +312,13 @@ Creating a base class isn't the only way to simplify our XAML. Let's look at rem
 
 [[point 3 summary]]
 
-[[transition sentence]]
+## Making the most of implicit styles
 
-## Doing simple math in a XAML file
-
-- creating a markup extension to enable simple math - details page
-  - stroke shape in border
+- move repeated properties into a style
+  - AspectFill in images on both pages
+  - ActivityIndicator only one in app so can set more properties there
+  - inconsitency of grid, border & button dimensions
+    - Padding/spacing/margin 8 or 10
 
 [[point 4 introduction]]
 
@@ -198,11 +326,13 @@ Creating a base class isn't the only way to simplify our XAML. Let's look at rem
 
 [[point 4 summary]]
 
+[[transition sentence]]
+
 ## Text resources do more than enable localization
 
 [[point 5 introduction]]
 
-[[point 4 example and steps]]
+[[point 5 example and steps]]
 
 [[point 5 summary]]
 

@@ -11,16 +11,16 @@
         <Grid RowDefinitions="Auto,*">
             <VerticalStackLayout Padding="8" BackgroundColor="{StaticResource Primary}">
                 <Border
-                    HeightRequest="160"
+                    HeightRequest="{StaticResource LargeSquareImageSize}"
                     Stroke="White"
                     StrokeShape="RoundRectangle 80"
                     StrokeThickness="6"
-                    WidthRequest="160">
+                    WidthRequest="{StaticResource LargeSquareImageSize}">
                     <Image
                         Aspect="AspectFill"
-                        HeightRequest="160"
+                        HeightRequest="{StaticResource LargeSquareImageSize}"
                         Source="{Binding Monkey.Image}"
-                        WidthRequest="160" />
+                        WidthRequest="{StaticResource LargeSquareImageSize}" />
                 </Border>
                 <Label
                     FontAttributes="Bold"
@@ -32,8 +32,8 @@
 
             <VerticalStackLayout
                 Grid.Row="1"
-                Padding="10"
-                Spacing="10">
+                Padding="{StaticResource StandardItemPadding}"
+                Spacing="{StaticResource InternalSpacing}">
                 <Button
                     Margin="8"
                     Command="{Binding OpenMapCommand}"
