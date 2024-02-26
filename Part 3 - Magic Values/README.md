@@ -23,7 +23,7 @@ In this part, we'll look at:
 - Doing simple math in a XAML file.
 - Text resources do more than enable localization.
 
-[[transition sentence]]
+Yes, this is a lot to look at, but we want to eliminate all the "magic" so we can clearly and easily follow and understand the code.
 
 ## Defining things once, in a base class
 
@@ -67,7 +67,7 @@ Fortunately, I have a simple solution.
 - Add a NuGet package reference to `RapidXaml.CodeGen.Maui`.
 - Rebuild the project.
 - If you look in the `Resources/Styles` folder, you'll notice the new file `Colors.cs`. (We'll look at the other added file, `Styles.cs`, later.)
-- Inside this file, which was based on Colors.xaml`, you'll find constant values we can reference.
+- Inside this file, which is based on `Colors.xaml`, you'll find constant values we can reference.
 - We can now update `StandardPage.cs` to reference these constants.
 
 ```diff
@@ -84,7 +84,7 @@ With our new Page class defied and not using any magic strings, we can start usi
 - In `GlobalUsings.cs`, add a global using declaration for the namespace containing our new class.
 
 ```diff
-global using MonkeyFinder.Controls;
++global using MonkeyFinder.Controls;
 ```
 
 - Update `MainPage.xaml.cs` so that it inherits from our new class
