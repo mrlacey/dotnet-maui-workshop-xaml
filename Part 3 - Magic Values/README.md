@@ -303,14 +303,100 @@ The `Border` on `DetailsPage.xaml` includes a number (80) in the `StrokeShape` d
 
 ## Doing simple math in a XAML file
 
-- creating a markup extension to enable simple math - details page
-  - stroke shape in border
+We currently have two related numbers that we have specified in the code. If one is changed, the other must be changed proportionally as well. Rather than rely on people (other developers) to ensure that the two numbers are updated together, let's have the machine the code is running on calculate one of the numbers. _(Computers are very good at doing math.)_
 
-[[point 3 introduction]]
+In `DetailsPage.xaml` we have a large square image with a `Border` around it to crop it to appear as a circle. To do this, we specify the size of the image and the radius of the circle. As the size of the image (height and width as it's a square) is the same as the circle's diameter, we can divide the image size by 2 to get the radius.
 
-[[point 3 example and steps]]
+Hopefully, that sounds simple enough, but XAML has no built-in mathematics functions, so we must write our own. Don't fear, it's surprisingly simple.
 
-[[point 3 summary]]
+We'll first change the `StrokeShape` of the Border to use the Tag syntax rather than the attribute version with its implicit conversion from a string.
+
+```diff
+  <Border
+      HeightRequest="{StaticResource LargeSquareImageSize}"
+      Stroke="White"
+-     StrokeShape="RoundRectangle 80"
+      StrokeThickness="6"
+      WidthRequest="{StaticResource LargeSquareImageSize}">
++     <Border.StrokeShape>
++       <RoundRectangle CornerRadius="80" />
++     </Border.StrokeShape>
+      <Image
+```
+
+Again, this is an example of making the code longer than it was previously, but this is so that it's easier to see what we're doing and why.
+
+With this change, it's clear what the value of "80" in the `StrokeShape` represents.
+
+We now want to replace the value of "80" with something calculated based on the Resource that contains the "LargeSquareImageSize". We do this by creating a **Markup Extension**.
+
+One of the things that XAML has that XML does not is "Markup expressions". You'll typically see them as the attributes in XAML files surrounded by curly braces. The "markup expression" is identified by the curly braces. It starts with the name of the "markup extension" and is followed by zero or more other parameters.
+
+> **Important**
+> Never forget that the 'X' in XAML stands for **eXtensible**. It was always intended that you'd use more than the built in capabilities. A "Markup Extension" is only one of the ways that XAML can be extended.
+
+We'll create a new folder to store our markup extensions. Call it `Extensions`.
+
+In this new folder, create a new C# class called `GetRadius.cs`. This simple class will take a `Diameter` and return the `Radius` as a `double`.
+
+This new class inherits from `BindableObject`. This is so that we can add properties that we can bind to. It also implements the `IMarkupExtension<double>` interface to show that ti can be used as a markup extension for properties of type `double`. (Which is the type of `CornerRadius`.)
+
+```csharp
+public class GetRadius : BindableObject, IMarkupExtension<double>
+{
+}
+```
+
+Now add the `BindableProperty` called `Diameter` and of type `double`.
+
+```csharp
+    public double Diameter
+    {
+        get => (double)GetValue(DiameterProperty);
+        set => SetValue(DiameterProperty, value);
+    }
+
+    public static readonly BindableProperty DiameterProperty =
+        BindableProperty.Create(nameof(Diameter), typeof(double), typeof(GetRadius), defaultValue: 0.0);
+```
+
+And now implement the methods required by the `IMarkupExtension<double>` interface declaration:
+
+```csharp
+    public double ProvideValue(IServiceProvider serviceProvider)
+    {
+        return Diameter / 2;
+    }
+
+    object IMarkupExtension.ProvideValue(IServiceProvider serviceProvider)
+    {
+        return (this as IMarkupExtension<double>).ProvideValue(serviceProvider);
+    }
+```
+
+Yes, it really is that simple. 
+All the class is doing is allowing a Diameter to be specified and then dividing it by 2 when called (via `ProvideValue`) as a markup extension.
+
+We can now update `DetailsPage.xaml` to use our new extension.
+
+Add an XML namespace alias for the namespace containing the markup extension:
+
+```diff
++   xmlns:e="clr-namespace:MonkeyFinder.Extensions"
+```
+
+Now replace the hard-coded value (of "80") with the new markup extension and specify that the `Diameter` should be the resource of "LargeSquareImageSize".
+
+```diff
+-   <RoundRectangle CornerRadius="80" />
++   <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
+```
+
+Run the app, and again, you should see no difference in the UI.
+
+Yes, that was, arguably, a lot of work to replace a single hard-coded value with something that calculates that value. Hopefully, though, you can appreciate the potential power this technique has to: make the connection between different values more obvious; reduce the need to keep multiple related values in sync manually; and incorporate logic into your XAML files.
+
+While that was adding to the overall amount of code in our files, let's now switch to look at another way of improving our XAML files that will reduce the amount of code.
 
 ## Making the most of implicit styles
 

@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:c="clr-namespace:MonkeyFinder.Controls"
+    xmlns:e="clr-namespace:MonkeyFinder.Extensions"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
@@ -13,9 +14,11 @@
                 <Border
                     HeightRequest="{StaticResource LargeSquareImageSize}"
                     Stroke="White"
-                    StrokeShape="RoundRectangle 80"
                     StrokeThickness="6"
                     WidthRequest="{StaticResource LargeSquareImageSize}">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
+                    </Border.StrokeShape>
                     <Image
                         Aspect="AspectFill"
                         HeightRequest="{StaticResource LargeSquareImageSize}"
