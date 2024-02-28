@@ -3,6 +3,8 @@
 
     <x:Double x:Key="LargeSquareImageSize">160</x:Double>
 
+    <x:Double x:Key="SmallSquareImageSize">125</x:Double>
+
     <x:Double x:Key="InternalSpacing">10</x:Double>
 
     <Thickness x:Key="StandardItemPadding">10</Thickness>
