@@ -3,15 +3,15 @@
 > Part 0: first draft complete - feedback welcome  
 > Part 1: first draft complete - feedback welcome  
 > Part 2: first draft complete - feedback welcome  
-> Part 3: still in planning  
-> Part 4: still in planning  
+> Part 3: first draft complete - feedback welcome  
+> Part 4: being written  
 > Part 5: still in planning  
 
 ---
 
-# .NET MAUI - Workshop : Focus on XAML
+# .NET MAUI - Workshop: Focus on XAML
 
-Today we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
+Today, we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
 
 While the XAML you created as part of that workshop is functional, there are many opportunities to make it better.
 
@@ -21,12 +21,12 @@ While this workshop exclusively focuses on .NET MAUI, the principles can be appl
 
 ## Setup
 
-This workshop is a direct follow-on from the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
+This workshop is a direct follow-up to the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
 You can follow their [setup guide](https://github.com/mrlacey/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're coming straight to this workshop.
 
 ## Agenda
 
-This workshop is made up of the following parts:
+This workshop has the following parts:
 
 * [Part 0](Part%200%20-%20Overview/README.md) - Overview
 * [Part 1](Part%201%20-%20Fundamentals/README.md) - Fundamentals
@@ -41,7 +41,7 @@ But before that, let's [get started with Part 0](Part%200%20-%20Overview/README.
 
 ## More links and resources
 
-There are very few people striving to make improve the experience of working with XAML.
+There are very few people striving to improve the experience of working with XAML.
 
 If you know of any more, I'd love to add their details here.  
 For now, you can check out:
@@ -49,7 +49,7 @@ For now, you can check out:
 * [My YouTube channel](https://www.youtube.com/@MRLacey) - Where I create videos about working with XAML.
 * [My Blog](https://www.mrlacey.com/) - Where I often write about .NET MAUI and XAML.
 
-If you have any questions, please reach out to me on Twitter ([@MRLacey](https://twitter.com/mrlacey)) or Mastodon ([@mrlacey@fosstodon.org](https://fosstodon.org/@mrlacey)).
+If you have any questions, please contact me on Twitter ([@MRLacey](https://twitter.com/mrlacey)) or Mastodon ([@mrlacey@fosstodon.org](https://fosstodon.org/@mrlacey)).
 
 ## Contributing
 

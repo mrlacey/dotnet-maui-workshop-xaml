@@ -63,7 +63,7 @@ From a broader perspective, I think there are three factors that have led to the
 
 ### Whose responsibility is XAML?
 
-I'm sure you're an exception to these generalizations, but many (most?) developers don't spend much time and effort focusing on the UI of their applications. The design and styling of the UI often falls to other people (designers) and they are not the ones who implement the designs. This disconnect means that no one person takes full ownership of the code used to implement the UI, and as long as the running app matches the images created by the designer then everyone can move on to other things (that they'd rather be doing.)
+I'm sure you're an exception to these generalizations, but many (most?) developers don't spend much time and effort focusing on the UI of their applications. The design and styling of the UI often falls to other people (designers), and they are not the ones who implement the designs. This disconnect means that no one person takes full ownership of the code used to implement the UI, and as long as the running app matches the images created by the designer, everyone can move on to other things (that they'd rather be doing.)
 
 Break the habit and take responsibility for what your XAML files look like. You'll benefit in the future when you come to modify them.
 
@@ -75,11 +75,12 @@ You are not a robot. Your XAML will need to be read by other humans. Therefore, 
 
 ### We can make things better, together
 
-"It's only XAML. It doesn't matter." Until it does. When you have to explain why what should be a simple change to the UI is taking ages because it's hard to alter one thing without unintended side effects. Or when you dread having to work with a particular code base because it's so hard to work out what the existing code does.
+"It's only XAML. It doesn't matter." Until it does.  
+When you have to explain why what should be a simple change to the UI is taking ages because it's hard to alter one thing without unintended side effects. Or when you dread having to work with a particular code base because it's so hard to work out what the existing code does.
 
 These are scenarios that have been shared with me many times. But, it's not our fault:
 
-- Over the years there has been very little time spent on teaching more than the fundamentals of writing XAML.
+- Over the years, very little time has been spent teaching more than the fundamentals of writing XAML.
 - There is a lack of samples and examples we can look at to see XAML being done well.
 - There are only a handful of people who have built tools to make working with XAML easier.
 - And, the effort to change or evolve the language has been minimal.
@@ -105,11 +106,11 @@ Through the following parts of this workshop, we'll look at principles, "best pr
 
 Many of the techniques, principles, and ideas covered in this workshop only have noticeable benefits when working on larger projects and applications. For a simple app like the **Monkey Finder** there is a perfectly valid argument that the XAML you already have is adequate for such an application.
 
-However, you are likely to want to build other applications that are larger and have more pages, views, and other functionality. Many of the problems people run into with building and maintaining larger code bases are that they try and write them in the same way they do trivial apps and then wonder why they encounter issues.
+However, you are likely to want to build other applications that are larger and have more pages, views, and other functionality. Many of the problems people run into with building and maintaining larger code bases are that they try to write them like they do trivial apps and then wonder why they encounter issues.
 
-The aim of this workshop isn't to show how to change the XAML of the **Monkey **Finder** app; it's to show you principles that you can apply to other, more complex apps.
+The aim of this workshop isn't to show how to change the XAML of the **Monkey Finder** app; _it's to show you principles you can apply to other, more complex apps_.
 
-My intention is not that you build apps with XAML in the ways shown in the original workshop (and elsewhere) and then modify that XAML to be easier to work with. Instead, it is that you get to a point where you can start with the better version. However, jumping straight into a different way of doing things can make it hard to understand why the reasons for the changes. Instead, we'll work through the list of principles so you see how to apply them to existing XAML code. You'll then understand how to use them in new code you write in the future.
+My intention is not that you build apps with XAML in the ways shown in the original workshop (and elsewhere) and then modify that XAML to be easier to work with. Instead, it is that you get to a point where you can start with the better version. However, jumping straight into a different way of doing things can make it hard to understand why the reasons for the changes. Instead, we'll work through the list of principles to see how to apply them to existing XAML code. You'll then understand how to use them in the code you write in the future.
 
 ## Getting started
 

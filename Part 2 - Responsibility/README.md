@@ -6,7 +6,7 @@ The code examples in this part will continue on from the previous part. If you h
 
 ## Outline
 
-At its simplest, the Single Responsibility Principle is expressed as "A class should have only one reason to change." It can be easy to see how this can be applied to an object-oriented language like C#, but it isn't always obvious how this can relate to XAML files.
+At its simplest, the Single Responsibility Principle states that "A class should have only one reason to change." It can be easy to see how this can be applied to an object-oriented language like C#, but it isn't always obvious how this can relate to XAML files.
 
 Instead of thinking about classes, we can apply this rule by asserting that **an _element_ should only have one reason to change**. An element in our XAML files is a representation of an instance of a class, and so the comparison is clear. However, rather than looking at the reasons to change a class, we'll be looking at the reasons to change a single instance of a class.
 
@@ -15,7 +15,7 @@ In this part, we'll look at:
 - How this helps make maintainable code
 - Separating your content and layout
 
-Yes, there are only two parts to this section, but they're the building blocks of making XAML files that are easy to maintain.
+Yes, there are only two sections to this part, but they're the building blocks of making XAML files that are easy to maintain.
 
 ## How this helps make code easier to maintain
 
@@ -23,7 +23,7 @@ If you have previous experience with .NET MAUI (or other platforms that use XAML
 
 When we think about "maintaining" code, we normally mean **changing** it. And, before we can change code, we, ideally, need to first **understand** it. So, to make our XAML code easier to maintain, we want it to be easier to understand. Making something easier to understand starts by making it easier to read. Then, once we've read it, we can more easily understand the consequences of the changes we want to make.
 
-At the start of this workshop, I said we wouldn't change the functionality of the app. That's still the case, and so we'll have to imagine a theoretical change we might make to the app in the future. This is probably  reflective of many apps you'll build. You'll build what you need now but also have ideas of things that are likely to be added in the future. In these situations, it is wise to do what you can to make those future changes easier. There will be times when you don't know what future changes might be required, and in these instances that applying general good practices for increased maintainability is even more important.
+At the start of this workshop, I said we wouldn't change the functionality of the app. That's still the case, and so we'll have to imagine a theoretical change we might make to the app in the future. This is probably reflective of many apps you'll build. You'll build what you need now but also have ideas of things that are likely to be added in the future. In these situations, it is wise to do what you can to make those future changes easier. There will be times when you don't know what changes might be required, and it's in these instances that applying general good practices for increased maintainability is even more important.
 
 As an example, let's imagine we want to add a third button to the bottom of the main page of the app. And let's imagine that we need to put it between the two existing buttons.
 
@@ -45,7 +45,7 @@ In terms of responsibility, each element is not only responsible for its own con
 
 Hopefully, you see that this isn't ideal.
 
-Hopefully, you're thinking that the use of a Grid might not be the best way to create easily maintainable XAML files.
+Hopefully, you're thinking that using a Grid might not be the best way to create easily maintainable XAML files.
 
 You're right.
 
@@ -54,17 +54,17 @@ You're right.
 
 Grids are a great solution to specific layout challenges, but putting everything in a Grid can make it hard to change existing code. If it's you who's going to be making future changes, you don't want to make your life difficult. Similarly, if it's going to be someone else who will be making future changes to the code you're writing, you don't want their life to be more complicated than it needs to be, either. It's not good for the company creating the code that changes are slow, and it's not good for the people who use the application to have to wait longer for changes, updates, and new features.
 
-Now let's move on from the theory and see how we might change the existing code so it's easier to modify without having to make changes in lots of different places. We'll do this by having separate elements for presentation (those that a person will see and interact with) and for the positioning of those presentation elements.
+Now, let's move on from the theory and see how we might change the existing code so it's easier to modify without having to make changes in lots of different places. We'll do this by having separate elements for presentation (those that a person will see and interact with) and for the positioning of those presentation elements.
 
 ## Separating content and layout
 
-Separating content elements and those that control where and how they're positioned may sound good in principle, but where to start? Don't worry; it's actually very simple.
+Separating content elements and those that control where and how they're positioned may sound good in principle, but where do you start? Don't worry; it's actually very simple.
 
-Let's start by looking at the xaml of the MainPage.
+Let's start by looking at the XAML of the MainPage.
 
 ### MainPage.xaml
 
-Forget what's there at the moment or about specific controls. We can think of the page as having a main content area (which holds the list and activity indicator) and a row of buttons at the bottom. This is a great place to use a simple Grid. It will expand to fill all the available space (the whole page) and we can divide it into parts that take the space they need (the row of buttons) and a part that takes up all the remaining space (the list or indicator.)
+Forget what's there at the moment or about specific controls. We can think of the page as having a main content area (which holds the list and activity indicator) and a row of buttons at the bottom. This is a great place to use a simple Grid. It will expand to fill all the available space (the whole page), and we can divide it into parts that take up the space they need (the row of buttons) and a part that takes up all the remaining space (the list or indicator.)
 
 We can modify the Grid on `MainPage.xaml` accordingly:
 
@@ -93,7 +93,7 @@ In the `RefreshView`, we can remove the need to span multiple columns.
 
 In the `ActivityIndicator`, we can remove the need to span multiple columns.
 
-Additionally, we can also remove the need to span multiple rows (if set to span over the two rows, no one is likely to notice the difference, but spanning both rows is unnecessary, and by assigning the `ActivityIndicator` to the same cell in the `Grid` as the `RefreshView` we make it clearer that these are intended to be displayed in the same place on the screen).
+Additionally, we can also remove the need to span multiple rows (if set to span over the two rows, no one is likely to notice the difference, but spanning both rows is unnecessary, and by assigning the `ActivityIndicator` to the same cell in the `Grid` as the `RefreshView` makes it clearer that they're meant to be in the same place on the screen).
 
 Finally, we also want the indicator to be centered horizontally. When set to `Fill` as the value for `HorizontalOptions` the visible parts of the indicator will be centered and space allocated to stretch it to fill the full width of the container. However, by explicitly setting the value to `Center` we make it clear that this "centering" is what we want and not simply the side-effect of another option that produces the same visible result.
 
@@ -105,18 +105,18 @@ Finally, we also want the indicator to be centered horizontally. When set to `Fi
 +            HorizontalOptions="Center"
 ```
 
-Now we can turn our attention to the buttons at the bottom of the screen.
+Now, we can turn our attention to the buttons at the bottom of the screen.
 
 The first thing we can do is add a new container for all the buttons we want to add (both now and in the future). As we want the buttons to be displayed horizontally, we can use a `HorizontalStackLayout` for this.
 
-- We also need to make sure it is placed in the bottom row of the Grid, so set `Grid.Row="1"`.
-- Now that the `Button`s are no longer directly children of the `Grid`, we can remove the attached properties that specify the `Row` and `Column` they were previously positioned in.
+- We also need to ensure it is placed in the bottom row of the Grid, so set `Grid.Row="1"`.
+- Now that the `Button`s are no longer children of the `Grid`, we can remove the attached properties that specify the `Row` and `Column` they were previously positioned in.
 - Previously, the spacing between and around the buttons was specified as part of the `Grid` and each individual `Button`. We can now simplify things by moving all that logic to the element that contains all the buttons.
-- Rather than put space (a `Margin`) around each individual `Button` we can instead put an equivalent sized `Padding` around the inside of the `HorizontalStackLayout`.
+- Rather than put space (a `Margin`) around each `Button` we can instead put an equivalent-sized `Padding` around the inside of the `HorizontalStackLayout`.
 - This leaves the space between `Button`s. Previously, this was a combination of the `ColumnSpacing` specified on the `Grid` and the `Margin` applied to the sides of the `Button`s. We can simplify this by combining these values into the `Spacing` property of the `HorizontalStackLayout`.
 - Let's combine `5` from the `GridSpacing` and `8` from each side of the `Button` into a single value, so (5 + 8 + 8 = 21) `Spacing="21"`.
 
-If we now wanted to add another `Button`, we'd just put it inside the `HorizontalStackLayout`, and it would be positioned relative to the other `Button`s such that the order in the xaml file would reflect the order they're shown in the running app. Spacing between the buttons would also be taken care of without needing to specify anything on the new `Button`.
+Now, adding another `Button` would only require it to be placed inside the `HorizontalStackLayout`, and it would be positioned relative to the other `Button`s such that the order in the file would reflect the order in the running app. Spacing between the buttons would also automatically be taken care of.
 
 ```diff
 +        <HorizontalStackLayout Grid.Row="1" HorizontalOptions="Center" Padding="8" Spacing="21">
@@ -152,8 +152,8 @@ However, on a semantic level, we've:
 
 - Simplified the structure and complexity of the page.
 - Grouped similar or related elements together.
-- Used elements and values that help clarify the intent of the XAML in an aid to make it easier to visualize.
-- Removed some of the duplications.
+- Used elements and values that help clarify the intent of the XAML to make it easier to visualize.
+- Removed some of the duplication.
 
 All of which should make the code easier for someone else to understand in the future and also make it easier for them to modify without unnecessary effort, duplication, or unintended consequences.
 
@@ -161,11 +161,11 @@ With that page changed, we can now focus on the other page in the app.
 
 ### DetailsPage.xaml
 
-As with the `MainPage`, the grid on the `DetailsPage` is doing more work than is helpful for making the page easy to maintain. At a high level, the page has two key areas: the colored header at the top; and the details below. The current implementation uses two rows of the Grid to display the header and a third row for the rest of the content.
+As with the `MainPage`, the grid on the `DetailsPage` is doing more work than is helpful for making the page easy to maintain. At a high level, the page has two key areas: the colored header at the top and the details below. The current implementation uses two rows of the Grid to display the header and a third row for the rest of the content.
 
-Let's simplify the header so that it can all fit in a single row of the `Grid`.
+Let's simplify the header so it can fit in a single row of the `Grid`.
 
-For the header, the current solution uses a `BoxView` stretched over two rows as the background and then puts the `Image` in the first row and the `Label` in the second row. By requiring multiple rows for something that could easily be argued should be a single thing (the header), it makes it harder to modify (and particularly to add more elements) without impacting or needing to change other elements on the page also.
+For the header, the current solution uses a `BoxView` stretched over two rows as the background and then puts the `Image` in the first row and the `Label` in the second row. By requiring multiple rows for something that, we could argue, should be a single thing (the header), it makes it harder to modify (and particularly to add more elements) without impacting or needing to change other elements on the page.
 
 Let's start our modifications to this page by removing the unnecessary `RowDefinition`.
 
@@ -186,11 +186,12 @@ We must also update the `VerticalStackLayout` that holds the body content of the
 
 We can now return to thinking about the elements that make up the page header.
 
-In the previous version, the `BoxView` was separate from the elements that appear within it. This separation is unnecessary and can make it harder for someone unfamiliar with the code to see how the different elements are related. We'll replace it with something that can have the `Border` (containing the `Image`) and `Label` as its children. There are many controls that support multiple children, but as we want the children to be stacked vertically we'll replace it with a `VerticalStackLayout`.
+In the previous version, the `BoxView` was separate from the elements within it. This separation is unnecessary and can make it harder for someone unfamiliar with the code to see how the different elements are related. We'll replace it with something that can have the `Border` (containing the `Image`) and `Label` as its children. Many controls support multiple children, but as we want them to be stacked vertically, we'll replace it with a `VerticalStackLayout`.
 
-Yes, this now means we have a `Grid` containing 2 rows and each row contains a `VerticalStackLayout`. It's perfectly reasonable to ask why we don't replace this with a single `VerticalStackLayout`. There are two reasons.
+Yes, this now means we have a `Grid` containing two rows, and each row contains a `VerticalStackLayout`. It's reasonable to ask why we don't replace this with a single `VerticalStackLayout`. There are two reasons.
 
-We want to create a clear separation between the part that is the "header" and the part that is the "body". More importantly, we want to apply different styling and layout to the different parts.
+1. We want to create a clear separation between the part that is the "header" and the part that is the "body".
+2. More importantly, we want to apply different styling and layout to the different parts.
 
 - We want the "header" to have a colored background and to go all the way to the edges of the page.  
 - We want the "body" to have the default page background and not go all the way to the edges of the page.
@@ -202,7 +203,7 @@ We can now change the `BoxView` to a `VerticalStackLayout`. The `BoxView` (now `
 +        VerticalOptions="Fill" >
 ```
 
-Then add the closing element after the `Label` and before the other `VerticalStackLayout`.
+Then, add the closing element after the `Label` and before the other `VerticalStackLayout`.
 
 ```diff
             TextColor="White" />
@@ -212,7 +213,7 @@ Then add the closing element after the `Label` and before the other `VerticalSta
 
 There's still more we can do to simplify the code.
 
-If you look at the `Border` and the `Label` within our new `VerticalStackLayout` you'll see that they both have a `Margin` specified. The `Border` places the `Margin` above it, while the `Label` places the `Margin` below it. Both of these `Margin`s are instances of controls influencing their "container". Ideally, as far as is possible, we want elements that are displayed to be separate from those that control how others are positioned.
+If you look at the `Border` and the `Label` within our new `VerticalStackLayout` you'll see that they both have a `Margin` specified. The `Border` places the `Margin` above it, while the `Label` places the `Margin` below it. Both of these `Margin`s are instances of controls influencing their "container". Ideally, as far as possible, we want displayed elements to be separate from those that control how others are positioned.
 
 So, rather than use a `Margin` to put additional [white] space around the elements in the header, we can add `Padding` to the inside of the `VerticalStackLayout`.
 
@@ -234,23 +235,23 @@ And, remove the `Margin` from the `Label`.
 -        Margin="0,0,0,8"
 ```
 
-We can now add, remove, or reorder elements within the "header" without needing to do anything to ensure that there is the desired space at the top and bottom of the header.
+We can now add, remove, or reorder elements within the "header" without needing to do anything to ensure there is the desired space at the top and bottom of the header.
 
-There are further simplifications we can make to the `VerticalStackLayout` that is the container for the "header".
+There are further simplifications we can make to the `VerticalStackLayout` which is the container for the "header".
 
 - Remove `Grid.RowSpan="2"` as it now only occupies a single row.
-- Remove `VerticalOptions="Fill` as the `VerticalStackLayout` will take as much space as it needs within the defined row and setting this property now has no effect here.
+- Remove `VerticalOptions="Fill` as the `VerticalStackLayout` will take as much space as it needs within the defined row, and setting this property now has no effect here.
 - Remove the `HorizontalOptions` attribute as it is the default behavior of the `VerticalStackLayout` in this position.
-- Leave the `BackgroundColor` attribute as we still want this color to be shown.
+- Leave the `BackgroundColor` attribute as we still want this color to show.
 
 We can also simplify the definition of the `Border`:
 
-- We can remove the `VerticalOptions` attribute as the `VerticalStackLayout` it is now within will not allocate it more vertical space than it needs and so there is no need to center it.
+- We can remove the `VerticalOptions` attribute as the `VerticalStackLayout` it is now within will not allocate it more vertical space than it needs, so there is no need to center it.
 - We can remove the `HorizontalOptions` attribute as this is the default option for a `Border`.
 
-Within the `Image` there are currently more properties specified than necessary and so they can be removed.
+Within the `Image` there are currently more properties specified than necessary and that can be removed.
 
-Because all the images that might be loaded are all square (or almost all--one of them is 422x456 or 1:0806) we don't need to account for moving the image to be in the center of the circle. For this reason, we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
+Because all the images that might be loaded are all square (or almost all--one of them is 422x456 or 1:1.0806) we don't need to account for moving the image to be in the center of the circle. For this reason, we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
 
 ```diff
         <Image
@@ -329,6 +330,6 @@ This whole part has been about making the XAML simpler for those (possibly inclu
 
 Try and forget everything you know about this code and imagine you're coming to it without having seen it before or in a long time. In trying to understand a piece of code so that you can change it, wouldn't you rather that code was shorter rather than longer? And, wouldn't you rather that the code didn't have unnecessary internal connections and dependencies that aren't immediately obvious? Of course, you would, and that's what we've created.
 
-As with the last part, if you run the app now you'll see no behavioral difference with the app. There is a small visual difference in the size of the buttons on the MainPage but we'll address this in a future part. At this point, it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part and they will become clearer as we continue and build on what we've just done.
+As with the last part, if you run the app now, you'll see no behavioral difference with the app. There is a small visual difference in the size of the buttons on the MainPage but we'll address this in a future part. At this point, it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part, and they will become clearer as we continue and build on what we've just done.
 
-[Now, head over to Part 3 and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
+[Now, head over to Part 3, and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
