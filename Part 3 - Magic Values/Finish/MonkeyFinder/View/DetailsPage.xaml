@@ -10,7 +10,7 @@
     x:DataType="viewmodel:MonkeyDetailsViewModel">
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
-            <VerticalStackLayout Padding="8" BackgroundColor="{StaticResource Primary}">
+            <VerticalStackLayout BackgroundColor="{StaticResource Primary}">
                 <Border
                     HeightRequest="{StaticResource LargeSquareImageSize}"
                     Stroke="White"
@@ -20,7 +20,6 @@
                         <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
                     </Border.StrokeShape>
                     <Image
-                        Aspect="AspectFill"
                         HeightRequest="{StaticResource LargeSquareImageSize}"
                         Source="{Binding Monkey.Image}"
                         WidthRequest="{StaticResource LargeSquareImageSize}" />
@@ -33,10 +32,8 @@
                     TextColor="White" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout
-                Grid.Row="1"
-                Padding="{StaticResource StandardItemPadding}"
-                Spacing="{StaticResource InternalSpacing}">
+            <VerticalStackLayout Grid.Row="1" Spacing="{StaticResource InternalSpacing}">
+
                 <Button
                     Margin="8"
                     Command="{Binding OpenMapCommand}"

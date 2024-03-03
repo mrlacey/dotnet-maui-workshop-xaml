@@ -9,7 +9,7 @@ public class GetRadius : BindableObject, IMarkupExtension<double>
     }
 
     public static readonly BindableProperty DiameterProperty =
-    BindableProperty.Create(nameof(Diameter), typeof(double), typeof(GetRadius), defaultValue: 0.0);
+        BindableProperty.Create(nameof(Diameter), typeof(double), typeof(GetRadius), defaultValue: 0.0);
 
     public double ProvideValue(IServiceProvider serviceProvider)
     {

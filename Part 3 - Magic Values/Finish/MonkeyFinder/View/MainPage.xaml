@@ -37,7 +37,6 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Image
-                                            Aspect="AspectFill"
                                             HeightRequest="{StaticResource SmallSquareImageSize}"
                                             Source="{Binding Image}"
                                             WidthRequest="{StaticResource SmallSquareImageSize}" />
@@ -58,15 +57,12 @@
         </RefreshView>
 
         <ActivityIndicator
-            HorizontalOptions="Center"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="Center"
             Color="{StaticResource Primary}" />
 
         <HorizontalStackLayout
             Grid.Row="1"
-            Padding="8"
             HorizontalOptions="Center"
             Spacing="21">
             <Button

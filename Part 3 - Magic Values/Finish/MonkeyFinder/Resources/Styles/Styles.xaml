@@ -65,4 +65,21 @@
         <Setter Property="CornerRadius" Value="10" />
         <Setter Property="IsClippedToBounds" Value="True" />
     </Style>
+
+    <Style TargetType="Image">
+        <Setter Property="Aspect" Value="AspectFill" />
+    </Style>
+
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+    </Style>
+
+    <Style TargetType="HorizontalStackLayout">
+        <Setter Property="Padding" Value="{StaticResource StandardItemPadding}" />
+    </Style>
+    <Style TargetType="VerticalStackLayout">
+        <Setter Property="Padding" Value="{StaticResource StandardItemPadding}" />
+    </Style>
+
 </ResourceDictionary>

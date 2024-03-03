@@ -234,7 +234,7 @@ and used in `DetailsPage.xaml` like this:
 +    Spacing="{StaticResource InternalSpacing}">
 ```
 
-We've created a resource that we're only using in one place in this app, but it is common for most designs to have standardization of the spacing around and between related UI elements. By clearly defining these values within the code of an app makes it obvious when something is inconsistent.
+We've created a resource that we're only using in one place in this app, but it is common for most designs to have standardization of the spacing around and between related UI elements. Clearly defining these values within the code of an app makes it obvious when something is inconsistent.
 
 > **Note**:  
 > Both `StandardItemPadding` and `InternalSpacing` use the same number "10". This duplication of a numeric value may be something you want to avoid. Sadly, XAML does not make it easy to remove this duplication. There are solutions but they are not currently covered in this workshop.
@@ -299,6 +299,28 @@ The result is that if we ever wished to change the size of the image, we'd only 
 
 We've now removed all the repeated values that are semantically the same and replaced them with constant resources we can use in all the places it makes semantic sense to do so.
 
+Having removed many of the repeated numeric values, you can now see some similar values used in similar places.
+
+The Padding of the `HorizontalStackLayout` on `MainPage.xaml` and the topmost `VerticalStackLayout` on `DetailsPage.xaml` is 8, while the other StackLayouts used 10 (which is now the "StandardItemPadding".) Such inconsistency is unusual for such similar parts of a UI. Let's assume that this inconsistency wasn't deliberate and use the same value everywhere. If there was an intentional reason for these values being different, using different named resource values would make this clear.
+
+In `MainPage.xaml` make this change:
+
+```diff
+    <HorizontalStackLayout
+        Grid.Row="1"
+-         Padding="8"
++         Padding="{StaticResource StandardItemPadding}"
+          HorizontalOptions="Center"
+          Spacing="21">
+```
+
+In `DetailsPage.xaml` make this change:
+
+```diff
+-  <VerticalStackLayout Padding="8" BackgroundColor="{StaticResource Primary}">
++  <VerticalStackLayout Padding="{StaticResource StandardItemPadding}" BackgroundColor="{StaticResource Primary}">
+```
+
 The `Border` on `DetailsPage.xaml` includes a number (80) in the `StrokeShape` definition that is exactly half the value used for the Height and Width. This value would need to be changed if the height and width of the border changed. We could extract this to a resource and give it a name or add a comment to try and help ensure that any future changes are applied correctly, or we could do it another way. We'll look at that next.
 
 ## Doing simple math in a XAML file
@@ -339,7 +361,7 @@ We'll create a new folder to store our markup extensions. Call it `Extensions`.
 
 In this new folder, create a new C# class called `GetRadius.cs`. This simple class will take a `Diameter` and return the `Radius` as a `double`.
 
-This new class inherits from `BindableObject`. This is so that we can add properties that we can bind to. It also implements the `IMarkupExtension<double>` interface to show that ti can be used as a markup extension for properties of type `double`. (Which is the type of `CornerRadius`.)
+This new class inherits from `BindableObject`. This is so that we can add properties that we can bind to. It also implements the `IMarkupExtension<double>` interface to show that it can be used as a markup extension for properties of type `double`. (Which is the type of `CornerRadius`.)
 
 ```csharp
 public class GetRadius : BindableObject, IMarkupExtension<double>
@@ -392,31 +414,125 @@ Now replace the hard-coded value (of "80") with the new markup extension and spe
 +   <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
 ```
 
-Run the app, and again, you should see no difference in the UI.
+Run the app, and again, you should see no significant difference in the UI. It's only if you know some of the Padding values have been changed by 2 DIP that you'd see any difference.
 
 Yes, that was, arguably, a lot of work to replace a single hard-coded value with something that calculates that value. Hopefully, though, you can appreciate the potential power this technique has to: make the connection between different values more obvious; reduce the need to keep multiple related values in sync manually; and incorporate logic into your XAML files.
 
-While that was adding to the overall amount of code in our files, let's now switch to look at another way of improving our XAML files that will reduce the amount of code.
+While that was adding to the overall amount of code in our files, let's now look at another way of improving our XAML files that will reduce the amount of code.
 
 ## Making the most of implicit styles
 
-- move repeated properties into a style
-  - AspectFill in images on both pages
-  - ActivityIndicator only one in app so can set more properties there
-  - inconsitency of grid, border & button dimensions
-    - Padding/spacing/margin 8 or 10
+An "implicit Style" is applied to a type without specifying its name (or key). When defined, we can consider them the "default" style when no other "explicit" style is specified.
 
-[[point 4 introduction]]
+In this section, we'll set some new implicit styles to simplify the XAML on each page.
 
 [[point 4 example and steps]]
 
-[[point 4 summary]]
+Across the two pages of the app, there are three images. Of these, two set the `Aspect` to the value of `AspectFill`. The other leaves the default value of `AspectFit` but produces the same output when set to `AspectFill` because the correct Height and Width of that image are specified.  
+With this knowledge, we can say that if the default value for `Image.Aspect` was changed to `AspectFill`; we wouldn't have to specify this property anywhere in the app. So, let's change the app so it works that way.
 
-[[transition sentence]]
+In `Styles.xaml`, add a new implicit style.  
+It should be for the `TargetType` of `Image`.  
+It should not specify an `x:Key`. (This is what makes it an implicit style.)  
+It should set the `Aspect` property to the value of `AspectFill`.  
+
+```diff
++    <Style TargetType="Image">
++        <Setter Property="Aspect" Value="AspectFill" />
++    </Style>
+```
+
+We can now remove the need to specify this property (`Aspect`) from the other pages.
+
+In `DetailsPage.xaml` remove this line/property.
+
+```diff
+    <Image
+-       Aspect="AspectFill"
+        HeightRequest="{StaticResource LargeSquareImageSize}"
+        Source="{Binding Monkey.Image}"
+        WidthRequest="{StaticResource LargeSquareImageSize}" />
+```
+
+In `MainPage.xaml` remove this line/property.
+
+```diff
+    <Image
+-       Aspect="AspectFill"
+        HeightRequest="{StaticResource SmallSquareImageSize}"
+        Source="{Binding Image}"
+        WidthRequest="{StaticResource SmallSquareImageSize}" />
+```
+
+Remaining in `MainPage.xaml`, we use an `ActivityIndicator` to show when the app is busy.  
+This is a good UX practice, but we're using more XAML than is necessary. Specifically, we're configuring it to display in the center of its container. If we didn't do this it would expand to fill all the available space.  
+It's rare to position an activity indicator anywhere other than the center of its container. By making this the default behavior in our app for this control, we can simplify usage and future code maintenance.
+
+Principles:
+
+- Apply settings or properties globally if you want them applied to all (or most) instances of that control.
+- Only add properties to an instance of an element in XAML when it is specific to that instance,  and it will contribute helpful information to anyone reading the code in the future.
+
+While this app only has a single instance of this control, it's common for larger apps to want to indicate activity in more than one place, so it is helpful to see how to do this. It also follows on from the lesson of the last part as the `ActivityIndicator` is no longer responsible for its position. We have moved the responsibility for the position of all ActivityIndicators to a central location.
+
+In `MainPage.xaml` remove the attributes that relate to position.
+
+```diff
+    <ActivityIndicator
+-       HorizontalOptions="Center"
+        IsRunning="{Binding IsBusy}"
+        IsVisible="{Binding IsBusy}"
+-       VerticalOptions="Center"
+        Color="{StaticResource Primary}" />
+```
+
+In `Styles.xaml`, add a new implicit style.  
+It should be for the `TargetType` of `ActivityIndicator`.  
+It should not specify an `x:Key`. (This is what makes it an implicit style.)  
+It should set the `HorizontalOptions` and `VerticalOptions` properties to the value of `Center`.  
+
+```diff
++    <Style TargetType="ActivityIndicator">
++       <Setter Property="HorizontalOptions" Value="Center" />
++       <Setter Property="VerticalOptions" Value="Center" />
++    </Style>
+```
+
+Earlier, we standardized the `Padding` used in all StackLayouts. Rather than specify this on every instance, we can add implicit styles for this. This simplifies the contents of each page that uses a StackLayout
+
+In `Styles.xaml`, add new implicit styles for `HorizontalStackLayout` and `VerticalStackLayout`.  
+For both styles, set the `Padding` to the `StandardItemPadding` resource value.
+
+```diff
++    <Style TargetType="HorizontalStackLayout">
++        <Setter Property="Padding" Value="{StaticResource StandardItemPadding}" />
++    </Style>
+
++    <Style TargetType="VerticalStackLayout">
++        <Setter Property="Padding" Value="{StaticResource StandardItemPadding}" />
++    </Style>
+```
+
+Now remove the specifying of `Padding` in the three places.
+
+```diff
+-   Padding="{StaticResource StandardItemPadding}"
+```
+
+With these changes now complete, the XAML code on our two pages is now more consistent, has had duplication removed, and will be easier to modify in the future.
+
+For the final section in this part, let's look at one of the most common places to use strings within an app: the displayed text.
 
 ## Text resources do more than enable localization
 
 [[point 5 introduction]]
+
+There are three common ways to work with localized text inside XAML files:
+
+- As aStatic Resource
+- Via a MarkupExtension
+- By Binding to the text in the ViewModel
+
 
 [[point 5 example and steps]]
 
