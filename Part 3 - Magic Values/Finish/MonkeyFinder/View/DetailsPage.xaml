@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:c="clr-namespace:MonkeyFinder.Controls"
     xmlns:e="clr-namespace:MonkeyFinder.Extensions"
+    xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
@@ -39,7 +40,7 @@
                     Command="{Binding OpenMapCommand}"
                     HorizontalOptions="Center"
                     Style="{StaticResource ButtonOutline}"
-                    Text="Show on Map"
+                    Text="{x:Static str:UiText.ShowOnMapButtonContent}"
                     WidthRequest="200" />
 
                 <Label Style="{StaticResource MediumLabel}" Text="{Binding Monkey.Details}" />

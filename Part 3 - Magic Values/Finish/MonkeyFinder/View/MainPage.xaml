@@ -6,6 +6,7 @@
     xmlns:c="clr-namespace:MonkeyFinder.Controls"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:MonkeyFinder.Model"
+    xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="Monkeys"
     ios:Page.UseSafeArea="True"
@@ -69,13 +70,13 @@
                 Command="{Binding GetMonkeysCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Style="{StaticResource ButtonOutline}"
-                Text="Get Monkeys" />
+                Text="{x:Static str:UiText.GetMonkeysButtonContent}" />
 
             <Button
                 Command="{Binding GetClosestMonkeyCommand}"
                 IsEnabled="{Binding IsNotBusy}"
                 Style="{StaticResource ButtonOutline}"
-                Text="Find Closest" />
+                Text="{x:Static str:UiText.FindClosestButtonContent}" />
         </HorizontalStackLayout>
 
     </Grid>

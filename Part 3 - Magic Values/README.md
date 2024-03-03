@@ -519,7 +519,7 @@ Now remove the specifying of `Padding` in the three places.
 -   Padding="{StaticResource StandardItemPadding}"
 ```
 
-With these changes now complete, the XAML code on our two pages is now more consistent, has had duplication removed, and will be easier to modify in the future.
+With these changes now complete, the XAML on our two pages is now more consistent, has had duplication removed, and will be easier to modify in the future.
 
 For the final section in this part, let's look at one of the most common places to use strings within an app: the displayed text.
 
@@ -529,15 +529,76 @@ For the final section in this part, let's look at one of the most common places 
 
 There are three common ways to work with localized text inside XAML files:
 
-- As aStatic Resource
+- As a Static resource
 - Via a MarkupExtension
 - By Binding to the text in the ViewModel
 
+We'll use a StaticResource for this as we looked at how to create a MarkupExtension earlier, and binding to text from the ViewModel adds complexity to the ViewModel that we don't need.
 
-[[point 5 example and steps]]
+> **Note**:  
+> You can create an app with an example page showing how to localize text in the other ways by using the [MAUI App Accelerator](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.MauiAppAccelerator).
 
-[[point 5 summary]]
+- Create a new folder named "Strings" inside the "Resources" folder.
 
-[[PART SUMMARY]]
+- Inside the "Strings" folder, add a new "Resources File" named `UiText.resx`.
+
+In addition to creating the `UiText.resx` file, Visual Studio also creates a nested file called `UiText.Designer.cs`.
+
+Open `UiText.resx` and add the following entries:
+
+| Name                     | Value        |
+|--------------------------|--------------|
+| GetMonkeysButtonContent  | Get Monkeys  |
+| FindClosestButtonContent | Find Closest |
+| ShowOnMapButtonContent   | Show on Map  |
+
+We have created entries for all the hardcoded strings displayed in the UI.
+
+In both pages, add this XML namespace and alias:
+
+```diff
++    xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
+```
+
+This alias will make it so we can refer to the resources in XAML. You can do this with the following changes to the code:
+
+In `MainPage.xaml`:
+
+```diff
+    <Button
+        Command="{Binding GetMonkeysCommand}"
+        IsEnabled="{Binding IsNotBusy}"
+        Style="{StaticResource ButtonOutline}"
+-       Text="Get Monkeys" />
++       Text="{x:Static str:UiText.GetMonkeysButtonContent}" />
+
+    <Button
+        Command="{Binding GetClosestMonkeyCommand}"
+        IsEnabled="{Binding IsNotBusy}"
+        Style="{StaticResource ButtonOutline}"
+-       Text="Find Closest" />
++       Text="{x:Static str:UiText.FindClosestButtonContent}" />
+```
+
+In `DetailsPage.xaml`:
+
+```diff
+    <Button
+        Command="{Binding OpenMapCommand}"
+        HorizontalOptions="Center"
+        Style="{StaticResource ButtonOutline}"
+-       Text="Show on Map"
++       Text="{x:Static str:UiText.ShowOnMapButtonContent}"
+        WidthRequest="200" />
+```
+
+The above works because of the static values created in `UiText.Designer.cs`.
+
+Having these strings defined as resources means we could reuse the resource if we had two places in the code where we needed to show the same text.
+
+> **Note**:  
+> In addition to localization, there are more benefits to always putting strings in separate resource files and not putting them directly in the code. I go into details about this in https://www.manning.com/books/usability-matters ;)
+
+We've now removed all the magic values from the XAML pages. These changes have simplified the code, made it easier to read and understand, and will help with future extensions to the app. As you've guessed by this not being the final part of this workshop, there are yet more improvements we can make.
 
 [Now, head over to Part 4 to learn the impact that different names can have in XAML files](../Part%204%20-%20Naming/README.md)
