@@ -50,3 +50,9 @@ For now, you can check out:
 * [My Blog](https://www.mrlacey.com/) - Where I often write about .NET MAUI and XAML.
 
 If you have any questions, please contact me on Twitter ([@MRLacey](https://twitter.com/mrlacey)) or Mastodon ([@mrlacey@fosstodon.org](https://fosstodon.org/@mrlacey)).
+
+## Contributing
+
+If you have suggestions for addititions or ideas for improvements, please open an issue so we can discuss it.
+
+If you find a typo, spelling mistake, or grammar error, please raise a PR to fix it.
