@@ -11,6 +11,12 @@ The code examples in this part will continue on from the previous part. If you h
 In this part, we'll look at:
 
 <<
+
+- creating semantically meaningful types to represent our styles
+  - by hand
+  - with nuget package
+
+
 - combining types for simplicity
   - VerticallyScrollingPage (with Header)
   - RoundImage (with border)
