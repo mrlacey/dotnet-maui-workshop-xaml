@@ -4,8 +4,8 @@
 > Part 1: first draft complete - feedback welcome  
 > Part 2: first draft complete - feedback welcome  
 > Part 3: first draft complete - feedback welcome  
-> Part 4: being written  
-> Part 5: still in planning  
+> Part 4: first draft complete - feedback welcome  
+> Part 5: being written  
 
 ---
 
