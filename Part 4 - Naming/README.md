@@ -1,6 +1,6 @@
 # Part 4 - Naming
 
-In this part, we will look at the names we give to the elements and resources we use in XAML files. We'll look at how to use names that help with code maintainability and make it easier to read and understand. We'll then extend these principles to see how to create semantically meaningful files.
+In this part, we will look at the names we give to the elements and resources we use in XAML files. We'll look at how to use names so they help with code maintainability and make it easier to read and understand. We'll then extend these principles to see how to create semantically meaningful files.
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
@@ -18,7 +18,6 @@ What makes a good name is often subjective and the names used in your UI have di
 
 ## What makes a good name
 
-[[point 1 introduction]]
 General advice for naming in software is to use a specific, descriptive name for what something does. While this is good advice for objects, it doesn't help produce maintainable XAML.
 
 Consider one of the names we're using in the code, the Style `ButtonOutline`.  
@@ -168,28 +167,57 @@ With these changes, we've made the names of the Styles more meaningful and less 
 
 ## Naming Elements and Controls
 
-[[point 3 introduction]]
+The names we give to things help us understand their purpose and capabilities. However, adding names to things has two potentially negative consequences:
 
+1. It means there is more text on the screen to read and process.
+2. It has a very small potential impact on the time taken to compile and run the code.
 
+We can offset the first issue by only adding names where having the name provides more potential value than the cost of reading it.
 
+The impact on performance is only listed as "potential" because it is so tiny you will have trouble measuring it. If you are trying to deal with performance issues of such sizes, you will have to be measuring them very carefully. Unless you have to optimize your code for the absolute highest levels of performance, there are many other things you can optimize in your code that will have a bigger effect than removing names in this way.
 
-[[point 3 example and steps]]
+For most applications, ease of maintenance is more important than tiny micro-optimizations. That is why the primary goal of this workshop has been to help you improve the maintainability of your XAML files.
 
+The above consequences can be easily overcome by only adding names to things where it helps add clarity to those people who will read the code in the future.
 
-Give things names as a form of documentation so the code is easier to understand.
-why, not what.
+Looking at `MainPage.xaml`, we see it contains two main controls. The first contains the list of monkeys. The second is a `HorizontalStackLayout`. If we give this element a name, its purpose should become immediately apparent to anyone looking at the code. As this control hosts the buttons at the bottom of the screen, we'll call it `RowOfButtons`.
 
-- of types
-  - RowOfButtons
-    - make sure all buttons are the same size
-  - Header
-  - PageBody
+```diff
+    <HorizontalStackLayout
++       x:Name="RowOfButtons"
+        Grid.Row="1"
+        HorizontalOptions="Center"
+        Spacing="21">
+```
 
-[[point 3 summary]]
+This name does two things. Firstly, it indicates how it will display in the running app. Secondly, it indicates the intended purpose of the control.  
+What do you think should go inside such an element?  
+Would you question if something other than a `Button` was put inside it? I hope so. Adding something other than a `Button` may be appropriate but is probably unexpected and is likely to indicate the control is being used in a way beyond the author's original intention.
 
+Adding names in this way has the additional benefit of documenting the code.
 
+Switching to look at `DetailsPage.xaml`, we see that the page's content is composed of two sections. These sections are the colored area containing the image at the top of the page and the text underneath. These two sections are each defined in `VerticalStackLayout`s. Giving each one a name will help to indicate their purpose, especially as having vertical stack layouts positioned one above the other is often unnecessary and could suggest an inappropriate use of controls.
 
-The level of focus we've spent on naming may seem unnecessary or over-the-top for such simple code, but the reason for spending time on ensuring names are well chosen is that does make understanding code easier. It's unlikely you'll ever spend as much time thinking about a simple app as you have with the MonkeyFinder, but as you work on larger files and code bases, the benefit that good names bring will soon become evident to you.
+```diff
+-   <VerticalStackLayout BackgroundColor="{StaticResource Primary}">
++   <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
+
+...
+
+    </VerticalStackLayout>
+
+-   <VerticalStackLayout Grid.Row="1" Spacing="{StaticResource InternalSpacing}">
++   <VerticalStackLayout
++       x:Name="BodyContent"
++       Grid.Row="1"
++       Spacing="{StaticResource InternalSpacing}">
+```
+
+Again, this is a small change to the code, but it helps anyone reading it in the future. It also demonstrates our intent to try and make it easier for them.
+
+In the next part of this workshop, we'll look at the names of created types, but don't overlook the potential benefit of doing something as simple as assigning a name to a control to indicate its purpose.
+
+The level of focus we've spent on naming may seem unnecessary or over-the-top for such simple code, but the reason for spending time on ensuring names are well chosen is that it makes understanding code easier. It's unlikely you'll ever spend as much time thinking about a simple app as you have with the MonkeyFinder, but as you work on larger files and code bases, the benefit that good names bring will soon become evident to you.
 
 In this part, we covered what makes a good name for something in XAML and updated the code to reflect this. There's more that we can do with these names than specify them. We'll see that next.
 

@@ -63,6 +63,7 @@
             Color="{StaticResource Primary}" />
 
         <HorizontalStackLayout
+            x:Name="RowOfButtons"
             Grid.Row="1"
             HorizontalOptions="Center"
             Spacing="21">

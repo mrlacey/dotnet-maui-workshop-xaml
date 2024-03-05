@@ -11,7 +11,7 @@
     x:DataType="viewmodel:MonkeyDetailsViewModel">
     <ScrollView>
         <Grid RowDefinitions="Auto,*">
-            <VerticalStackLayout BackgroundColor="{StaticResource Primary}">
+            <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
                 <Border
                     HeightRequest="{StaticResource LargeSquareImageSize}"
                     Stroke="White"
@@ -33,7 +33,10 @@
                     TextColor="White" />
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="1" Spacing="{StaticResource InternalSpacing}">
+            <VerticalStackLayout
+                x:Name="BodyContent"
+                Grid.Row="1"
+                Spacing="{StaticResource InternalSpacing}">
 
                 <Button
                     Margin="8"
