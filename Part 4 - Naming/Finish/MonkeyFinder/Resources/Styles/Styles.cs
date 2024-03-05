@@ -18,55 +18,55 @@ namespace MonkeyFinder
         }
     }
 
-    public class MicroLabel : Label
+    public class AdditionalInformation  : Label
     {
-        public MicroLabel()
+        public AdditionalInformation ()
         {
-            if (App.Current.Resources.TryGetValue("MicroLabel", out object result))
+            if (App.Current.Resources.TryGetValue("AdditionalInformation ", out object result))
             {
                 this.Style = result as Style;
             }
         }
     }
 
-    public class SmallLabel : Label
+    public class ListDetails : Label
     {
-        public SmallLabel()
+        public ListDetails()
         {
-            if (App.Current.Resources.TryGetValue("SmallLabel", out object result))
+            if (App.Current.Resources.TryGetValue("ListDetails", out object result))
             {
                 this.Style = result as Style;
             }
         }
     }
 
-    public class MediumLabel : Label
+    public class BodyText : Label
     {
-        public MediumLabel()
+        public BodyText()
         {
-            if (App.Current.Resources.TryGetValue("MediumLabel", out object result))
+            if (App.Current.Resources.TryGetValue("BodyText", out object result))
             {
                 this.Style = result as Style;
             }
         }
     }
 
-    public class LargeLabel : Label
+    public class Heading : Label
     {
-        public LargeLabel()
+        public Heading()
         {
-            if (App.Current.Resources.TryGetValue("LargeLabel", out object result))
+            if (App.Current.Resources.TryGetValue("Heading", out object result))
             {
                 this.Style = result as Style;
             }
         }
     }
 
-    public class ButtonOutline : Button
+    public class StandardButton : Button
     {
-        public ButtonOutline()
+        public StandardButton()
         {
-            if (App.Current.Resources.TryGetValue("ButtonOutline", out object result))
+            if (App.Current.Resources.TryGetValue("StandardButton", out object result))
             {
                 this.Style = result as Style;
             }

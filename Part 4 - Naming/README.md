@@ -29,14 +29,16 @@ A good name for something in the UI tells us:
 
 - Where to use it
 - When to use it
-- What it is at an abstract level
+- Is semantically meaningful
 
 Again, you might think you should use this style whenever you need a button drawn with an outline, so it is a good name.  
 But what happens when the app's design is updated?
 
 Imagine, at some point in the future, the app must be updated to reflect a new design. This update could be as part of a "UI refresh", a change in corporate branding, or something else. Now, instead of a button with an outline, the desired new style is to have a solid color behind the text on the button.
 
-If we keep the same name for the style, it would be very odd and confusing to anyone looking at the code in the future. "It says 'ButtonOutline', but it's a solid color without an outline. - What's going on?" Confusing code is not easy to maintain or change with confidence.
+If we keep the same name for the style, it would be very odd and confusing to anyone looking at the code in the future.  
+"It says 'ButtonOutline', but it's a solid color without an outline. - What's going on?"  
+Confusing code is not easy to maintain or change with confidence.
 
 We could create a new Style for the new requirement and use that instead. But, doing this would lead to changes throughout the code base. One of the benefits of defining something once and referencing it in multiple places is that it should make maintenance and modification of all instances easier. Would you consider something easy to maintain if you have to change every reference to it when you change that thing?
 
@@ -54,20 +56,115 @@ With these guidelines defined, we can now start applying them to the code.
 
 ## Naming Resources and Styles
 
-[[point 2 introduction]]
+We'll first look at improving the names of the Styles used in the code. We'll start by updating the "ButtonOutline" mentioned above and then look at the different Styes used for Labels.
 
-- of styles
-  - OutlineButton
-  - LargeLabel
-  - MediumLabel
-  - SmallLabel
+Modify the name of the Style (in `Styles.xaml`) to use the name we discussed above.
 
+```diff
+-    <Style x:Key="ButtonOutline" TargetType="Button">
++    <Style x:Key="StandardButton" TargetType="Button">
+```
 
-[[point 2 example and steps]]
+I trust you can update each reference to this style and don't need to show it.  There are two references on `MainPage.xaml` and one on `DetailsPage.xaml`.
 
-[[point 2 summary]]
+That was the easy part. Now, let's look at the Styles used for `Label`s. There are currently four of them:
 
-[[transition sentence]]
+- LargeLabel
+- MediumLabel
+- SmallLabel
+- MicroLabel
+
+From these names, you can assume that these Styles refer to the size of the text. Sadly, they do nothing else and don't meet any of the requirements of good naming identified above.
+
+By looking at how the `LargeLabel` is used in the code, we see that it indicates a "Title" or a "Heading" of an item in a list or at the top of the details page.
+
+Change the name of the Style to `Heading`.
+
+```diff
+    <Style
+-       x:Key="LargeLabel"
++       x:Key="Heading"
+```
+
+Update the use of this Style on each page.
+
+The name "Heading" is more meaningful and communicates to anyone looking at the code why that element is there. If the way headings look is changed in the future, this element will still represent a "heading". You only need to alter the styling in one place, and all instances throughout the app will be updated. Imagine we wanted to visually distinguish "Headings" not by size but by using a different font family and weight. The name "LargeLabel" would no longer be appropriate, but "Heading" will still be.
+
+Using a suffix or prefix of the Type is unnecessary as part of the name. "HeadingLabel" or "LabelHeading" add no useful additional information when compared to "Heading" and so the shorter version is preferred. If you have multiple similar names, and it becomes necessary to distinguish them by name then this can be done. Note that the autocomplete (intellisense) within Visual Studio will filter resources by TargetType when you use them. This should remove the argument for including the type in the name to help ensure it is used correctly. A good name will also help avoid accidental misuse. In the next part we'll also look at another, related, way that can help ensure you don't use the wrong resource with as type.
+
+It's now possible to look at the code and know that "that's a heading, which makes sense given the content and position." There's no need to wonder why something is styled as being a "LargeLabel" and question if that is appropriate. 
+
+The `MediumLabel` is more complicated. This is used to show two semantically different types of information. On the main page, it shows the location of each monkey in the list. On the details page, the Style is used for the text that is the "main" or "body" of the content.
+
+Rather than a single style used for different reasons just because they are currently styled the same way. Let's rename the `MediumLabel` to `ListDetails` and add another `Style` with the name `BodyText` and other details matching those of "ListDetails".
+
+```diff
+    <Style
+-       x:Key="MediumLabel"
++       x:Key="ListDetails"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
++   <Style
++       x:Key="BodyText"
++       BasedOn="{StaticResource BaseLabel}"
++       TargetType="Label">
++       <Setter Property="FontSize" Value="16" />
++   </Style>
+```
+
+We can now update the places where "MediumLabel" was used.
+
+In `MainPage.xaml`:
+
+```diff
+-    <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
++    <Label Style="{StaticResource ListDetails}" Text="{Binding Location}" />
+```
+
+Semantically, each list item now contains a "Heading" followed by "ListDetails". The intent of the labels within each item template should now be more apparent to anyone looking at the code.
+
+In `DetailsPage.xaml`:
+
+```diff
+-    <Label Style="{StaticResource MediumLabel}" Text="{Binding Monkey.Details}" />
++    <Label Style="{StaticResource BodyText}" Text="{Binding Monkey.Details}" />
+```
+
+Also on the Details page are the uses of "SmallLabel". They are used for text that displays additional information about the selected monkey.  
+Let's rename the Style to "AdditionalInformation".
+
+```diff
+    <Style
+-       x:Key="SmallLabel"
++       x:Key="AdditionalInformation"
+```
+
+We can then use this style for Labels that display "additional information" in `DetailsPage.xaml`:
+
+```diff
+-    <Label Style="{StaticResource SmallLabel}" Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
+-    <Label Style="{StaticResource SmallLabel}" Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" />
++    <Label Style="{StaticResource AdditionalInformation}" Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
++    <Label Style="{StaticResource AdditionalInformation}" Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" />
+```
+
+It is now clearer that text on the details page shows some details as the main body of the text and this is followed by two additional pieces of information.
+
+There are no uses of the `MicroLabel` style, remove it:
+
+```diff
+-    <Style
+-        x:Key="MicroLabel"
+-        BasedOn="{StaticResource BaseLabel}"
+-        TargetType="Label">
+-        <Setter Property="FontSize" Value="10" />
+-    </Style>
+```
+
+With these changes, we've made the names of the Styles more meaningful and less likely to need to be changed when the way they look needs to change. Now, we can look at adding more meaningful names to the elements in the XAML and the controls they represent.
 
 ## Naming Elements and Controls
 
@@ -90,6 +187,9 @@ why, not what.
 
 [[point 3 summary]]
 
+
+
+The level of focus we've spent on naming may seem unnecessary or over-the-top for such simple code, but the reason for spending time on ensuring names are well chosen is that does make understanding code easier. It's unlikely you'll ever spend as much time thinking about a simple app as you have with the MonkeyFinder, but as you work on larger files and code bases, the benefit that good names bring will soon become evident to you.
 
 In this part, we covered what makes a good name for something in XAML and updated the code to reflect this. There's more that we can do with these names than specify them. We'll see that next.
 

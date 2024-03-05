@@ -17,28 +17,28 @@
     </Style>
 
     <Style
-        x:Key="MicroLabel"
-        BasedOn="{StaticResource BaseLabel}"
-        TargetType="Label">
-        <Setter Property="FontSize" Value="10" />
-    </Style>
-
-    <Style
-        x:Key="SmallLabel"
+        x:Key="AdditionalInformation "
         BasedOn="{StaticResource BaseLabel}"
         TargetType="Label">
         <Setter Property="FontSize" Value="12" />
     </Style>
 
     <Style
-        x:Key="MediumLabel"
+        x:Key="ListDetails"
         BasedOn="{StaticResource BaseLabel}"
         TargetType="Label">
         <Setter Property="FontSize" Value="16" />
     </Style>
 
     <Style
-        x:Key="LargeLabel"
+        x:Key="BodyText"
+        BasedOn="{StaticResource BaseLabel}"
+        TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style
+        x:Key="Heading"
         BasedOn="{StaticResource BaseLabel}"
         TargetType="Label">
         <Setter Property="FontSize" Value="20" />
@@ -49,7 +49,7 @@
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
     </Style>
 
-    <Style x:Key="ButtonOutline" TargetType="Button">
+    <Style x:Key="StandardButton" TargetType="Button">
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource LightBackground}, Dark={StaticResource DarkBackground}}" />
         <Setter Property="TextColor" Value="{StaticResource Primary}" />
         <Setter Property="BorderColor" Value="{StaticResource Primary}" />
