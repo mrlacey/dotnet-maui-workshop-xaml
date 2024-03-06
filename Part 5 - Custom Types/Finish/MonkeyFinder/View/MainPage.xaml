@@ -6,6 +6,7 @@
     xmlns:c="clr-namespace:MonkeyFinder.Controls"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     xmlns:model="clr-namespace:MonkeyFinder.Model"
+    xmlns:s="clr-namespace:MonkeyFinder"
     xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="Monkeys"
@@ -28,7 +29,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="model:Monkey">
                             <Grid Padding="{StaticResource StandardItemPadding}" HorizontalOptions="Fill">
-                                <Frame HeightRequest="{StaticResource SmallSquareImageSize}" Style="{StaticResource CardView}">
+                                <s:CardView HeightRequest="{StaticResource SmallSquareImageSize}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MonkeysViewModel}}, Path=GoToDetailsCommand}" CommandParameter="{Binding .}" />
                                     </Frame.GestureRecognizers>
@@ -45,11 +46,11 @@
                                             Grid.Column="1"
                                             Padding="{StaticResource StandardItemPadding}"
                                             VerticalOptions="Center">
-                                            <Label Style="{StaticResource Heading}" Text="{Binding Name}" />
-                                            <Label Style="{StaticResource ListDetails}" Text="{Binding Location}" />
+                                            <s:Heading Text="{Binding Name}" />
+                                            <s:ListDetails Text="{Binding Location}" />
                                         </VerticalStackLayout>
                                     </Grid>
-                                </Frame>
+                                </s:CardView>
                             </Grid>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
@@ -67,16 +68,14 @@
             Grid.Row="1"
             HorizontalOptions="Center"
             Spacing="21">
-            <Button
+            <s:StandardButton
                 Command="{Binding GetMonkeysCommand}"
                 IsEnabled="{Binding IsNotBusy}"
-                Style="{StaticResource StandardButton}"
                 Text="{x:Static str:UiText.GetMonkeysButtonContent}" />
 
-            <Button
+            <s:StandardButton
                 Command="{Binding GetClosestMonkeyCommand}"
                 IsEnabled="{Binding IsNotBusy}"
-                Style="{StaticResource StandardButton}"
                 Text="{x:Static str:UiText.FindClosestButtonContent}" />
         </HorizontalStackLayout>
 

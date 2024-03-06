@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:c="clr-namespace:MonkeyFinder.Controls"
     xmlns:e="clr-namespace:MonkeyFinder.Extensions"
+    xmlns:s="clr-namespace:MonkeyFinder"
     xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Monkey.Name}"
@@ -25,10 +26,9 @@
                         Source="{Binding Monkey.Image}"
                         WidthRequest="{StaticResource LargeSquareImageSize}" />
                 </Border>
-                <Label
+                <s:Heading
                     FontAttributes="Bold"
                     HorizontalOptions="Center"
-                    Style="{StaticResource Heading}"
                     Text="{Binding Monkey.Name}"
                     TextColor="White" />
             </VerticalStackLayout>
@@ -38,17 +38,16 @@
                 Grid.Row="1"
                 Spacing="{StaticResource InternalSpacing}">
 
-                <Button
+                <s:StandardButton
                     Margin="8"
                     Command="{Binding OpenMapCommand}"
                     HorizontalOptions="Center"
-                    Style="{StaticResource StandardButton}"
                     Text="{x:Static str:UiText.ShowOnMapButtonContent}"
                     WidthRequest="200" />
 
-                <Label Style="{StaticResource BodyText}" Text="{Binding Monkey.Details}" />
-                <Label Style="{StaticResource AdditionalInformation}" Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
-                <Label Style="{StaticResource AdditionalInformation}" Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" />
+                <s:BodyText Text="{Binding Monkey.Details}" />
+                <s:AdditionalInformation Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
+                <s:AdditionalInformation Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" />
             </VerticalStackLayout>
         </Grid>
     </ScrollView>
