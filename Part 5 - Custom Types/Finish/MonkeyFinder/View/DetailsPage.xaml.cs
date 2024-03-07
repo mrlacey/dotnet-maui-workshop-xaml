@@ -1,6 +1,6 @@
 namespace MonkeyFinder;
 
-public partial class DetailsPage : StandardPage
+public partial class DetailsPage : VerticallyScrollingPage
 {
     public DetailsPage(MonkeyDetailsViewModel viewModel)
     {

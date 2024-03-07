@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<c:StandardPage
+<c:VerticallyScrollingPage
     x:Class="MonkeyFinder.DetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -10,45 +10,38 @@
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
-    <ScrollView>
-        <Grid RowDefinitions="Auto,*">
-            <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
-                <Border
-                    HeightRequest="{StaticResource LargeSquareImageSize}"
-                    Stroke="White"
-                    StrokeThickness="6"
-                    WidthRequest="{StaticResource LargeSquareImageSize}">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
-                    </Border.StrokeShape>
-                    <Image
-                        HeightRequest="{StaticResource LargeSquareImageSize}"
-                        Source="{Binding Monkey.Image}"
-                        WidthRequest="{StaticResource LargeSquareImageSize}" />
-                </Border>
-                <s:Heading
-                    FontAttributes="Bold"
-                    HorizontalOptions="Center"
-                    Text="{Binding Monkey.Name}"
-                    TextColor="White" />
-            </VerticalStackLayout>
+    <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
+        <Border
+            HeightRequest="{StaticResource LargeSquareImageSize}"
+            Stroke="White"
+            StrokeThickness="6"
+            WidthRequest="{StaticResource LargeSquareImageSize}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
+            </Border.StrokeShape>
+            <Image
+                HeightRequest="{StaticResource LargeSquareImageSize}"
+                Source="{Binding Monkey.Image}"
+                WidthRequest="{StaticResource LargeSquareImageSize}" />
+        </Border>
+        <s:Heading
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Text="{Binding Monkey.Name}"
+            TextColor="White" />
+    </VerticalStackLayout>
 
-            <VerticalStackLayout
-                x:Name="BodyContent"
-                Grid.Row="1"
-                Spacing="{StaticResource InternalSpacing}">
+    <VerticalStackLayout x:Name="BodyContent" Spacing="{StaticResource InternalSpacing}">
 
-                <s:StandardButton
-                    Margin="8"
-                    Command="{Binding OpenMapCommand}"
-                    HorizontalOptions="Center"
-                    Text="{x:Static str:UiText.ShowOnMapButtonContent}"
-                    WidthRequest="200" />
+        <s:StandardButton
+            Margin="8"
+            Command="{Binding OpenMapCommand}"
+            HorizontalOptions="Center"
+            Text="{x:Static str:UiText.ShowOnMapButtonContent}"
+            WidthRequest="200" />
 
-                <s:BodyText Text="{Binding Monkey.Details}" />
-                <s:AdditionalInformation Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
-                <s:AdditionalInformation Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" />
-            </VerticalStackLayout>
-        </Grid>
-    </ScrollView>
-</c:StandardPage>
+        <s:BodyText Text="{Binding Monkey.Details}" />
+        <s:AdditionalInformation Text="{Binding Monkey.Location, StringFormat='Location: {0}'}" />
+        <s:AdditionalInformation Text="{Binding Monkey.Population, StringFormat='Population: {0}'}" />
+    </VerticalStackLayout>
+</c:VerticallyScrollingPage>

@@ -180,19 +180,134 @@ I find making changes like those above, where I can remove a lot of code but sti
 
 ## Composition of multiple types
 
-[[point 2 introduction]]
+Above, we simplified XAML elements by removing attributes we didn't need. Now, we'll look at simplifying files by removing elements we don't need.
+
+For this section, we'll focus on `DetailsPage.xaml` and only make changes there.
+
+Looking in the `DetailsPage.xaml` file,  you'll notice that all the code of interest is indented three tabs (or 12 spaces) from the left margin. This indentation is due to the page's number of controls and nesting.  
+The root object is a `s:StandardPage`. Inside that is `ScrollView`. Inside that is the actual content of the page.
+
+It is incredibly common for app pages to have vertically stacked content that needs to support scrolling vertically. These requirements mean that many pages start with the elements `ContentPage` > `ScrollView` > `VerticalStackLayout`.
+
+Rather than have the same three elements at the root of every page, why not combine them into a single control?
+
+_Yes, the details page currently uses a `Grid` inside the `ScrollView`, but we'll change that later._
+
+Let's create a "VerticallyScrollingPage" control for this purpose. The name makes it clear what it will do.
+
+Inside the `Controls` folder, create a new C# class and call the file `VerticallyScrollingPage.cs`.
+
+This new public class should inherit from our `StandardPage` to continue to benefit from the background theming logic we created previously.
+
+```diff
++public class VerticallyScrollingPage : StandardPage
++{
++}
+```
+
+We want this new control to encapsulate the other controls, so we'll create them in the constructor, putting the `VerticalStackLayout` inside the `ScrollView` which we'll set at the `Content` of the page.
+
+```diff
+public class VerticallyScrollingPage : StandardPage
+{
++    public ScrollView scrollView;
++    public VerticalStackLayout verticalLayout;
+
++    public VerticallyScrollingPage()
++    {
++        verticalLayout = new VerticalStackLayout { Padding = 0 };
++        scrollView = new ScrollView
++        {
++            Content = verticalLayout
++        };
+
++        base.Content = scrollView;
++    }
+}
+```
+
+Note the setting of the `Padding` of the `VerticalStackLayout` being set to "0". This padding value prevents additional space (padding) from being automatically enforced on anything placed inside the `VerticallyScrollingPage`. Some pages, such as this Details Page will want to have content that extends to the very edges. When creating a control that is intended to be highly reusable, it should not apply constraints on the content that will limit where it can be used.
+
+This code handles the basic structure, but we also need to allow for the addition of elements inside our new control.
+
+The convention for a property of a Control containing multiple child elements is for it to be called `Children`. To recreate the behavior of the `VerticalStackLayout`, this should be of the type `IList<IView>`.
 
 
-- combining types for simplicity
-  - VerticallyScrollingPage (with Header)
-  - card view => exercise for you
-  - RoundImage (with border)
+```diff
++    public IList<IView> Children
++    {
++        get => (IList<IView>)GetValue(ChildrenProperty);
++        set => SetValue(ChildrenProperty, value);
++    }
 
-[[point 2 example and steps]]
++    public static readonly BindableProperty ChildrenProperty =
++        BindableProperty.Create(nameof(Children), typeof(IList<IView>), typeof(VerticallyScrollingPage), null, propertyChanged: ChildrenChanged);
 
-[[point 2 summary]]
++    private static void ChildrenChanged(BindableObject bindable, object oldValue, object newValue)
++    {
++        if (bindable is VerticallyScrollingPage b && newValue is IView newView)
++        {
++            b.verticalLayout.Children.Add(newView);
++        }
++    }
+```
 
-[[transition sentence]]
+**Be aware**: the logic of the  `ChildrenChanged` method is the simplest way to support adding child elements in XAML. This control was created to enable use from XAML and does not support dynamically changing content. If you wish to support that, you'll need to support removing elements in this method too.
+
+The final thing we need to do is specify that the "Children" property is the one to use for the "Content" of the element in the XAML file.  We do this by adding a `ContentProperty` attribute to the class.
+
+```diff
++[ContentProperty(nameof(Children))]
+public class VerticallyScrollingPage : StandardPage
+{
+```
+
+Now we've created our new class, let's use it in the app.  
+Update `DetailsPage.xaml` like this, to change the root element and remove the `ScrollView` and `Grid`.
+
+```diff
+-<c:StandardPage
++<c:VerticallyScrollingPage
+    x:Class="MonkeyFinder.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:c="clr-namespace:MonkeyFinder.Controls"
+    xmlns:e="clr-namespace:MonkeyFinder.Extensions"
+    xmlns:s="clr-namespace:MonkeyFinder"
+    xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
+    xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+    Title="{Binding Monkey.Name}"
+    x:DataType="viewmodel:MonkeyDetailsViewModel">
+-    <ScrollView>
+-        <Grid RowDefinitions="Auto,*">
+
+...
+
+            <VerticalStackLayout
+                x:Name="BodyContent"
+-               Grid.Row="1"
+                Spacing="{StaticResource InternalSpacing}">
+
+...
+
+-        </Grid>
+-    </ScrollView>
+-</c:StandardPage>
++</c:VerticallyScrollingPage>
+```
+
+As we've changed the roof element of the XAML file and MAUI generates a partial class based on this type, we also need to update the base class in `DetailsPage.xaml.cs`
+
+```diff
+-public partial class DetailsPage : StandardPage
++public partial class DetailsPage : VerticallyScrollingPage
+```
+
+If you run the app now, as expected, see that it looks and behaves in exactly the same way as before.
+
+In this section, you saw how combining multiple elements can simplify the code in each file and create reusable components you can use throughout an app without duplicating code.
+
+We did all this with C#, but in the next section, we'll combine XAML and C# to encapsulate more complex UI logic.
 
 ## Isolating stand-alone pieces of logic
 
@@ -201,6 +316,9 @@ I find making changes like those above, where I can remove a lot of code but sti
 detail page header
 
 [[point 3 example and steps]]
+
+If you look at `MainPage.xaml` with the above thoughts still fresh in your mind, it should hopefully be apparent that the `s:CardView` type is a strong candidate for being replaced with a single type that combines all the functionality and elements that are in the `Frame` it represents. I'll leave that as an exercise if you wish to try applying what you've learned above.
+
 
 [[point 3 summary]]
 
