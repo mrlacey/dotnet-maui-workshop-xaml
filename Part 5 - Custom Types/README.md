@@ -210,8 +210,8 @@ We want this new control to encapsulate the other controls, so we'll create them
 ```diff
 public class VerticallyScrollingPage : StandardPage
 {
-+    public ScrollView scrollView;
-+    public VerticalStackLayout verticalLayout;
++    private readonly ScrollView scrollView;
++    private readonly VerticalStackLayout verticalLayout;
 
 +    public VerticallyScrollingPage()
 +    {
@@ -303,7 +303,7 @@ As we've changed the roof element of the XAML file and MAUI generates a partial 
 +public partial class DetailsPage : VerticallyScrollingPage
 ```
 
-If you run the app now, as expected, see that it looks and behaves in exactly the same way as before.
+If you run the app now, as expected, you'll see that it looks and behaves the same as before.
 
 In this section, you saw how combining multiple elements can simplify the code in each file and create reusable components you can use throughout an app without duplicating code.
 
@@ -311,13 +311,131 @@ We did all this with C#, but in the next section, we'll combine XAML and C# to e
 
 ## Isolating stand-alone pieces of logic
 
+When you have a large class or file in any other programming language, and a part of that content 
+
 [[point 3 introduction]]
 
 detail page header
 
+
+
+
+
+
 [[point 3 example and steps]]
 
-If you look at `MainPage.xaml` with the above thoughts still fresh in your mind, it should hopefully be apparent that the `s:CardView` type is a strong candidate for being replaced with a single type that combines all the functionality and elements that are in the `Frame` it represents. I'll leave that as an exercise if you wish to try applying what you've learned above.
+"Add" > "New Item..." > ".NET MAUI ContentView (XAML)"
+
+
+`DetailPageHeader.xaml.cs`
+
+```csharp
+public partial class DetailPageHeader : ContentView
+{
+    public DetailPageHeader()
+    {
+        InitializeComponent();
+    }
+
+    public static readonly BindableProperty TitleProperty = BindableProperty.Create(nameof(Title), typeof(string), typeof(DetailPageHeader), string.Empty);
+    public static readonly BindableProperty ImageSourceProperty = BindableProperty.Create(nameof(ImageSource), typeof(string), typeof(DetailPageHeader), null);
+
+    public string Title
+    {
+        get => (string)GetValue(TitleProperty);
+        set => SetValue(TitleProperty, value);
+    }
+
+    public string ImageSource
+    {
+        get => (string)GetValue(ImageSourceProperty);
+        set => SetValue(ImageSourceProperty, value);
+    }
+}
+```
+
+
+
+`DetailPageHeader.xaml`
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="MonkeyFinder.Controls.DetailPageHeader"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:e="clr-namespace:MonkeyFinder.Extensions"
+    xmlns:s="clr-namespace:MonkeyFinder"
+    x:Name="this">
+    <VerticalStackLayout
+        x:Name="HeaderSection"
+        BackgroundColor="{StaticResource Primary}"
+        BindingContext="{x:Reference this}">
+        <Border
+            HeightRequest="{StaticResource LargeSquareImageSize}"
+            Stroke="White"
+            StrokeThickness="6"
+            WidthRequest="{StaticResource LargeSquareImageSize}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
+            </Border.StrokeShape>
+            <Image
+                HeightRequest="{StaticResource LargeSquareImageSize}"
+                Source="{Binding ImageSource}"
+                WidthRequest="{StaticResource LargeSquareImageSize}" />
+        </Border>
+        <s:Heading
+            FontAttributes="Bold"
+            HorizontalOptions="Center"
+            Text="{Binding Title}"
+            TextColor="White" />
+    </VerticalStackLayout>
+</ContentView>
+```
+
+
+
+
+
+`DetailsPage.xaml`
+
+
+```diff
+-    <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
+-        <Border
+-            HeightRequest="{StaticResource LargeSquareImageSize}"
+-            Stroke="White"
+-            StrokeThickness="6"
+-            WidthRequest="{StaticResource LargeSquareImageSize}">
+-            <Border.StrokeShape>
+-                <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
+-            </Border.StrokeShape>
+-            <Image
+-                HeightRequest="{StaticResource LargeSquareImageSize}"
+-                Source="{Binding Monkey.Image}"
+-                WidthRequest="{StaticResource LargeSquareImageSize}" />
+-        </Border>
+-        <s:Heading
+-            FontAttributes="Bold"
+-            HorizontalOptions="Center"
+-            Text="{Binding Monkey.Name}"
+-            TextColor="White" />
+-    </VerticalStackLayout>
+
++    <c:DetailPageHeader Title="{Binding Monkey.Name, Mode=OneWay}" ImageSource="{Binding Monkey.Image, Mode=OneWay}" />
+```
+
+
+`DetailsPage.xaml.cs`
+
+```diff
+-public partial class DetailsPage : VerticallyScrollingPage
++public partial class DetailsPage
+```
+
+
+
+If you look at `MainPage.xaml` with the above thoughts still fresh in your mind, it should hopefully be apparent that the `s:CardView` type is a strong candidate for being replaced with a single type that combines all the functionality and elements that are in the `Frame` it represents. I'll leave that as a separate exercise if you wish to try applying what you've learned above.
 
 
 [[point 3 summary]]

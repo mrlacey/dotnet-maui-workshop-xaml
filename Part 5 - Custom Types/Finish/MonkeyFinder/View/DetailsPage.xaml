@@ -4,35 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:c="clr-namespace:MonkeyFinder.Controls"
-    xmlns:e="clr-namespace:MonkeyFinder.Extensions"
     xmlns:s="clr-namespace:MonkeyFinder"
     xmlns:str="clr-namespace:MonkeyFinder.Resources.Strings"
     xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
-    <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
-        <Border
-            HeightRequest="{StaticResource LargeSquareImageSize}"
-            Stroke="White"
-            StrokeThickness="6"
-            WidthRequest="{StaticResource LargeSquareImageSize}">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="{e:GetRadius Diameter={StaticResource LargeSquareImageSize}}" />
-            </Border.StrokeShape>
-            <Image
-                HeightRequest="{StaticResource LargeSquareImageSize}"
-                Source="{Binding Monkey.Image}"
-                WidthRequest="{StaticResource LargeSquareImageSize}" />
-        </Border>
-        <s:Heading
-            FontAttributes="Bold"
-            HorizontalOptions="Center"
-            Text="{Binding Monkey.Name}"
-            TextColor="White" />
-    </VerticalStackLayout>
+
+    <c:DetailPageHeader Title="{Binding Monkey.Name, Mode=OneWay}" ImageSource="{Binding Monkey.Image, Mode=OneWay}" />
 
     <VerticalStackLayout x:Name="BodyContent" Spacing="{StaticResource InternalSpacing}">
-
         <s:StandardButton
             Margin="8"
             Command="{Binding OpenMapCommand}"

@@ -1,10 +1,10 @@
 ﻿namespace MonkeyFinder.Controls;
 
 [ContentProperty(nameof(Children))]
-public class VerticallyScrollingPage : StandardPage
+public class VerticallyScrollingPage : ContentPage
 {
-    public ScrollView scrollView;
-    public VerticalStackLayout verticalLayout;
+    private readonly ScrollView scrollView;
+    private readonly VerticalStackLayout verticalLayout;
 
     public VerticallyScrollingPage()
     {
