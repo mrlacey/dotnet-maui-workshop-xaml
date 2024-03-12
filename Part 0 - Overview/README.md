@@ -2,8 +2,8 @@
 
 In this workshop, we will focus on creating UIs with XAML. If you're not a fan of XAML and prefer to make the UI with C#, that's a valid option, and you're welcome to do so, but we won't be covering that here.  However, you might want to stick around (or skip to the end) and see if the XAML we end up with is more to your liking.
 
-Let's start by looking at an example page from the final version. [TODO ADD LINK TO FINAL DETAILS PAGE]
-Now, compare it with the version we started with.  [TODO ADD LINK TO INITIAL DETAILS PAGE]
+Let's start by looking at an example [page from the final version](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%205%20-%20Custom%20Types/Finish/MonkeyFinder/View/DetailsPage.xaml).  
+Now, compare it with [the version we started with](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%201%20-%20Fundamentals/Start/MonkeyFinder/View/DetailsPage.xaml).
 
 It looks very different:
 
@@ -99,8 +99,7 @@ Through the following parts of this workshop, we'll look at principles, "best pr
 - In part 2, we'll look at applying the Single Responsibility Principle to our XAML.
 - In part 3, we'll see how "magic values" often permeate XAML files in ways that would not be tolerated in any other language.
 - In part 4, we'll explore how naming elements in XAML is especially important and how most people and samples get this wrong.
-- In part 5, we'll see how custom types (of varying levels of complexity) can make a big difference.
-- And part 6 will bring things to a close by looking at how we can go further.
+- And part 5, we'll see how custom types (of varying levels of complexity) can make a big difference.
 
 ## Disclaimer
 

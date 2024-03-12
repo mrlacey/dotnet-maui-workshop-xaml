@@ -4,7 +4,7 @@ In this part, we will look at the fundamentals of a good code base regardless of
 
 While the last part was entirely theoretical, we're now ready to look at code. As we're carrying on from the other workshop, you can keep going with the code you had there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## Outline
+## 1.0 Outline
 
 In this part, we will start with some simple tasks because getting the fundamentals right is essential for doing more advanced tasks.
 
@@ -19,7 +19,7 @@ In this part, we'll look at:
 
 These are simple tasks, but don't be fooled into thinking everything will be this simple. There will be much more to see once we pass the fundamental stage.
 
-## Consistency
+## 1.1 Consistency
 
 A tidy code base is a happy code base. More importantly, a consistent code base is easier to maintain.
 
@@ -93,7 +93,7 @@ Sometimes, you may need to compromise readability for performance or other prior
 
 However, you may have noticed some comments in the code. Let's get rid of them.
 
-## Comments
+## 1.2 Comments
 
 Good code is self describing and doesn't need comments to explain _what_ it does. At best, comments like this are redundant and add clutter. What's worse is when such comments aren't updated when the code is changed. This leads to code that does one thing, but its accompanying comment says something different. Scenarios like this can be confusing as it's not always apparent which is correct. Time and effort is then wasted working out if the comment is outdated or if the code needs to be changed to match the comment.
 
@@ -131,7 +131,7 @@ Even better than leaving it in the file for future use is moving it to the issue
 
 We don't only need to think about what should (and shouldn't) be within a file. It's also important to consider the order of elements within a XAML file.
 
-## The structure within files
+## 1.3 The structure within files
 
 A XAML file is a description of the elements that make up a UI. When reading through the file it can aid understanding if the order of the elements reflects the order they are shown on screen. For some controls, such as a `StackLayout`, the order of child elements in the file directly relates to the order they are shown on screen. For other controls the orders don't have to be the same.
 
@@ -160,7 +160,7 @@ After setting this option and applying the formatting change, the `ActivityIndic
 
 Having thought about the structure of individual files, let's expand our thinking to the structuring of files within the project.
 
-## The structure of the project
+## 1.4 The structure of the project
 
 The Monkey Finder app is small and simple, but more complex apps can quickly need many more `Resources`. When this is the case, defining all the `Resources` in `App.xaml` becomes hard to manage.
 

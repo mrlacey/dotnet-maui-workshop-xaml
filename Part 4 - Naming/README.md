@@ -4,7 +4,7 @@ In this part, we will look at the names we give to the elements and resources we
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## Outline
+## 4.0 Outline
 
 Naming is a famously tricky part of software development. Naming is difficult because it is so crucial to explaining the code and why it is there. Understanding code is critical to its easy maintenance, so we can't overlook it.
 
@@ -16,7 +16,7 @@ In this part, we'll look at:
 
 What makes a good name is often subjective and the names used in your UI have different requirements to other parts of a codebase. Let's get into it.
 
-## What makes a good name
+## 4.1 What makes a good name
 
 General advice for naming in software is to use a specific, descriptive name for what something does. While this is good advice for objects, it doesn't help produce maintainable XAML.
 
@@ -53,7 +53,7 @@ The above points for what makes a good name should serve as guidelines for namin
 
 With these guidelines defined, we can now start applying them to the code.
 
-## Naming Resources and Styles
+## 4.2 Naming Resources and Styles
 
 We'll first look at improving the names of the Styles used in the code. We'll start by updating the "ButtonOutline" mentioned above and then look at the different Styes used for Labels.
 
@@ -165,7 +165,7 @@ There are no uses of the `MicroLabel` style, remove it:
 
 With these changes, we've made the names of the Styles more meaningful and less likely to need to be changed when the way they look needs to change. Now, we can look at adding more meaningful names to the elements in the XAML and the controls they represent.
 
-## Naming Elements and Controls
+## 4.3 Naming Elements and Controls
 
 The names we give to things help us understand their purpose and capabilities. However, adding names to things has two potentially negative consequences:
 
