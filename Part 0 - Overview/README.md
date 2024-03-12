@@ -16,10 +16,10 @@ It looks very different:
 Those changes are what's easily quantifiable, but there are some intangible differences too:
 
 - **It's now quicker to read**. And not just because there's less text on the screen.
-- **It's easier to understand**. Because you don't have to work out what the elements represent or why they're there.
+- **It's easier to understand**. Because you don't have to determine what the elements represent or why they're there.
 - **It's easier to support and modify (maintain)**. By understanding what's there and why, there's less chance of unexpected consequences when making a change.
 
-There are many ways that the **Monkey Finder** app you created as part of the .NET MAUI Workshop can be improved, but in this workshop, we're only going to look at the XAML.  
+There are many ways to improve the **Monkey Finder** app you created as part of the .NET MAUI Workshop, but in this workshop, we'll only look at the XAML.  
 This focus is because many people frequently overlook XAML, but it's one of the most criticized aspects of building apps with .NET MAUI.
 
 ## 0.1 - Why it's important to look in detail at how we write XAML
@@ -28,7 +28,15 @@ XAML is often criticized as being overly complex and verbose. This is often due 
 
 Many people are unaware that there are multiple ways of writing XAML, and I've met very few developers who have ever thought about what "good XAML" looks like.
 
-If this isn't something you've thought about before, take a moment now to think about what would make a good XAML file.
+If you haven't considered this before, take a moment now to consider what makes a good XAML file.
+
+It's ok, I'll wait.
+
+...
+
+...
+
+...
 
 ...
 
@@ -38,11 +46,11 @@ Here's my list.
 
 Good XAML should be:
 
-- **Clear** - so that it's easy to read and understand.
+- **Clear** - so it's easy to read and understand.
 - **Concise** - so there's no unnecessary duplication or unnecessary text.
 - **Consistent** - which makes it easier to read and understand.
 - **Self-describing** - so it doesn't need extra comments or time spent deciphering the complex nested XML.
-- **Maintainable** - which is the result of all of the above.
+- **Maintainable** - which results from all of the above.
 
 Hopefully, you can appreciate that none of my points about what makes good XAML are specific to XAML but apply to any programming language.
 
@@ -52,9 +60,9 @@ If you're new to working with XAML and aren't familiar with some of the problems
 
 ## 0.2 - Why is this workshop necessary?
 
-If you're one of the people who has never before thought about what counts as "good XAML," then it should be obvious why considering this is important.
+If you're one of the people who has never before considered what counts as "good XAML," then it should be obvious why this is important.
 
-From a broader perspective, I think there are three factors that have led to the reason that there's so much low-quality XAML in use today.
+From a broader perspective, I think there are three factors that have led to the widespread use of low-quality XAML today.
 
 1. Developers treat XAML as the designer's responsibility - and designers don't care about XAML.
 2. XAML was originally intended to be written by tools and not by hand.
@@ -77,7 +85,7 @@ You are not a robot. Your XAML will need to be read by other humans. Therefore, 
 "It's only XAML. It doesn't matter." Until it does.  
 When you have to explain why what should be a simple change to the UI is taking ages because it's hard to alter one thing without unintended side effects. Or when you dread having to work with a particular code base because it's so hard to work out what the existing code does.
 
-These are scenarios that have been shared with me many times. But, it's not our fault:
+These are scenarios that have been shared with me many times. But it's not our fault:
 
 - Over the years, very little time has been spent teaching more than the fundamentals of writing XAML.
 - There is a lack of samples and examples we can look at to see XAML being done well.
@@ -114,4 +122,4 @@ My intention is not that you build apps with XAML in the ways shown in the origi
 
 Now that you know why it's important to think about XAML like any other programming language
 
-Now that you're ready to focus on XAML, let's look at some code! [Head over to Part 1 to get started](../Part%201%20-%20Fundamentals/README.md)!
+Now that you're ready to focus on XAML let's look at some code! [Head over to Part 1 to get started](../Part%201%20-%20Fundamentals/README.md)!
