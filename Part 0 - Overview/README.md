@@ -7,12 +7,11 @@ Now, compare it with [the version we started with](https://github.com/mrlacey/do
 
 It looks very different:
 
-[TODO: update the following figures]
-- It's much shorter: N lines rather than M
-- It contains fewer elements: S rather than T
-- Those elements include fewer attributes: H rather than G
+- It's much shorter: 27 lines rather than 56
+- It contains fewer elements: 7 rather than 12
+- Those elements include fewer attributes: 21 rather than 48
 
-[TODO: ADD DIFF IMAGE OF THE TWO VERSIONS SIDE BY SIDE]
+![Diff: DetailsPage.xaml before and after](../Art/diff-detailspage-xaml.png)
 
 Those changes are what's easily quantifiable, but there are some intangible differences too:
 
