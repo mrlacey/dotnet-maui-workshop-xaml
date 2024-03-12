@@ -4,7 +4,7 @@ In this part, we will create and use custom types in our XAML files. These chang
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## Outline
+## 5.0 Outline
 
 Now you've reached the final part of this workshop, you may notice how the XAML in the project already looks very different from what we started with. Despite all these differences, there are still lots of ways that we can further improve it.
 
@@ -16,7 +16,7 @@ In this part, we'll look at:
 
 Creating UI controls can be a little daunting. Don't worry. We'll start with some code so straightforward and yet transformational that you will wonder why you've never seen code like it before.
 
-## Creating types based on Styles
+## 5.1 Creating types based on Styles
 
 Creating reusable Styles is a great way to simplify and standardize our XAML code while also making it easier to maintain. But what if it could do more?
 
@@ -178,7 +178,7 @@ Each of these points contributes to having XAML files that are easier to underst
 
 I find making changes like those above, where I can remove a lot of code but still maintain the same functionality, very satisfying. Even more pleasing than removing individual attributes is removing whole elements. That's what we'll get to do next.
 
-## Composition of multiple types
+## 5.2 Composition of multiple types
 
 Above, we simplified XAML elements by removing attributes we didn't need. Now, we'll look at simplifying files by removing elements we don't need.
 
@@ -299,7 +299,7 @@ In this section, you saw how combining multiple elements can simplify the code i
 
 We did all this with C#, but in the next section, we'll combine XAML and C# to encapsulate more complex UI logic.
 
-## Isolating stand-alone pieces of logic
+## 5.3 Isolating stand-alone pieces of logic
 
 When you have a large class or file in any other programming language, and a part of that content could be resued on its own, it is common to extract that code into its own file or class. Even if you weren't going to reuse that code in other places, multiple smaller files (and classes) can be seasy to work with than a single large one.
 

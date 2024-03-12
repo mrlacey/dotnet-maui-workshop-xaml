@@ -4,7 +4,7 @@ In this part, we will look at the [Single Responsibility Principle](https://en.w
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## Outline
+## 2.0 Outline
 
 At its simplest, the Single Responsibility Principle states that "A class should have only one reason to change." It can be easy to see how this can be applied to an object-oriented language like C#, but it isn't always obvious how this can relate to XAML files.
 
@@ -17,7 +17,7 @@ In this part, we'll look at:
 
 Yes, there are only two sections to this part, but they're the building blocks of making XAML files that are easy to maintain.
 
-## How this helps make code easier to maintain
+## 2.1 How this helps make code easier to maintain
 
 If you have previous experience with .NET MAUI (or other platforms that use XAML), you've probably encountered the idea of putting the data and logic for a particular piece of UI in a `ViewModel`. ViewModels are great at separating the logic from the UI, but they don't do a lot to help make it easier to maintain the XAML files.
 
@@ -56,7 +56,7 @@ Grids are a great solution to specific layout challenges, but putting everything
 
 Now, let's move on from the theory and see how we might change the existing code so it's easier to modify without having to make changes in lots of different places. We'll do this by having separate elements for presentation (those that a person will see and interact with) and for the positioning of those presentation elements.
 
-## Separating content and layout
+## 2.3 Separating content and layout
 
 Separating content elements and those that control where and how they're positioned may sound good in principle, but where do you start? Don't worry; it's actually very simple.
 
@@ -324,7 +324,7 @@ More importantly, we've:
 - Encapsulated logic.
 - Simplified the code.
 
-## Summary
+## 2.4 Summary
 
 This whole part has been about making the XAML simpler for those (possibly including ourselves) who may have to try and understand and modify the code in the future.
 
