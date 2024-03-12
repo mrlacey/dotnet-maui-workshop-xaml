@@ -4,7 +4,7 @@ In this part, we will look at the fundamentals of a good code base regardless of
 
 While the last part was entirely theoretical, we're now ready to look at code. As we're carrying on from the other workshop, you can keep going with the code you had there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## 1.0 Outline
+## 1.0 - Outline
 
 In this part, we will start with some simple tasks because getting the fundamentals right is essential for doing more advanced tasks.
 
@@ -19,7 +19,7 @@ In this part, we'll look at:
 
 These are simple tasks, but don't be fooled into thinking everything will be this simple. There will be much more to see once we pass the fundamental stage.
 
-## 1.1 Consistency
+## 1.1 - Consistency
 
 A tidy code base is a happy code base. More importantly, a consistent code base is easier to maintain.
 
@@ -59,7 +59,7 @@ or
 
 Once XAML Styler is installed, reopen the solution in Visual Studio.
 
-Now open each of the xaml files in turn, right-click on the editor window, and select **Format XAML**.
+Now open each of the XAML files in turn, right-click on the editor window, and select **Format XAML**.
 
 - App.xaml
 - AppShell.xaml
@@ -93,7 +93,7 @@ Sometimes, you may need to compromise readability for performance or other prior
 
 However, you may have noticed some comments in the code. Let's get rid of them.
 
-## 1.2 Comments
+## 1.2 - Comments
 
 Good code is self describing and doesn't need comments to explain _what_ it does. At best, comments like this are redundant and add clutter. What's worse is when such comments aren't updated when the code is changed. This leads to code that does one thing, but its accompanying comment says something different. Scenarios like this can be confusing as it's not always apparent which is correct. Time and effort is then wasted working out if the comment is outdated or if the code needs to be changed to match the comment.
 
@@ -131,7 +131,7 @@ Even better than leaving it in the file for future use is moving it to the issue
 
 We don't only need to think about what should (and shouldn't) be within a file. It's also important to consider the order of elements within a XAML file.
 
-## 1.3 The structure within files
+## 1.3 - The structure within files
 
 A XAML file is a description of the elements that make up a UI. When reading through the file it can aid understanding if the order of the elements reflects the order they are shown on screen. For some controls, such as a `StackLayout`, the order of child elements in the file directly relates to the order they are shown on screen. For other controls the orders don't have to be the same.
 
@@ -160,7 +160,7 @@ After setting this option and applying the formatting change, the `ActivityIndic
 
 Having thought about the structure of individual files, let's expand our thinking to the structuring of files within the project.
 
-## 1.4 The structure of the project
+## 1.4 - The structure of the project
 
 The Monkey Finder app is small and simple, but more complex apps can quickly need many more `Resources`. When this is the case, defining all the `Resources` in `App.xaml` becomes hard to manage.
 
@@ -323,7 +323,7 @@ Update `App.xaml` so that it looks like this:
 
 `App.xaml` is now responsible for bringing all the different `Resources` together rather than defining them. As a general rule, it's easier to work with multiple, smaller files that are each focused on one thing than it is to work with one large file that tries to do everything.
 
-You may recognize the files we've added as being the same as those included by default in a new .NET MAUI project. This isn't a coincidence. Grouping resources like this has been popular since before .NET MAUI was released. It isn't a requirement or a rule that you use these files and only these files. Create files that group related Resources together and give the files appropriate names. Just make sure you're consistent. [TODO: make reference to part 4]
+You may recognize the files we've added as being the same as those included by default in a new .NET MAUI project. This isn't a coincidence. Grouping resources like this has been popular since before .NET MAUI was released. It isn't a requirement or a rule that you use these files and only these files. Create files that group related Resources together and give the files appropriate names. Just make sure you're consistent. (Consistency is so important, we'll look at in more detail in Part 4.)
 
 If you run the app now it will still look and behave in exactly the same way as at the start of this part. All we've done is change the structure and formatting of some files. There haven't been any big changes, yet, as we've only focused on the fundamentals. We need to ensure these are right before making more profound changes, like the ones in the following parts.
 

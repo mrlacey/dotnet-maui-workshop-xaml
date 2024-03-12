@@ -4,19 +4,19 @@ In this part, we will look at the names we give to the elements and resources we
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## 4.0 Outline
+## 4.0 - Outline
 
 Naming is a famously tricky part of software development. Naming is difficult because it is so crucial to explaining the code and why it is there. Understanding code is critical to its easy maintenance, so we can't overlook it.
 
 In this part, we'll look at:
 
-- What makes a good name
-- Naming Resources and Styles
-- Naming Elements and Controls
+- What makes a good name.
+- Naming Resources and Styles.
+- Naming Elements and Controls.
 
 What makes a good name is often subjective and the names used in your UI have different requirements to other parts of a codebase. Let's get into it.
 
-## 4.1 What makes a good name
+## 4.1 - What makes a good name
 
 General advice for naming in software is to use a specific, descriptive name for what something does. While this is good advice for objects, it doesn't help produce maintainable XAML.
 
@@ -26,9 +26,9 @@ You may argue that as it creates a button with an outline drawn around it when u
 
 A good name for something in the UI tells us:
 
-- Where to use it
-- When to use it
-- Is semantically meaningful
+- Where to use it.
+- When to use it.
+- Is semantically meaningful.
 
 Again, you might think you should use this style whenever you need a button drawn with an outline, so it is a good name.  
 But what happens when the app's design is updated?
@@ -53,7 +53,7 @@ The above points for what makes a good name should serve as guidelines for namin
 
 With these guidelines defined, we can now start applying them to the code.
 
-## 4.2 Naming Resources and Styles
+## 4.2 - Naming Resources and Styles
 
 We'll first look at improving the names of the Styles used in the code. We'll start by updating the "ButtonOutline" mentioned above and then look at the different Styes used for Labels.
 
@@ -87,15 +87,16 @@ Change the name of the Style to `Heading`.
 
 Update the use of this Style on each page.
 
-The name "Heading" is more meaningful and communicates to anyone looking at the code why that element is there. If the way headings look is changed in the future, this element will still represent a "heading". You only need to alter the styling in one place, and all instances throughout the app will be updated. Imagine we wanted to visually distinguish "Headings" not by size but by using a different font family and weight. The name "LargeLabel" would no longer be appropriate, but "Heading" will still be.
+The name "Heading" is more meaningful and communicates to anyone looking at the code why that element is there. If the way headings look is changed in the future, this element will still represent a "heading". You only need to alter the styling in one place, and all instances throughout the app will be updated.  
+Imagine we wanted to visually distinguish "Headings" not by size but by using a different font family and weight. The name "LargeLabel" would no longer be appropriate, but "Heading" will still be.
 
-Using a suffix or prefix of the Type is unnecessary as part of the name. "HeadingLabel" or "LabelHeading" add no useful additional information when compared to "Heading" and so the shorter version is preferred. If you have multiple similar names, and it becomes necessary to distinguish them by name then this can be done. Note that the autocomplete (intellisense) within Visual Studio will filter resources by TargetType when you use them. This should remove the argument for including the type in the name to help ensure it is used correctly. A good name will also help avoid accidental misuse. In the next part we'll also look at another, related, way that can help ensure you don't use the wrong resource with as type.
+Using a suffix or prefix of the Type is unnecessary as part of the name. "HeadingLabel" or "LabelHeading" add no useful additional information when compared to "Heading" and so the shorter version is preferred. If you have multiple similar names, and it becomes necessary to distinguish them by type name then this can be done. Note that the autocomplete (intellisense) within Visual Studio will filter resources by TargetType when you use them. This should remove the argument for including the type in the name to help ensure it is used correctly. A good name will also help avoid accidental misuse. In the next part we'll also look at another, related, way that can help ensure you don't use the wrong resource with as type.
 
 It's now possible to look at the code and know that "that's a heading, which makes sense given the content and position." There's no need to wonder why something is styled as being a "LargeLabel" and question if that is appropriate. 
 
 The `MediumLabel` is more complicated. This is used to show two semantically different types of information. On the main page, it shows the location of each monkey in the list. On the details page, the Style is used for the text that is the "main" or "body" of the content.
 
-Rather than a single style used for different reasons just because they are currently styled the same way. Let's rename the `MediumLabel` to `ListDetails` and add another `Style` with the name `BodyText` and other details matching those of "ListDetails".
+Rather than a single style used for different reasons just because they are currently rendered to look the same. Let's rename the `MediumLabel` to `ListDetails` and add another `Style` with the name `BodyText` and other details matching those of "ListDetails".
 
 ```diff
     <Style
@@ -165,7 +166,7 @@ There are no uses of the `MicroLabel` style, remove it:
 
 With these changes, we've made the names of the Styles more meaningful and less likely to need to be changed when the way they look needs to change. Now, we can look at adding more meaningful names to the elements in the XAML and the controls they represent.
 
-## 4.3 Naming Elements and Controls
+## 4.3 - Naming Elements and Controls
 
 The names we give to things help us understand their purpose and capabilities. However, adding names to things has two potentially negative consequences:
 

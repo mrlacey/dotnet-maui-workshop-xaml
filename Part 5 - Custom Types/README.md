@@ -4,19 +4,19 @@ In this part, we will create and use custom types in our XAML files. These chang
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## 5.0 Outline
+## 5.0 - Outline
 
 Now you've reached the final part of this workshop, you may notice how the XAML in the project already looks very different from what we started with. Despite all these differences, there are still lots of ways that we can further improve it.
 
 In this part, we'll look at:
 
-- Creating types based on Styles
-- Composition of multiple types
-- Isolating stand-alone pieces of logic
+- Creating types based on Styles.
+- Composition of multiple types.
+- Isolating stand-alone pieces of logic.
 
 Creating UI controls can be a little daunting. Don't worry. We'll start with some code so straightforward and yet transformational that you will wonder why you've never seen code like it before.
 
-## 5.1 Creating types based on Styles
+## 5.1 - Creating types based on Styles
 
 Creating reusable Styles is a great way to simplify and standardize our XAML code while also making it easier to maintain. But what if it could do more?
 
@@ -47,8 +47,12 @@ That code says:
 2. Bind the Text property to the "Name" of the BindingContext. (Show the name as the text of the heading.)
 
 Not only is this simpler, but it also provides semantic meaning to the element in the file. I don't need to know that this uses a `Label` control to display the text. I don't need to care.  
+
 Not only does having less code to read make it easier to maintain, but it also makes it easier for someone less familiar with XAML to understand and maintain.  
-This approach means that you can use the XAML document to describe the structure of the UI that you want. You don't need to include everything in one file. Many of the specifics can be moved to their own places (files) where they can be looked at in isolation if needed.  
+
+This approach means that you can use the XAML document to describe the structure of the UI that you want.
+
+You don't need to include everything in one file. Many of the specifics can be moved to their own places (files) where they can be looked at in isolation if needed.  
 This matches the way you structure your C# code. You don't put everything in one big file or class. You create specific classes for specific purposes. You give those classes meaningful names. And you use those names directly to make the code easier to read and understand. That's all the above is doing to make the code easier to maintain.
 
 But, what is this magical `s:Heading` element, and where did it come from?
@@ -76,7 +80,9 @@ All it does is:
 - Create a new type called `Heading` that inherits from `Label`
 - When created, it gets the resource called "Heading" and applies it to the control.
 
-But wait, you may be thinking, that's a C# file, and all the UI should be done in XAML. Nope. There is absolutely no reason not to mix C# and XAML. Your codebase already contains a combination of the two, and combining them can make your code (and your life) much simpler. Not only are some things easier or require less code in one language, they may even require fewer files.  
+But wait, you may be thinking, that's a C# file, and all the UI should be done in XAML. **Nope.** 
+
+There is absolutely no reason not to mix C# and XAML. Your codebase already contains a combination of the two, and combining them can make your code (and your life) much simpler. Not only are some things easier or require less code in one language, they may even require fewer files.  
 Yes, you could create a version of the `Heading` class (control) that uses both a XAML file and a C# one, but why would you when the above works fine?
 
 In fact, you don't need to write the above code at all!
@@ -107,8 +113,8 @@ Make these changes:
 
 -             <Label Style="{StaticResource Heading}" Text="{Binding Name}" />
 +             <s:Heading Text="{Binding Name}" />
-+             <s:ListDetails Text="{Binding Location}" />
 -             <Label Style="{StaticResource ListDetails}" Text="{Binding Location}" />
++             <s:ListDetails Text="{Binding Location}" />
             </VerticalStackLayout>
         </Grid>
 -   </Frame>
@@ -178,7 +184,7 @@ Each of these points contributes to having XAML files that are easier to underst
 
 I find making changes like those above, where I can remove a lot of code but still maintain the same functionality, very satisfying. Even more pleasing than removing individual attributes is removing whole elements. That's what we'll get to do next.
 
-## 5.2 Composition of multiple types
+## 5.2 - Composition of multiple types
 
 Above, we simplified XAML elements by removing attributes we didn't need. Now, we'll look at simplifying files by removing elements we don't need.
 
@@ -205,7 +211,7 @@ This new public class should inherit from our `StandardPage` to continue to bene
 +}
 ```
 
-We want this new control to encapsulate the other controls, so we'll create them in the constructor, putting the `VerticalStackLayout` inside the `ScrollView` which we'll set at the `Content` of the page.
+We want this new control to encapsulate the other controls, so we'll create them in the constructor, putting the `VerticalStackLayout` inside the `ScrollView` which we'll set as the `Content` of the page.
 
 ```diff
 public class VerticallyScrollingPage : StandardPage
@@ -299,7 +305,7 @@ In this section, you saw how combining multiple elements can simplify the code i
 
 We did all this with C#, but in the next section, we'll combine XAML and C# to encapsulate more complex UI logic.
 
-## 5.3 Isolating stand-alone pieces of logic
+## 5.3 - Isolating stand-alone pieces of logic
 
 When you have a large class or file in any other programming language, and a part of that content could be resued on its own, it is common to extract that code into its own file or class. Even if you weren't going to reuse that code in other places, multiple smaller files (and classes) can be seasy to work with than a single large one.
 
@@ -404,11 +410,12 @@ In `DetailsPage.xaml` we can now add an instance of the new `DetailsPageHeader` 
 +    <c:DetailPageHeader Title="{Binding Monkey.Name}" ImageSource="{Binding Monkey.Image}" />
 ```
 
-We've now reduced the size of `DetailsPage.xaml` by 19 lines. This reduction in file size is without making the Details page any less easier to understand as a whole. We've simply moved the details of the complexity of the "header" used on that page into a separeate file.
+We've now reduced the size of `DetailsPage.xaml` by 19 lines. This reduction in file size is without making the Details page any less easier to understand as a whole. We've simply moved the details of the complexity of the "header"  into a separate file.
 
 If you look at `MainPage.xaml` with the above thoughts still fresh in your mind, it should hopefully be apparent that the `s:CardView` type is a strong candidate for being replaced with a single type that combines all the functionality and elements that are in the `Frame` it represents. I'll leave that as a separate exercise if you wish to try applying what you've learned above.
 
 We've now finished refactoring the app by adding custom types.  
+
 You've seen how creating custom types based on the Styles that were being applied make the code shorter and more meaningful. We then looked to combine types that were always used together and extracting stand-alone pieces of UI logic into separate files. Both of these changes further reduced the size of the code on each page and made the specific intention of the code easier to understand.
 
 ## Conclusion
@@ -419,13 +426,13 @@ Look back at [what we started with](https://github.com/mrlacey/dotnet-maui-works
 
 All these changes have been made without changing the functionality and look of the UI.
 
-The goal and purpose of this workshop has not been to show you how to create with XAML. The aim has been to show that you can produce the same results with very different XAML.
+The goal and purpose of this workshop has not been to show you how to create with XAML. The aim has been to show that you can achieve the same results with very different XAML.
 
-More important than showing that variety is possible, I hope I've shown that different ways of writing the code make it clearer and therefore easier to read and understand. You wouldn't doubt that this statement applies to any other programming language but, sadly, this principle has been overlooked in terms of XAML.
+More important than showing that variety is possible, I hope I've shown that different ways of writing the code make it clearer and therefore easier to read and understand. You wouldn't doubt that this statement applies to any other programming language but, sadly, this principle has been overlooked for code written in XAML.
 
 Look again at the before and after versions of the file. Not only is the final file much smaller but the contents of this file are clearer and more meaningful. Imagine for a moment that you're not familiar with this code. Which would you rather have to work with? Which would you rather inherit from another developer? Which would you be more confident to change without unexpected consequences?
 
-I've shown the two different versions of the XAML from the DetailsPage to hundreds of developers (with varying levels of experience) and asked which version they'd rather work with and have to support, maintain, and modify. With only a couple of exceptions, people want to work with XAML that looks like the shorter (final) version. (Those who prefer the "original" version said it was because it was what they're used to and they didn't want to change. I hope they're reluctance to change is because they are already very productive.) 
+I've shown the two different versions of the XAML from the DetailsPage to hundreds of developers (with varying levels of experience) and asked which version they'd rather work with and have to support, maintain, and modify. With only a couple of exceptions, people want to work with XAML that looks like the shorter (final) version. (Those who prefer the "original" version said it was because it was what they're used to and they didn't want to change. I hope their reluctance to change is because they are already very productive.) 
 
 
 Of course I'd love your feedback on this workshop and your experiences and thoughts having completed it.  

@@ -22,7 +22,7 @@ Those changes are what's easily quantifiable, but there are some intangible diff
 There are many ways that the **Monkey Finder** app you created as part of the .NET MAUI Workshop can be improved, but in this workshop, we're only going to look at the XAML.  
 This focus is because many people frequently overlook XAML, but it's one of the most criticized aspects of building apps with .NET MAUI.
 
-## Why it's important to look in detail at how we write XAML
+## 0.1 - Why it's important to look in detail at how we write XAML
 
 XAML is often criticized as being overly complex and verbose. This is often due to the way it's written, but this doesn't have to be the case. If there are two different ways of writing something, one that takes six lines and another that only requires a single line, and you choose to use the longer version, complaining about the need for extra lines is, at best, misplaced. However, some people never learn that the shorter option is available. That's what this workshop is here to show you.
 
@@ -50,7 +50,7 @@ These points will help you write good code in any programming language. And yes,
 
 If you're new to working with XAML and aren't familiar with some of the problems I've already hinted at, I'll show bad examples in the coming parts so you can see the types of issues you can avoid.
 
-## Why is this workshop necessary?
+## 0.2 - Why is this workshop necessary?
 
 If you're one of the people who has never before thought about what counts as "good XAML," then it should be obvious why considering this is important.
 
@@ -60,19 +60,19 @@ From a broader perspective, I think there are three factors that have led to the
 2. XAML was originally intended to be written by tools and not by hand.
 3. There are very few examples of what "good" can look like or effort to improve things.
 
-### Whose responsibility is XAML?
+### 0.2.1 - Whose responsibility is XAML?
 
 I'm sure you're an exception to these generalizations, but many (most?) developers don't spend much time and effort focusing on the UI of their applications. The design and styling of the UI often falls to other people (designers), and they are not the ones who implement the designs. This disconnect means that no one person takes full ownership of the code used to implement the UI, and as long as the running app matches the images created by the designer, everyone can move on to other things (that they'd rather be doing.)
 
 Break the habit and take responsibility for what your XAML files look like. You'll benefit in the future when you come to modify them.
 
-### Write for humans
+### 0.2.2 - Write for humans
 
 In 2006, when XAML was first released (as part of WPF), the intention and expectation was that developers would use specific design-related tools to create their UIs with XAML and not write it all by hand. Over time, we've lost many of these design tools, and now there is little option (especially for .NET MAUI) other than to write XAML by hand. Elements defined with multiple levels of nesting and over many lines aren't a problem if you only see the UI through a design tool, but if you have to write that by hand (even in an editor with intellisense) it's far from ideal.
 
 You are not a robot. Your XAML will need to be read by other humans. Therefore, it makes sense to optimize writing XAML so that it's easier and simpler for people to write and read. The tooling doesn't have a preference for how the code is formatted, so you can use what's easiest (and best) for you and your team.
 
-### We can make things better, together
+### 0.2.3 - We can make things better, together
 
 "It's only XAML. It doesn't matter." Until it does.  
 When you have to explain why what should be a simple change to the UI is taking ages because it's hard to alter one thing without unintended side effects. Or when you dread having to work with a particular code base because it's so hard to work out what the existing code does.
@@ -90,7 +90,7 @@ We still need to create applications we can easily modify and maintain. It shoul
 
 There is a better way. And we need it.
 
-## What we'll be looking at
+## 0.3 - What we'll be looking at
 
 Through the following parts of this workshop, we'll look at principles, "best practices," and techniques for writing good code (of any kind/language) and applying them to our XAML.
 
@@ -100,7 +100,7 @@ Through the following parts of this workshop, we'll look at principles, "best pr
 - In part 4, we'll explore how naming elements in XAML is especially important and how most people and samples get this wrong.
 - And part 5, we'll see how custom types (of varying levels of complexity) can make a big difference.
 
-## Disclaimer
+## 0.4 - Disclaimer
 
 Many of the techniques, principles, and ideas covered in this workshop only have noticeable benefits when working on larger projects and applications. For a simple app like the **Monkey Finder** there is a perfectly valid argument that the XAML you already have is adequate for such an application.
 
@@ -110,7 +110,7 @@ The aim of this workshop isn't to show how to change the XAML of the **Monkey Fi
 
 My intention is not that you build apps with XAML in the ways shown in the original workshop (and elsewhere) and then modify that XAML to be easier to work with. Instead, it is that you get to a point where you can start with the better version. However, jumping straight into a different way of doing things can make it hard to understand why the reasons for the changes. Instead, we'll work through the list of principles to see how to apply them to existing XAML code. You'll then understand how to use them in the code you write in the future.
 
-## Getting started
+## 0.5 - Getting started
 
 Now that you know why it's important to think about XAML like any other programming language
 

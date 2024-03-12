@@ -1,12 +1,12 @@
 # Part 3 - "Magic Values"
 
-In this part, we will look at the use of "magic strings" and "magic numbers" (collectively referred to as "magic values") in XAML files. "Magic values" can make code harder to understand and often mean changes need to be made in more than one place. As such, it's wise to avoid them whenever possible and so we'll look at ways of doing this.
+In this part, we will look at the use of "magic strings" and "magic numbers" (collectively referred to as "magic values") in XAML files. "Magic values" can make code harder to understand and often mean changes need to be made in more than one place. Because of this, it's wise to avoid them whenever possible and so we'll look at ways of doing this.
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## 3.0 Outline
+## 3.0 - Outline
 
-Look at the xaml files in the project.
+Look at the XAML files in the project.
 You'll see lots of numbers and string values repeated many times.
 Are these the same because they represent the same underlying value, or is it a coincidence? How can you be sure? How would someone modifying the code in the future know which should all be changed together and which shouldn't?
 What if there's a typo in a string or a number? Would you know? When would you know?
@@ -25,7 +25,7 @@ In this part, we'll look at:
 
 Yes, this is a lot to look at, but we want to eliminate all the "magic" so we can clearly and easily follow and understand the code.
 
-## 3.1 Defining things once, in a base class
+## 3.1 - Defining things once, in a base class
 
 No one likes doing the same thing more than once. Similarly, you don't want to write the same code multiple times.
 
@@ -154,7 +154,7 @@ We now have a custom`Page` class we'd use for all pages in the app, and that has
 
 Creating a base class isn't the only way to simplify our XAML. Let's look at removing duplication by redefining some values as resources we can reuse in multiple places.
 
-## 3.2 Defining numbers once, as resources
+## 3.2 - Defining numbers once, as resources
 
 Numbers (integers, doubles, etc.) are widely used when defining a UI. If you were using C# to create your UI, you'd quickly spot that you were typing the same values in multiple places and create a variable (or a constant) to store them, give them meaning, and make future changes to those values easier. Because we're defining the UI in XAML doesn't mean we should avoid what would be considered good practice in any other programming language.
 
@@ -323,7 +323,7 @@ In `DetailsPage.xaml` make this change:
 
 The `Border` on `DetailsPage.xaml` includes a number (80) in the `StrokeShape` definition that is exactly half the value used for the Height and Width. This value would need to be changed if the height and width of the border changed. We could extract this to a resource and give it a name or add a comment to try and help ensure that any future changes are applied correctly, or we could do it another way. We'll look at that next.
 
-## 3.3 Doing simple math in a XAML file
+## 3.3 - Doing simple math in a XAML file
 
 We currently have two related numbers that we have specified in the code. If one is changed, the other must be changed proportionally as well. Rather than rely on people (other developers) to ensure that the two numbers are updated together, let's have the machine the code is running on calculate one of the numbers. _(Computers are very good at doing math.)_
 
@@ -420,7 +420,7 @@ Yes, that was, arguably, a lot of work to replace a single hard-coded value with
 
 While that was adding to the overall amount of code in our files, let's now look at another way of improving our XAML files that will reduce the amount of code.
 
-## 3.4 Making the most of implicit styles
+## 3.4 - Making the most of implicit styles
 
 An "implicit Style" is applied to a type without specifying its name (or key). When defined, we can consider them the "default" style when no other "explicit" style is specified.
 
@@ -526,7 +526,7 @@ With these changes now complete, the XAML on our two pages is now more consisten
 
 For the final section in this part, let's look at one of the most common places to use strings within an app: the displayed text.
 
-## 3.5 Text resources do more than enable localization
+## 3.5 - Text resources do more than enable localization
 
 [[point 5 introduction]]
 

@@ -4,7 +4,7 @@ In this part, we will look at the [Single Responsibility Principle](https://en.w
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
-## 2.0 Outline
+## 2.0 - Outline
 
 At its simplest, the Single Responsibility Principle states that "A class should have only one reason to change." It can be easy to see how this can be applied to an object-oriented language like C#, but it isn't always obvious how this can relate to XAML files.
 
@@ -12,12 +12,12 @@ Instead of thinking about classes, we can apply this rule by asserting that **an
 
 In this part, we'll look at:
 
-- How this helps make maintainable code
-- Separating your content and layout
+- How this helps make maintainable code.
+- Separating your content and layout.
 
 Yes, there are only two sections to this part, but they're the building blocks of making XAML files that are easy to maintain.
 
-## 2.1 How this helps make code easier to maintain
+## 2.1 - How this helps make code easier to maintain
 
 If you have previous experience with .NET MAUI (or other platforms that use XAML), you've probably encountered the idea of putting the data and logic for a particular piece of UI in a `ViewModel`. ViewModels are great at separating the logic from the UI, but they don't do a lot to help make it easier to maintain the XAML files.
 
@@ -56,7 +56,7 @@ Grids are a great solution to specific layout challenges, but putting everything
 
 Now, let's move on from the theory and see how we might change the existing code so it's easier to modify without having to make changes in lots of different places. We'll do this by having separate elements for presentation (those that a person will see and interact with) and for the positioning of those presentation elements.
 
-## 2.3 Separating content and layout
+## 2.3 - Separating content and layout
 
 Separating content elements and those that control where and how they're positioned may sound good in principle, but where do you start? Don't worry; it's actually very simple.
 
@@ -324,12 +324,14 @@ More importantly, we've:
 - Encapsulated logic.
 - Simplified the code.
 
-## 2.4 Summary
+## 2.4 - Summary
 
 This whole part has been about making the XAML simpler for those (possibly including ourselves) who may have to try and understand and modify the code in the future.
 
 Try and forget everything you know about this code and imagine you're coming to it without having seen it before or in a long time. In trying to understand a piece of code so that you can change it, wouldn't you rather that code was shorter rather than longer? And, wouldn't you rather that the code didn't have unnecessary internal connections and dependencies that aren't immediately obvious? Of course, you would, and that's what we've created.
 
-As with the last part, if you run the app now, you'll see no behavioral difference with the app. There is a small visual difference in the size of the buttons on the MainPage but we'll address this in a future part. At this point, it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part, and they will become clearer as we continue and build on what we've just done.
+As with the last part, if you run the app now, you'll see no behavioral difference with the app. There is a small visual difference in the size of the buttons on the MainPage. Unless you were running the app on Windows, you probably wouldn't have noticed the change in button size but they're now no longer massive when running on a desktop.
+
+ At this point, it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part, and they will become clearer as we continue and build on what we've just done.
 
 [Now, head over to Part 3, and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
