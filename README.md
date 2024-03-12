@@ -1,19 +1,8 @@
-> **NOTES FOR REVIEWERS**  
-> Current development status:  
-> Part 0: first draft complete - feedback welcome  
-> Part 1: first draft complete - feedback welcome  
-> Part 2: first draft complete - feedback welcome  
-> Part 3: first draft complete - feedback welcome  
-> Part 4: first draft complete - feedback welcome  
-> Part 5: first draft complete - feedback welcome  
-
----
-
 # .NET MAUI - Workshop: Focus on XAML
 
 Today, we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
 
-While the XAML you created as part of that workshop is functional, there are many opportunities to make it better.
+While the XAML you created as part of that workshop is functional, there are many opportunities to improve the XAML that it uses.
 
 Many people criticize XAML as being verbose and hard to maintain. By completing this workshop, you'll see how that doesn't have to be the case and that it is possible to create XAML that is easy to write, read, understand, and maintain.
 
@@ -21,8 +10,10 @@ While this workshop exclusively focuses on .NET MAUI, the principles can be appl
 
 ## Setup
 
-This workshop is a direct follow-up to the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
-You can follow their [setup guide](https://github.com/mrlacey/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're coming straight to this workshop.
+This workshop is a direct follow-up to the [.NET MAUI Workshop](https://github.com/dotnet-presentations/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
+You can follow their [setup guide](https://github.comdotnet-presentations/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're coming straight to this workshop.
+
+**Note** The code used as the starting point for this workshop was taken some months ago and has not yet been updated to reflect the latest changes made there. Any differences should be minor.
 
 ## Agenda
 
@@ -53,6 +44,6 @@ If you have any questions, please contact me on Twitter ([@MRLacey](https://twit
 
 ## Contributing
 
-If you have suggestions for addititions or ideas for improvements, please open an issue so we can discuss it.
+If you have suggestions for additions or improvements, please open an issue so we can discuss them.
 
 If you find a typo, spelling mistake, or grammar error, please raise a PR to fix it.
