@@ -6,7 +6,7 @@ While the last part was entirely theoretical, we're now ready to look at code. A
 
 ## 1.0 - Outline
 
-In this part, we will start with some simple tasks because getting the fundamentals right is essential for doing more advanced tasks.
+In this part, we will start with some simple tasks because getting the fundamentals right is essential for performing more advanced tasks.
 
 These may be things you already do. If that's the case, congratulations. Even if you do these things already, it's still good to stop and appreciate the importance of getting the fundamentals right, as this will set you up for doing more complex tasks in future parts.
 
@@ -17,18 +17,18 @@ In this part, we'll look at:
 - How to structure the contents of individual files.
 - How to structure individual files within the project.
 
-These are simple tasks, but don't be fooled into thinking everything will be this simple. There will be much more to see once we pass the fundamental stage.
+These are simple tasks, but don't be fooled into thinking everything will be this simple. Once we pass the fundamental stage, there will be much more to see.
 
 ## 1.1 - Consistency
 
 A tidy code base is a happy code base. More importantly, a consistent code base is easier to maintain.
 
-As developers, we spend much more time reading (and trying to understand) code than writing it. Assuming it works and momentarily ignoring other constraints, writing code that is easy to maintain is the most valuable thing you can do as a developer. This is because code that is easy to maintain can be changed quickly and without unexpected side effects.
+As developers, we spend much more time reading (and trying to understand) code than writing it. Assuming it works and momentarily ignoring other constraints, writing easy-to-maintain code is the most valuable thing you can do as a developer. This is because easy-to-maintain code can be changed quickly and without unexpected side effects.
 
-If the code is messy, how do you find what you're looking for?  
+If the code is messy, how do you find what you want?  
 You'll spend longer trying to understand the code if you first have to work out why it is the way it is and if the seemingly unnecessary variations and inconsistencies are there for a reason.
 
-Inconsistencies are distracting and not only make code harder to read, they also make it harder to review. Very few people like spending time on code reviews. You'll make life easier for anyone (including yourself) who has to review the code by making it easier to read. No one wants to spend their time deciphering why you've changed indents, switched the order of parameters, or changed the number of blank lines. They want to focus on how a bug was fixed or if a feature has been added in a suitable way. When a consistently formatted code base is modified, the changes are clear to see, and no one is unnecessarily distracted by things that aren't important.
+Inconsistencies are distracting and not only make code harder to read but also make it harder to review. Very few people like spending time on code reviews. You'll make life easier for anyone (including yourself) who has to review the code by making it easier to read. No one wants to spend their time deciphering why you've changed indents, switched the order of parameters, or changed the number of blank lines. They want to focus on how a bug was fixed or if a feature has been added in a suitable way. When a consistently formatted code base is modified, the changes are clear to see, and no one is unnecessarily distracted by things that aren't important.
 
 So, having convinced you of the importance of having a consistently formatted code base, let's look at how to ensure we maintain this.
 
@@ -59,14 +59,14 @@ or
 
 Once XAML Styler is installed, reopen the solution in Visual Studio.
 
-Now open each of the XAML files in turn, right-click on the editor window, and select **Format XAML**.
+Now open each XAML file in turn, right-click on the editor window, and select **Format XAML**.
 
 - App.xaml
 - AppShell.xaml
 - View/DetailsPage.xaml
 - View/MainPage.xaml
 
-Now all the XAML files have the following:
+Now, all the XAML files have the following:
 
 - Consistent levels of indentation.
 - Consistent ordering of attributes.
@@ -95,14 +95,14 @@ However, you may have noticed some comments in the code. Let's get rid of them.
 
 ## 1.2 - Comments
 
-Good code is self describing and doesn't need comments to explain _what_ it does. At best, comments like this are redundant and add clutter. What's worse is when such comments aren't updated when the code is changed. This leads to code that does one thing, but its accompanying comment says something different. Scenarios like this can be confusing as it's not always apparent which is correct. Time and effort is then wasted working out if the comment is outdated or if the code needs to be changed to match the comment.
+Good code is self-describing and doesn't need comments to explain _what_ it does. At best, comments like this are redundant and add clutter. What's worse is when such comments aren't updated when the code is changed. This leads to code that does one thing, but its accompanying comment says something different. Scenarios like this can be confusing as it's not always apparent which is correct. Time and effort are then wasted working out if the comment is outdated or if the code needs to be changed to match the comment.
 
 Comments are useful when they describe _why_ a piece of code is as it is.  
 Did you break a standard or convention? If so, explain why.  
 Is a piece of code complex? Add a description to help the next person to read it to understand it.
 Is there information not included elsewhere in the code that is useful (or necessary) for people reading the code to know? It needs documenting somewhere, and next to the code it relates to is often the best location.
 
-We don't have any helpful comments in our current code base, but we do have some we can get rid of.
+Our current code base doesn't have any helpful comments, but we do have some we can remove.
 
 In `DetailsPage.xaml` and `MainPage.xaml`, you'll find the following comment:
 
@@ -112,7 +112,7 @@ In `DetailsPage.xaml` and `MainPage.xaml`, you'll find the following comment:
 
 This is obviously left over from the steps in the previous workshop and is no longer needed.
 
-In `MainPage.xaml` you'll also find an example of how to customize the `ItemsLayout` for a `CollectionView`.
+In `MainPage.xaml`, you'll also find an example of how to customize the `ItemsLayout` for a `CollectionView`.
 
 ```xml
     <!--<CollectionView.ItemsLayout>
@@ -129,11 +129,11 @@ If the code is definitely not needed, remove it.
 If commented out because it's likely to be needed in the future, an appropriate explanation should accompany it.  
 Even better than leaving it in the file for future use is moving it to the issue or bug tracking system with details of whatever it is that will need this. Whoever works on the thing that needs this then has access to it when they need it without cluttering the file for everyone else.
 
-We don't only need to think about what should (and shouldn't) be within a file. It's also important to consider the order of elements within a XAML file.
+We need to consider more than what should (and shouldn't) be in a file. We also need to consider the order of elements within a XAML file.
 
 ## 1.3 - The structure within files
 
-A XAML file is a description of the elements that make up a UI. When reading through the file it can aid understanding if the order of the elements reflects the order they are shown on screen. For some controls, such as a `StackLayout`, the order of child elements in the file directly relates to the order they are shown on screen. For other controls the orders don't have to be the same.
+A XAML file describes the elements that make up a UI. Having the order of the elements in the file reflect the order they are in on screen makes it easier to understand. For some controls, such as a `StackLayout`, the order of child elements in the file directly relates to the order they are shown on screen. For other controls the orders don't have to be the same.
 
 With a `Grid`, the child elements use **attached properties** to define which column(s) and row(s) they occupy and these don't have to correspond to the order they appear in the file.  
 However, it's much easier to understand code when the physical order of child elements in the file also reflects their logical order in the UI.
@@ -144,12 +144,12 @@ In the first row is the `CollectionView` (inside a `RefreshView`) showing the mo
 In the second row, the "Get Monkeys" `Button` is on the left, and the "Find Closest" `Button` is on the right.  
 Finally, there is an `ActivityIndicator` that occupies both rows and columns.
 
-Reading the file, it would be easy to miss that the `ActivityIndicator` is placed in the first row and first column because it is last element listed in the file.  
+Reading the file, it would be easy to miss that the `ActivityIndicator` is placed in the first row and first column because it is the last element listed in the file.  
 Similarly, it could easily cause confusion if the `Button` that is displayed on the right was listed first.
 
 Fortunately, there is a simple solution to this. XAML Styler includes an option to sort the children of a `Grid` in an order that reflects how they will be displayed.
 
-Enable this by selecting **Tools > Options > XAML Styler**. Then, under **Element Reordering** set **Reorder grid panel children** to **True**.
+Enable this by selecting **Tools > Options > XAML Styler**. Then, under **Element Reordering**, set **Reorder grid panel children** to **True**.
 
 ![Screenshot of the 'Reorder grid panel children' option](../Art/reorder-grid-panel-children.png)
 
@@ -323,8 +323,8 @@ Update `App.xaml` so that it looks like this:
 
 `App.xaml` is now responsible for bringing all the different `Resources` together rather than defining them. As a general rule, it's easier to work with multiple, smaller files that are each focused on one thing than it is to work with one large file that tries to do everything.
 
-You may recognize the files we've added as being the same as those included by default in a new .NET MAUI project. This isn't a coincidence. Grouping resources like this has been popular since before .NET MAUI was released. It isn't a requirement or a rule that you use these files and only these files. Create files that group related Resources together and give the files appropriate names. Just make sure you're consistent. (Consistency is so important, we'll look at in more detail in Part 4.)
+You may recognize the files we've added as being the same as those included by default in a new .NET MAUI project. This isn't a coincidence. Grouping resources like this has been popular since before .NET MAUI was released. It isn't a requirement or a rule that you use these files and only these files. Create files that group related Resources together and give the files appropriate names. Just make sure you're consistent. (Consistency is so important; we'll look at it more in Part 4.)
 
-If you run the app now it will still look and behave in exactly the same way as at the start of this part. All we've done is change the structure and formatting of some files. There haven't been any big changes, yet, as we've only focused on the fundamentals. We need to ensure these are right before making more profound changes, like the ones in the following parts.
+If you run the app now, it will still look and behave exactly the same way as at the start of this part. All we've done is change the structure and formatting of some files. There haven't been any big changes yet, as we've only focused on the fundamentals. We need to ensure these are right before making more profound changes, like the ones in the following parts.
 
 [Now, head over to Part 2 and start thinking about responsibility](../Part%202%20-%20Responsibility/README.md)!
