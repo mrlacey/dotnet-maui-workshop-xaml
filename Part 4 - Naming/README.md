@@ -20,7 +20,7 @@ What makes a good name is often subjective and the names used in your UI have di
 
 General advice for naming in software is to use a specific, descriptive name for what something does. While this is good advice for objects, it doesn't help produce maintainable XAML.
 
-Consider one of the names we're using in the code, the Style `ButtonOutline`.  
+Consider one of the names we use in the code, the Style `ButtonOutline`.  
 At first glance, it may seem like a good name. It applies to a `Button` control, so "Button" as the first part of the name makes sense. But what about the "Outline" part of the name?  
 You may argue that as it creates a button with an outline drawn around it when used, it's a good name. As a description of what the code currently does, it does meet that purpose, but that's not what makes a good name for something in the UI.
 
@@ -45,9 +45,9 @@ No, a better name for this would be "StandardButton".
 In our app, we want all buttons to look like this "as standard". If we have a reason not to apply this styling as an implicit Style on all buttons, a name that includes something like "standard" as part of the name makes it clear that this is not a special or different button. It looks the way buttons are supposed to look in the app.
 
 > **Note**:  
-> Be careful of using "Default" when you mean "Standard" or something that is the ordinary version of something. "Default buttons" are typically the ones you expect or want the user to select from several options. If a page/screen/prompt/dialog included three "DefaultButton"s it could be confusing. If it included two "StandardButton"s and one "DefaultButton" a person looking at the code could hopefully understand more of the intent and expected behavior of the app.
+> Be careful of using "Default" when you mean "Standard" or something that is the ordinary version of something. "Default buttons" are typically the ones you expect or want the user to select from several options. If a page/screen/prompt/dialog included three "DefaultButton"s, it could be confusing. If it included two "StandardButton"s and one "DefaultButton" a person looking at the code could hopefully understand more of the intent and expected behavior of the app.
 
-There are similar issues with having lots of the same elements in a XAML file. If a XAML file contains lots of nested `Grid` or `StackLayout` controls, it can be hard to understand what the purpose of each one is. When these controls are given names to make their purpose clearer, it can remove uncertainty when changing the code.
+Having many of the same elements in an XAML file can cause similar issues. If an XAML file contains many nested `Grid` or `StackLayout` controls, it can be hard to understand their purpose. Giving these controls names to clarify their purpose can remove uncertainty when changing the code.
 
 The above points for what makes a good name should serve as guidelines for naming items in the UI.
 
@@ -57,7 +57,7 @@ With these guidelines defined, we can now start applying them to the code.
 
 We'll first look at improving the names of the Styles used in the code. We'll start by updating the "ButtonOutline" mentioned above and then look at the different Styes used for Labels.
 
-Modify the name of the Style (in `Styles.xaml`) to use the name we discussed above.
+Modify the style's name (in `Styles.xaml`) to use the name we discussed above.
 
 ```diff
 -    <Style x:Key="ButtonOutline" TargetType="Button">
@@ -90,13 +90,13 @@ Update the use of this Style on each page.
 The name "Heading" is more meaningful and communicates to anyone looking at the code why that element is there. If the way headings look is changed in the future, this element will still represent a "heading". You only need to alter the styling in one place, and all instances throughout the app will be updated.  
 Imagine we wanted to visually distinguish "Headings" not by size but by using a different font family and weight. The name "LargeLabel" would no longer be appropriate, but "Heading" will still be.
 
-Using a suffix or prefix of the Type is unnecessary as part of the name. "HeadingLabel" or "LabelHeading" add no useful additional information when compared to "Heading" and so the shorter version is preferred. If you have multiple similar names, and it becomes necessary to distinguish them by type name then this can be done. Note that the autocomplete (intellisense) within Visual Studio will filter resources by TargetType when you use them. This should remove the argument for including the type in the name to help ensure it is used correctly. A good name will also help avoid accidental misuse. In the next part we'll also look at another, related, way that can help ensure you don't use the wrong resource with as type.
+Using a suffix or prefix of the Type is unnecessary as part of the name. "HeadingLabel" or "LabelHeading" add no useful additional information when compared to "Heading", so the shorter version is preferred. If you have multiple similar names, and it becomes necessary to distinguish them by type name, then this can be done. Note that the autocomplete (intellisense) within Visual Studio will filter resources by TargetType when you use them. This should remove the argument for including the type in the name to help ensure it is used correctly. A good name will also help avoid accidental misuse. In the next part, we'll also look at another related way that can help ensure you don't use the wrong resource with a type.
 
 It's now possible to look at the code and know that "that's a heading, which makes sense given the content and position." There's no need to wonder why something is styled as being a "LargeLabel" and question if that is appropriate. 
 
-The `MediumLabel` is more complicated. This is used to show two semantically different types of information. On the main page, it shows the location of each monkey in the list. On the details page, the Style is used for the text that is the "main" or "body" of the content.
+The `MediumLabel` is more complicated. It shows two semantically different types of information. On the main page, it shows the location of each monkey in the list. On the details page, the Style is used for the text that is the "main" or "body" of the content.
 
-Rather than a single style used for different reasons just because they are currently rendered to look the same. Let's rename the `MediumLabel` to `ListDetails` and add another `Style` with the name `BodyText` and other details matching those of "ListDetails".
+Rather than using a single style for different reasons just because they are currently rendered to look the same, let's rename the `MediumLabel` to `ListDetails` and add another `Style` with the name `BodyText` and other details matching those of' ListDetails'.
 
 ```diff
     <Style
@@ -153,7 +153,7 @@ We can then use this style for Labels that display "additional information" in `
 
 It is now clearer that text on the details page shows some details as the main body of the text and this is followed by two additional pieces of information.
 
-There are no uses of the `MicroLabel` style, remove it:
+There are no uses of the `MicroLabel` style. Remove it:
 
 ```diff
 -    <Style
@@ -179,7 +179,7 @@ The impact on performance is only listed as "potential" because it is so tiny yo
 
 For most applications, ease of maintenance is more important than tiny micro-optimizations. That is why the primary goal of this workshop has been to help you improve the maintainability of your XAML files.
 
-The above consequences can be easily overcome by only adding names to things where it helps add clarity to those people who will read the code in the future.
+The above consequences can be easily overcome by only adding names to things where they help clarify the code for future readers.
 
 Looking at `MainPage.xaml`, we see it contains two main controls. The first contains the list of monkeys. The second is a `HorizontalStackLayout`. If we give this element a name, its purpose should become immediately apparent to anyone looking at the code. As this control hosts the buttons at the bottom of the screen, we'll call it `RowOfButtons`.
 
@@ -191,7 +191,7 @@ Looking at `MainPage.xaml`, we see it contains two main controls. The first cont
         Spacing="21">
 ```
 
-This name does two things. Firstly, it indicates how it will display in the running app. Secondly, it indicates the intended purpose of the control.  
+This name does two things. First, it indicates how the control will be displayed in the running app, and second, it indicates its intended purpose.  
 What do you think should go inside such an element?  
 Would you question if something other than a `Button` was put inside it? I hope so. Adding something other than a `Button` may be appropriate but is probably unexpected and is likely to indicate the control is being used in a way beyond the author's original intention.
 
@@ -214,9 +214,9 @@ Switching to look at `DetailsPage.xaml`, we see that the page's content is compo
 +       Spacing="{StaticResource InternalSpacing}">
 ```
 
-Again, this is a small change to the code, but it helps anyone reading it in the future. It also demonstrates our intent to try and make it easier for them.
+Again, this is a small change to the code, but it will help anyone reading it in the future and demonstrate our intent to make it easier for them.
 
-In the next part of this workshop, we'll look at the names of created types, but don't overlook the potential benefit of doing something as simple as assigning a name to a control to indicate its purpose.
+In the next part of this workshop, we'll look at the names of created types but don't overlook the potential benefit of doing something as simple as assigning a name to a control to indicate its purpose.
 
 The level of focus we've spent on naming may seem unnecessary or over-the-top for such simple code, but the reason for spending time on ensuring names are well chosen is that it makes understanding code easier. It's unlikely you'll ever spend as much time thinking about a simple app as you have with the MonkeyFinder, but as you work on larger files and code bases, the benefit that good names bring will soon become evident to you.
 
