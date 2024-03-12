@@ -5,7 +5,7 @@
 > Part 2: first draft complete - feedback welcome  
 > Part 3: first draft complete - feedback welcome  
 > Part 4: first draft complete - feedback welcome  
-> Part 5: being written  
+> Part 5: first draft complete - feedback welcome  
 
 ---
 

@@ -404,23 +404,35 @@ In `DetailsPage.xaml` we can now add an instance of the new `DetailsPageHeader` 
 +    <c:DetailPageHeader Title="{Binding Monkey.Name}" ImageSource="{Binding Monkey.Image}" />
 ```
 
-
-
+We've now reduced the size of `DetailsPage.xaml` by 19 lines. This reduction in file size is without making the Details page any less easier to understand as a whole. We've simply moved the details of the complexity of the "header" used on that page into a separeate file.
 
 If you look at `MainPage.xaml` with the above thoughts still fresh in your mind, it should hopefully be apparent that the `s:CardView` type is a strong candidate for being replaced with a single type that combines all the functionality and elements that are in the `Frame` it represents. I'll leave that as a separate exercise if you wish to try applying what you've learned above.
 
-
-[[point 3 summary]]
-
-[[PART SUMMARY]]
+We've now finished refactoring the app by adding custom types.  
+You've seen how creating custom types based on the Styles that were being applied make the code shorter and more meaningful. We then looked to combine types that were always used together and extracting stand-alone pieces of UI logic into separate files. Both of these changes further reduced the size of the code on each page and made the specific intention of the code easier to understand.
 
 ## Conclusion
 
-[[workshop conclusion]]
+We've now made substantial changes to the code used to create UI of the app. We changed both pages but `DetailsPage.xaml` shows the biggest difference.
 
-Recap tips from each part
+Look back at [what we started with](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%201%20-%20Fundamentals/Start/MonkeyFinder/View/DetailsPage.xaml) and compare it to [how we finished](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%205%20-%20Custom%20Types/Start/MonkeyFinder/View/DetailsPage.xaml).
+
+All these changes have been made without changing the functionality and look of the UI.
+
+The goal and purpose of this workshop has not been to show you how to create with XAML. The aim has been to show that you can produce the same results with very different XAML.
+
+More important than showing that variety is possible, I hope I've shown that different ways of writing the code make it clearer and therefore easier to read and understand. You wouldn't doubt that this statement applies to any other programming language but, sadly, this principle has been overlooked in terms of XAML.
+
+Look again at the before and after versions of the file. Not only is the final file much smaller but the contents of this file are clearer and more meaningful. Imagine for a moment that you're not familiar with this code. Which would you rather have to work with? Which would you rather inherit from another developer? Which would you be more confident to change without unexpected consequences?
+
+I've shown the two different versions of the XAML from the DetailsPage to hundreds of developers (with varying levels of experience) and asked which version they'd rather work with and have to support, maintain, and modify. With only a couple of exceptions, people want to work with XAML that looks like the shorter (final) version. (Those who prefer the "original" version said it was because it was what they're used to and they didn't want to change. I hope they're reluctance to change is because they are already very productive.) 
 
 
-[[call to next action]]
+Of course I'd love your feedback on this workshop and your experiences and thoughts having completed it.  
+More importantly, I hope you take some of what you've learned and apply it to your code bases. I don't expect (or want) you to rush out and rewrite all your code straight away. That's unlikley to be the most productive use of your time. Instead, start incorporating some of these ideas a little at a time. If you're maintaining existing code look for ways to leave it better than you found it. If you're starting on something new, try defining the different styles you'll need based on the designs and composing pages from types based on those styles.  
+What ever you do, if you chose to make no changes in how you write your XAML and still complain that it's hard to understand and slow to modify it's unlikely to be XAML's fault.
 
-Go write better, more maintainable XAML.
+
+Now go, write maintainable XAML.
+
+matt.
