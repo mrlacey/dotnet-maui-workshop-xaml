@@ -57,10 +57,7 @@
             </ContentView>
         </RefreshView>
 
-        <ActivityIndicator
-            IsRunning="{Binding IsBusy}"
-            IsVisible="{Binding IsBusy}"
-            Color="{StaticResource Primary}" />
+        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
 
         <HorizontalStackLayout
             Grid.Row="1"

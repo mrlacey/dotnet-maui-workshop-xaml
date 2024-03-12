@@ -73,6 +73,7 @@
     <Style TargetType="ActivityIndicator">
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Color" Value="{StaticResource Primary}" />
     </Style>
 
     <Style TargetType="HorizontalStackLayout">

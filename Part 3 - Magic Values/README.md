@@ -475,7 +475,9 @@ Principles:
 
 While this app only has a single instance of this control, it's common for larger apps to want to indicate activity in more than one place, so it is helpful to see how to do this. It also follows on from the lesson of the last part as the `ActivityIndicator` is no longer responsible for its position. We have moved the responsibility for the position of all ActivityIndicators to a central location.
 
-In `MainPage.xaml` remove the attributes that relate to position.
+In addition to be positioned in the same way, multiple instances of the `ActivityIndicator` are likley to want to be styled in the same way. FOr this app, the styling applied is the color and so we shouldn't require that each instance needs to set this.
+
+In `MainPage.xaml` remove the attributes that relate to position and color.
 
 ```diff
     <ActivityIndicator
@@ -483,7 +485,7 @@ In `MainPage.xaml` remove the attributes that relate to position.
         IsRunning="{Binding IsBusy}"
         IsVisible="{Binding IsBusy}"
 -       VerticalOptions="Center"
-        Color="{StaticResource Primary}" />
+-       Color="{StaticResource Primary}" />
 ```
 
 In `Styles.xaml`, add a new implicit style.  
@@ -495,6 +497,7 @@ It should set the `HorizontalOptions` and `VerticalOptions` properties to the va
 +    <Style TargetType="ActivityIndicator">
 +       <Setter Property="HorizontalOptions" Value="Center" />
 +       <Setter Property="VerticalOptions" Value="Center" />
++       <Setter Property="Color" Value="{StaticResource Primary}" />
 +    </Style>
 ```
 
