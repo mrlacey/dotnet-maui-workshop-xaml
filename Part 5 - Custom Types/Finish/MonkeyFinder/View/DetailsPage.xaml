@@ -10,7 +10,7 @@
     Title="{Binding Monkey.Name}"
     x:DataType="viewmodel:MonkeyDetailsViewModel">
 
-    <c:DetailPageHeader Title="{Binding Monkey.Name, Mode=OneWay}" ImageSource="{Binding Monkey.Image, Mode=OneWay}" />
+    <c:DetailPageHeader Title="{Binding Monkey.Name}" ImageSource="{Binding Monkey.Image}" />
 
     <VerticalStackLayout x:Name="BodyContent" Spacing="{StaticResource InternalSpacing}">
         <s:StandardButton

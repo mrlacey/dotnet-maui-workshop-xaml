@@ -228,31 +228,13 @@ public class VerticallyScrollingPage : StandardPage
 
 Note the setting of the `Padding` of the `VerticalStackLayout` being set to "0". This padding value prevents additional space (padding) from being automatically enforced on anything placed inside the `VerticallyScrollingPage`. Some pages, such as this Details Page will want to have content that extends to the very edges. When creating a control that is intended to be highly reusable, it should not apply constraints on the content that will limit where it can be used.
 
-This code handles the basic structure, but we also need to allow for the addition of elements inside our new control.
+This code handles the basic structure, but we also need to allow for the addition of elements inside our new control. A "Page" normally only supports a single child element, but we want to allow for multiple "Children" the way a `StackLayout` does. We can do this by exposing a property that maps to the `Children` property in the internal `VerticalStackLayout`.
 
-The convention for a property of a Control containing multiple child elements is for it to be called `Children`. To recreate the behavior of the `VerticalStackLayout`, this should be of the type `IList<IView>`.
-
+Add this property:
 
 ```diff
-+    public IList<IView> Children
-+    {
-+        get => (IList<IView>)GetValue(ChildrenProperty);
-+        set => SetValue(ChildrenProperty, value);
-+    }
-
-+    public static readonly BindableProperty ChildrenProperty =
-+        BindableProperty.Create(nameof(Children), typeof(IList<IView>), typeof(VerticallyScrollingPage), null, propertyChanged: ChildrenChanged);
-
-+    private static void ChildrenChanged(BindableObject bindable, object oldValue, object newValue)
-+    {
-+        if (bindable is VerticallyScrollingPage b && newValue is IView newView)
-+        {
-+            b.verticalLayout.Children.Add(newView);
-+        }
-+    }
++    public IList<IView> Children => verticalLayout.Children;
 ```
-
-**Be aware**: the logic of the  `ChildrenChanged` method is the simplest way to support adding child elements in XAML. This control was created to enable use from XAML and does not support dynamically changing content. If you wish to support that, you'll need to support removing elements in this method too.
 
 The final thing we need to do is specify that the "Children" property is the one to use for the "Content" of the element in the XAML file.  We do this by adding a `ContentProperty` attribute to the class.
 
@@ -296,11 +278,19 @@ Update `DetailsPage.xaml` like this, to change the root element and remove the `
 +</c:VerticallyScrollingPage>
 ```
 
-As we've changed the roof element of the XAML file and MAUI generates a partial class based on this type, we also need to update the base class in `DetailsPage.xaml.cs`
+As we've changed the root element of the XAML file and MAUI generates a partial class based on this type, we also need to update the base class in `DetailsPage.xaml.cs`.
 
 ```diff
 -public partial class DetailsPage : StandardPage
 +public partial class DetailsPage : VerticallyScrollingPage
+```
+
+Even better, we can choose to not sepcify the base class at all.  
+This is possible because the only one part of a `partial class` need specify the base class and the class generated from the XAML file will include the base. By only specifying the base class in one place we don't need to spend time keeping them in sync if we ever again changed the class used for this page.
+
+```diff
+-public partial class DetailsPage : VerticallyScrollingPage
++public partial class DetailsPage
 ```
 
 If you run the app now, as expected, you'll see that it looks and behaves the same as before.
@@ -311,23 +301,15 @@ We did all this with C#, but in the next section, we'll combine XAML and C# to e
 
 ## Isolating stand-alone pieces of logic
 
-When you have a large class or file in any other programming language, and a part of that content 
+When you have a large class or file in any other programming language, and a part of that content could be resued on its own, it is common to extract that code into its own file or class. Even if you weren't going to reuse that code in other places, multiple smaller files (and classes) can be seasy to work with than a single large one.
 
-[[point 3 introduction]]
+The header information on the details page (with the colored background) is a good candidate for encapsulating into its own class (and file) as it is fairly well contained and is a disproportionately large proportion of the file given the amount of content in contributes to the UI.
 
-detail page header
+As a way of also showing the creation of a simple control that uses XAML content and doesn't do everything with C#, we'll move the current XAML code into a ContentView.
 
+Add a XAML-based "ContentView" to the `Controls` folder by selecting "Add" > "New Item..." > ".NET MAUI ContentView (XAML)". Call the new item `DetailPageHeader`.
 
-
-
-
-
-[[point 3 example and steps]]
-
-"Add" > "New Item..." > ".NET MAUI ContentView (XAML)"
-
-
-`DetailPageHeader.xaml.cs`
+In the "code-behind" file (`DetailPageHeader.xaml.cs`) we need to add bindable properties for the `Title` and `ImageSource` to use. Both can be of type `string` as the `ImageSource` will be used in an `Image` which can automatically convert from a string.
 
 ```csharp
 public partial class DetailPageHeader : ContentView
@@ -354,9 +336,11 @@ public partial class DetailPageHeader : ContentView
 }
 ```
 
+Remove the `VerticalStackLayout` that is the "HeaderSection" from `DetailsPage.xaml` and paste it into `DetailPageHeader.xaml`.
 
+We also need to give the `ContentView` a name ("this") and set the `BindingContext` of the `VerticalStackLayout` reference the class as a whole. This is a simple way to use Bindings 
 
-`DetailPageHeader.xaml`
+We also need to change the bindings of the `Image` and the `Heading` to use the `ImageSource` and `Title` properties we created on the class, rather than properties of the `Monkey` exposed by the `MonkeyDetailsViewModel`.
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -393,12 +377,7 @@ public partial class DetailPageHeader : ContentView
 </ContentView>
 ```
 
-
-
-
-
-`DetailsPage.xaml`
-
+In `DetailsPage.xaml` we can now add an instance of the new `DetailsPageHeader` control.
 
 ```diff
 -    <VerticalStackLayout x:Name="HeaderSection" BackgroundColor="{StaticResource Primary}">
@@ -422,16 +401,9 @@ public partial class DetailPageHeader : ContentView
 -            TextColor="White" />
 -    </VerticalStackLayout>
 
-+    <c:DetailPageHeader Title="{Binding Monkey.Name, Mode=OneWay}" ImageSource="{Binding Monkey.Image, Mode=OneWay}" />
++    <c:DetailPageHeader Title="{Binding Monkey.Name}" ImageSource="{Binding Monkey.Image}" />
 ```
 
-
-`DetailsPage.xaml.cs`
-
-```diff
--public partial class DetailsPage : VerticallyScrollingPage
-+public partial class DetailsPage
-```
 
 
 
@@ -446,4 +418,9 @@ If you look at `MainPage.xaml` with the above thoughts still fresh in your mind,
 
 [[workshop conclusion]]
 
+Recap tips from each part
+
+
 [[call to next action]]
+
+Go write better, more maintainable XAML.
