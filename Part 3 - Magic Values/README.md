@@ -1,6 +1,6 @@
 # Part 3 - "Magic Values"
 
-In this part, we will look at the use of "magic strings" and "magic numbers" (collectively referred to as "magic values") in XAML files. "Magic values" can make code harder to understand and often mean changes need to be made in more than one place. Because of this, it's wise to avoid them whenever possible and so we'll look at ways of doing this.
+In this part, we will examine the use of "magic strings" and "magic numbers" (collectively referred to as "magic values") in XAML files. Magic values can make code harder to understand and often mean changes need to be made in more than one place. Because of this, it's wise to avoid them whenever possible, and we'll look at ways of doing this.
 
 The code examples in this part will continue on from the previous part. If you have the solution open, you can carry on from there. Alternatively, open the [solution in the Start directory](./Start/).
 
@@ -18,7 +18,7 @@ These are just some of the issues with using "magic values" and how they make th
 In this part, we'll look at:
 
 - Defining things once, in a base class.
-- Defining numbers once, as resources.
+- Defining numbers once as resources.
 - Doing simple math in a XAML file.
 - Making the most of implicit styles.
 - Text resources do more than enable localization.
@@ -29,13 +29,13 @@ Yes, this is a lot to look at, but we want to eliminate all the "magic" so we ca
 
 No one likes doing the same thing more than once. Similarly, you don't want to write the same code multiple times.
 
-The two pages in our app contain duplicate functionality we can encapsulate and simplify. Technically this isn't a "magic value", but the principles of streamlining it apply in the same way as "magic values".
+The two pages in our app contain duplicate functionality we can encapsulate and simplify. Technically, this isn't a "magic value", but the principles of streamlining it apply in the same way as "magic values".
 
 The commonality we'll address is the background of these two pages. If you look at the two files, you may notice that the background isn't specified on the `ContentPage`. Instead, it's defined on the child/content element of each `Page`. Not only does this make it unclear that the colors apply at the page level, it also makes it less obvious that these are the same thing and could be centralized.
 
 - Let's start by creating a new folder at the root of our app. Call this `Controls`. The name could be anything, but this name is a common convention.
 
-- Inside this new folder, create a new class called `StandardPage.cs`. This name hopefully communicates that this page is used as a standard throughout the app. You could use another name if it makes more sense to you. If you needed to add a page that was very different from the others, you may inherit from this or ate something afresh and give it a name that makes it clear where and when it should be used. There's more on this in the next part.
+- Inside this new folder, create a new class called `StandardPage.cs`. This name hopefully communicates that this page is used as a standard throughout the app. You could use another name if it makes more sense to you. If you needed to add a page that was very different from the others, you may inherit from this or create something afresh and give it a name that makes it clear where and when it should be used. There's more on this in the next part.
 - Have this class inherit from `ContentPage`.
 - Add a constructor to the class that sets the `BackgroundColor` based on the App Theme, like this:
 
@@ -156,15 +156,15 @@ Creating a base class isn't the only way to simplify our XAML. Let's look at rem
 
 ## 3.2 - Defining numbers once, as resources
 
-Numbers (integers, doubles, etc.) are widely used when defining a UI. If you were using C# to create your UI, you'd quickly spot that you were typing the same values in multiple places and create a variable (or a constant) to store them, give them meaning, and make future changes to those values easier. Because we're defining the UI in XAML doesn't mean we should avoid what would be considered good practice in any other programming language.
+Numbers (integers, doubles, etc.) are widely used when defining a UI. If you were using C# to create your UI, you'd quickly spot that you were typing the same values in multiple places and create a variable (or a constant) to store them, give them meaning, and make future changes to those values easier. Just because we're defining the UI in XAML doesn't mean we should avoid what would be considered good practice in any other programming language.
 
-Let's start by creating a place to put the resources we're going to create.
+Let's start by creating a place to put the resources we will create.
 
 - In the `Resources\Styles` folder, create a new `ResourceDictionary` called `Sizes.xaml`. (Of course, you could put the new file somewhere else if you prefer.)
 
 We'll use this file to store the constant values for the sizes of things we define in the UI. As with elsewhere in this workshop, we're only defining a few things, but other apps you make will likely be larger and contain much more code. You could put everything in one big file, but as we've looked at previously, this isn't conducive to creating code that's easy to understand and maintain.
 
-- In `App.xaml` add a reference to this new file so that the compiler knows to make the resources available to the rest of the code in the application.
+In `App.xaml`, add a reference to this new file so that the compiler knows to make the resources available to the rest of the application's code.
 
 ```diff
             <ResourceDictionary.MergedDictionaries>
@@ -175,7 +175,7 @@ We'll use this file to store the constant values for the sizes of things we defi
 ```
 
 > **Note**:  
-> By defining this before the reference to `Styles.xaml` means that you will be able to reference the "Sizes" in the "Styles" file. We're not doing that here but it's something you're likely to want to do in your own apps. If you find that your resources aren't available where you expect, check the order they are loaded.
+> Define this before the reference to `Styles.xaml` means that you will be able to reference the "Sizes" in the "Styles" file. We're not doing that here, but you're likely to want to do it in your own apps. If you find that your resources aren't available where you expect, check the order they are loaded.
 
 We're now ready to extract our repeated size values into reusable resources.
 
@@ -198,7 +198,7 @@ We can then update the `Image` to use this new resource.
 +       WidthRequest="{StaticResource LargeSquareImageSize}" />
 ```
 
-Yes, it looks like we've made the XAML code longer. While that's the case, we've made it easier to modify in the future. When you're working with a large code base with lots of images, and you need to change the size of all your large, square, images, this will make your life easier. There are actually other ways of making that situation easier to manage and work with, but we'll get to them in Part 5.
+Yes, it looks like we've made the XAML code longer. While that's the case, we've made it easier to modify in the future. When you're working with a large code base with lots of images, and you need to change the size of all your large, square images, this will make your life easier. There are actually other ways of making that situation easier to manage and work with, but we'll get to them in Part 5.
 
 This image is in a `StackLayout` with a `Padding` around it. If you want you can also create a resource for this. However, as this is the only location that this padding is used, I'll leave this to you to implement if you so desire.
 
@@ -239,7 +239,7 @@ We've created a resource that we're only using in one place in this app, but it 
 > **Note**:  
 > Both `StandardItemPadding` and `InternalSpacing` use the same number "10". This duplication of a numeric value may be something you want to avoid. Sadly, XAML does not make it easy to remove this duplication. There are solutions but they are not currently covered in this workshop.
 
-`MainPage.xaml` also includes a smaller image within the `ItemTemplate`. The size of this is **125**, but you will notice that the same value is also used for the `Frame` and one of the `ColumnDefinitions`. Is it a coincidence that this value appears in multiple places?  It's not, but we can make it clearer to someone looking at this code in the future by creating a singel resource and using that everywhere.
+`MainPage.xaml` also includes a smaller image within the `ItemTemplate`. The size of this is **125**, but you will notice that the same value is also used for the `Frame` and one of the `ColumnDefinitions`. Is it a coincidence that this value appears in multiple places?  It's not, but we can make it clearer to someone looking at this code in the future by creating a single resource and using that everywhere.
 
 As this is for a smaller image than the other one, let's call this the "SmallSquareImageSize". You create it in `Sizes.xaml` like this:
 
@@ -301,9 +301,9 @@ We've now removed all the repeated values that are semantically the same and rep
 
 Having removed many of the repeated numeric values, you can now see some similar values used in similar places.
 
-The Padding of the `HorizontalStackLayout` on `MainPage.xaml` and the topmost `VerticalStackLayout` on `DetailsPage.xaml` is 8, while the other StackLayouts used 10 (which is now the "StandardItemPadding".) Such inconsistency is unusual for such similar parts of a UI. Let's assume that this inconsistency wasn't deliberate and use the same value everywhere. If there was an intentional reason for these values being different, using different named resource values would make this clear.
+The Padding of the `HorizontalStackLayout` on `MainPage.xaml` and the topmost `VerticalStackLayout` on `DetailsPage.xaml` is 8, while the other StackLayouts used 10 (which is now the "StandardItemPadding".) Such inconsistency is unusual for such similar parts of a UI. Let's assume this inconsistency wasn't deliberate and use the same value everywhere. If there were an intentional reason for these values being different, using different named resource values would clarify this.
 
-In `MainPage.xaml` make this change:
+In `MainPage.xaml`, make this change:
 
 ```diff
     <HorizontalStackLayout
@@ -314,14 +314,14 @@ In `MainPage.xaml` make this change:
           Spacing="21">
 ```
 
-In `DetailsPage.xaml` make this change:
+In `DetailsPage.xaml`, make this change:
 
 ```diff
 -  <VerticalStackLayout Padding="8" BackgroundColor="{StaticResource Primary}">
 +  <VerticalStackLayout Padding="{StaticResource StandardItemPadding}" BackgroundColor="{StaticResource Primary}">
 ```
 
-The `Border` on `DetailsPage.xaml` includes a number (80) in the `StrokeShape` definition that is exactly half the value used for the Height and Width. This value would need to be changed if the height and width of the border changed. We could extract this to a resource and give it a name or add a comment to try and help ensure that any future changes are applied correctly, or we could do it another way. We'll look at that next.
+The `Border` on `DetailsPage.xaml` includes a number (80) in the `StrokeShape` definition that is exactly half the value used for the Height and Width of the border. If the height and width of the border changed, this value would need to be changed. We could extract this to a resource and give it a name or add a comment to help ensure that any future changes are applied correctly, or we could do it another way. We'll look at that next.
 
 ## 3.3 - Doing simple math in a XAML file
 
@@ -329,9 +329,9 @@ We currently have two related numbers that we have specified in the code. If one
 
 In `DetailsPage.xaml` we have a large square image with a `Border` around it to crop it to appear as a circle. To do this, we specify the size of the image and the radius of the circle. As the size of the image (height and width as it's a square) is the same as the circle's diameter, we can divide the image size by 2 to get the radius.
 
-Hopefully, that sounds simple enough, but XAML has no built-in mathematics functions, so we must write our own. Don't fear, it's surprisingly simple.
+Hopefully, that sounds simple enough. However, XAML has no built-in mathematics functions, so we must write our own. Don't fear—it's surprisingly simple.
 
-We'll first change the `StrokeShape` of the Border to use the Tag syntax rather than the attribute version with its implicit conversion from a string.
+We'll first change the `StrokeShape` of the Border to use the Tag syntax rather than the attribute version, which implicitly converts a string to a tag.
 
 ```diff
   <Border
@@ -352,10 +352,10 @@ With this change, it's clear what the value of "80" in the `StrokeShape` represe
 
 We now want to replace the value of "80" with something calculated based on the Resource that contains the "LargeSquareImageSize". We do this by creating a **Markup Extension**.
 
-One of the things that XAML has that XML does not is "Markup expressions". You'll typically see them as the attributes in XAML files surrounded by curly braces. The "markup expression" is identified by the curly braces. It starts with the name of the "markup extension" and is followed by zero or more other parameters.
+One thing that XAML has that XML does not is "Markup expressions." You'll typically see them as the attributes in XAML files surrounded by curly braces. The "markup expression" is identified by the curly braces. It starts with the name of the "markup extension" and is followed by zero or more other parameters.
 
 > **Important**
-> Never forget that the 'X' in XAML stands for **eXtensible**. It was always intended that you'd use more than the built in capabilities. A "Markup Extension" is only one of the ways that XAML can be extended.
+> Never forget that the 'X' in XAML stands for **eXtensible**. It was always intended that you'd use more than the built-in capabilities. A "Markup Extension" is only one of the ways that XAML can be extended.
 
 We'll create a new folder to store our markup extensions. Call it `Extensions`.
 
@@ -382,7 +382,7 @@ Now add the `BindableProperty` called `Diameter` and of type `double`.
         BindableProperty.Create(nameof(Diameter), typeof(double), typeof(GetRadius), defaultValue: 0.0);
 ```
 
-And now implement the methods required by the `IMarkupExtension<double>` interface declaration:
+Now implement the methods required by the `IMarkupExtension<double>` interface declaration:
 
 ```csharp
     public double ProvideValue(IServiceProvider serviceProvider)
@@ -416,7 +416,7 @@ Now replace the hard-coded value (of "80") with the new markup extension and spe
 
 Run the app, and again, you should see no significant difference in the UI. It's only if you know some of the Padding values have been changed by 2 DIP that you'd see any difference.
 
-Yes, that was, arguably, a lot of work to replace a single hard-coded value with something that calculates that value. Hopefully, though, you can appreciate the potential power this technique has to: make the connection between different values more obvious; reduce the need to keep multiple related values in sync manually; and incorporate logic into your XAML files.
+Yes, replacing a single hard-coded value with something that calculates that value was arguably a lot of work. Hopefully, though, you can appreciate the potential power this technique has to make the connection between different values more obvious, reduce the need to keep multiple related values in sync manually, and incorporate logic into your XAML files.
 
 While that was adding to the overall amount of code in our files, let's now look at another way of improving our XAML files that will reduce the amount of code.
 
@@ -471,13 +471,13 @@ It's rare to position an activity indicator anywhere other than the center of it
 Principles:
 
 - Apply settings or properties globally if you want them applied to all (or most) instances of that control.
-- Only add properties to an instance of an element in XAML when it is specific to that instance,  and it will contribute helpful information to anyone reading the code in the future.
+- Only add properties to an instance of an element in XAML when it is specific to that instance and it will contribute helpful information to anyone reading the code in the future.
 
 While this app only has a single instance of this control, it's common for larger apps to want to indicate activity in more than one place, so it is helpful to see how to do this. It also follows on from the lesson of the last part as the `ActivityIndicator` is no longer responsible for its position. We have moved the responsibility for the position of all ActivityIndicators to a central location.
 
-In addition to be positioned in the same way, multiple instances of the `ActivityIndicator` are likley to want to be styled in the same way. FOr this app, the styling applied is the color and so we shouldn't require that each instance needs to set this.
+In addition to being positioned in the same way, multiple instances of the `ActivityIndicator` are likely to want to be styled in the same way. For this app, the styling applied is the color and so we shouldn't require that each instance set this.
 
-In `MainPage.xaml` remove the attributes that relate to position and color.
+In `MainPage.xaml` remove the attributes related to position and color.
 
 ```diff
     <ActivityIndicator
@@ -522,7 +522,7 @@ Now remove the specifying of `Padding` in the three places.
 -   Padding="{StaticResource StandardItemPadding}"
 ```
 
-With these changes now complete, the XAML on our two pages is now more consistent, has had duplication removed, and will be easier to modify in the future.
+With these changes now complete, the XAML on our two pages is now more consistent, is without duplication, and will be easier to modify in the future.
 
 For the final section in this part, let's look at one of the most common places to use strings within an app: the displayed text.
 
@@ -532,11 +532,11 @@ For the final section in this part, let's look at one of the most common places 
 
 There are three common ways to work with localized text inside XAML files:
 
-- As a Static resource
-- Via a MarkupExtension
-- By Binding to the text in the ViewModel
+- As a Static resource.
+- Via a MarkupExtension.
+- By Binding to the text in the ViewModel.
 
-We'll use a StaticResource for this as we looked at how to create a MarkupExtension earlier, and binding to text from the ViewModel adds complexity to the ViewModel that we don't need.
+We'll use a StaticResource for this as we looked at how to create a MarkupExtension earlier, and because binding to text from the ViewModel adds complexity to the ViewModel that we don't need.
 
 > **Note**:  
 > You can create an app with an example page showing how to localize text in the other ways by using the [MAUI App Accelerator](https://marketplace.visualstudio.com/items?itemName=MattLaceyLtd.MauiAppAccelerator).
@@ -602,6 +602,6 @@ Having these strings defined as resources means we could reuse the resource if w
 > **Note**:  
 > In addition to localization, there are more benefits to always putting strings in separate resource files and not putting them directly in the code. I go into details about this in https://www.manning.com/books/usability-matters ;)
 
-We've now removed all the magic values from the XAML pages. These changes have simplified the code, made it easier to read and understand, and will help with future extensions to the app. As you've guessed by this not being the final part of this workshop, there are yet more improvements we can make.
+We've now removed all the magic values from the XAML pages. These changes have simplified the code, making it easier to read and understand, and will help with future app modifications. As you've guessed by this not being the final part of this workshop, there are yet more improvements we can make.
 
 [Now, head over to Part 4 to learn the impact that different names can have in XAML files](../Part%204%20-%20Naming/README.md)
