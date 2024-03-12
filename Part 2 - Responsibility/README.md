@@ -6,16 +6,16 @@ The code examples in this part will continue on from the previous part. If you h
 
 ## 2.0 - Outline
 
-At its simplest, the Single Responsibility Principle states that "A class should have only one reason to change." It can be easy to see how this can be applied to an object-oriented language like C#, but it isn't always obvious how this can relate to XAML files.
+At its simplest, the Single Responsibility Principle states that "A class should have only one reason to change." This principle can be easily applied to an object-oriented language like C#, but it isn't always obvious how it applies to XAML files.
 
-Instead of thinking about classes, we can apply this rule by asserting that **an _element_ should only have one reason to change**. An element in our XAML files is a representation of an instance of a class, and so the comparison is clear. However, rather than looking at the reasons to change a class, we'll be looking at the reasons to change a single instance of a class.
+Instead of thinking about classes, we can apply this rule by asserting that **an _element_ should only have one reason to change**. An element in our XAML files represents an instance of a class, so the comparison is clear. However, rather than looking at the reasons to change a class, we'll look at the reasons to change a single class instance.
 
 In this part, we'll look at:
 
 - How this helps make maintainable code.
 - Separating your content and layout.
 
-Yes, there are only two sections to this part, but they're the building blocks of making XAML files that are easy to maintain.
+Yes, this part has only two sections, but they're the building blocks of making easy-to-maintain XAML files.
 
 ## 2.1 - How this helps make code easier to maintain
 
@@ -23,13 +23,13 @@ If you have previous experience with .NET MAUI (or other platforms that use XAML
 
 When we think about "maintaining" code, we normally mean **changing** it. And, before we can change code, we, ideally, need to first **understand** it. So, to make our XAML code easier to maintain, we want it to be easier to understand. Making something easier to understand starts by making it easier to read. Then, once we've read it, we can more easily understand the consequences of the changes we want to make.
 
-At the start of this workshop, I said we wouldn't change the functionality of the app. That's still the case, and so we'll have to imagine a theoretical change we might make to the app in the future. This is probably reflective of many apps you'll build. You'll build what you need now but also have ideas of things that are likely to be added in the future. In these situations, it is wise to do what you can to make those future changes easier. There will be times when you don't know what changes might be required, and it's in these instances that applying general good practices for increased maintainability is even more important.
+At the start of this workshop, I said we wouldn't change the app's functionality. That's still the case, and so we'll have to imagine a theoretical change we might make to the app in the future. This is probably reflective of many apps you'll build. You'll build what you need now but also have ideas of things that are likely to be added in the future. In these situations, it is wise to do what you can to make those future changes easier. There will be times when you don't know what changes might be required, and it's in these instances that applying general good practices for increased maintainability is even more important.
 
-As an example, let's imagine we want to add a third button to the bottom of the main page of the app. And let's imagine that we need to put it between the two existing buttons.
+As an example, let's imagine we want to add a third button to the bottom of the app's main page, and we need to put it between the two existing buttons.
 
 Look at all the things we'd need to do to add this new button:
 
-- Firstly, we need to look at the `Grid` that contains all the elements in the page. This defines the columns that are used to separate the buttons. As we're adding another button, we'll need another column.
+- First, we need to look at the `Grid` that contains all the elements on the page. This defines the columns that are used to separate the buttons. As we're adding another button, we'll need another column.
 - The `RefreshView` has an attached property that specifies that it needs to span all the defined columns. As we've added another column, this must be updated to reflect this.
 - The `ActivityIndicator` also needs to be updated so it continues to span all the defined columns.
 - The existing `Button`, that's used to find the closest monkey must be moved into the newly defined (last) column.
@@ -45,7 +45,7 @@ In terms of responsibility, each element is not only responsible for its own con
 
 Hopefully, you see that this isn't ideal.
 
-Hopefully, you're thinking that using a Grid might not be the best way to create easily maintainable XAML files.
+Hopefully, you appreciate that using a Grid might not be the best way to create easily maintainable XAML files.
 
 You're right.
 
@@ -54,13 +54,13 @@ You're right.
 
 Grids are a great solution to specific layout challenges, but putting everything in a Grid can make it hard to change existing code. If it's you who's going to be making future changes, you don't want to make your life difficult. Similarly, if it's going to be someone else who will be making future changes to the code you're writing, you don't want their life to be more complicated than it needs to be, either. It's not good for the company creating the code that changes are slow, and it's not good for the people who use the application to have to wait longer for changes, updates, and new features.
 
-Now, let's move on from the theory and see how we might change the existing code so it's easier to modify without having to make changes in lots of different places. We'll do this by having separate elements for presentation (those that a person will see and interact with) and for the positioning of those presentation elements.
+Now, let's move on from the theory and see how we might change the existing code so it's easier to modify without having to make changes in many different places. We'll do this by having separate elements for presentation (those that a person will see and interact with) and for positioning those presentation elements.
 
 ## 2.3 - Separating content and layout
 
 Separating content elements and those that control where and how they're positioned may sound good in principle, but where do you start? Don't worry; it's actually very simple.
 
-Let's start by looking at the XAML of the MainPage.
+Let's start by looking at the XAML of the Main Page.
 
 ### MainPage.xaml
 
@@ -95,7 +95,7 @@ In the `ActivityIndicator`, we can remove the need to span multiple columns.
 
 Additionally, we can also remove the need to span multiple rows (if set to span over the two rows, no one is likely to notice the difference, but spanning both rows is unnecessary, and by assigning the `ActivityIndicator` to the same cell in the `Grid` as the `RefreshView` makes it clearer that they're meant to be in the same place on the screen).
 
-Finally, we also want the indicator to be centered horizontally. When set to `Fill` as the value for `HorizontalOptions` the visible parts of the indicator will be centered and space allocated to stretch it to fill the full width of the container. However, by explicitly setting the value to `Center` we make it clear that this "centering" is what we want and not simply the side-effect of another option that produces the same visible result.
+Finally, we also want the indicator to be centred horizontally. When set to `Fill` as the value for `HorizontalOptions` the visible parts of the indicator will be centered and space allocated to stretch it to fill the full width of the container. However, by explicitly setting the value to `Center` we make it clear that this "centering" is what we want and not simply the side-effect of another option that produces the same visible result.
 
 ```diff
         <ActivityIndicator
@@ -112,7 +112,7 @@ The first thing we can do is add a new container for all the buttons we want to 
 - We also need to ensure it is placed in the bottom row of the Grid, so set `Grid.Row="1"`.
 - Now that the `Button`s are no longer children of the `Grid`, we can remove the attached properties that specify the `Row` and `Column` they were previously positioned in.
 - Previously, the spacing between and around the buttons was specified as part of the `Grid` and each individual `Button`. We can now simplify things by moving all that logic to the element that contains all the buttons.
-- Rather than put space (a `Margin`) around each `Button` we can instead put an equivalent-sized `Padding` around the inside of the `HorizontalStackLayout`.
+Rather than putting space (a `Margin`) around each `Button,` we can instead put an equivalent-sized `Padding` around the inside of the `HorizontalStackLayout`.
 - This leaves the space between `Button`s. Previously, this was a combination of the `ColumnSpacing` specified on the `Grid` and the `Margin` applied to the sides of the `Button`s. We can simplify this by combining these values into the `Spacing` property of the `HorizontalStackLayout`.
 - Let's combine `5` from the `GridSpacing` and `8` from each side of the `Button` into a single value, so (5 + 8 + 8 = 21) `Spacing="21"`.
 
@@ -155,7 +155,7 @@ However, on a semantic level, we've:
 - Used elements and values that help clarify the intent of the XAML to make it easier to visualize.
 - Removed some of the duplication.
 
-All of which should make the code easier for someone else to understand in the future and also make it easier for them to modify without unnecessary effort, duplication, or unintended consequences.
+This should make the code easier for someone else to understand in the future and also make it easier for them to modify without unnecessary effort, duplication, or unintended consequences.
 
 With that page changed, we can now focus on the other page in the app.
 
@@ -163,11 +163,11 @@ With that page changed, we can now focus on the other page in the app.
 
 As with the `MainPage`, the grid on the `DetailsPage` is doing more work than is helpful for making the page easy to maintain. At a high level, the page has two key areas: the colored header at the top and the details below. The current implementation uses two rows of the Grid to display the header and a third row for the rest of the content.
 
-Let's simplify the header so it can fit in a single row of the `Grid`.
+Let's simplify the header to fit in a single row of the `Grid`.
 
 For the header, the current solution uses a `BoxView` stretched over two rows as the background and then puts the `Image` in the first row and the `Label` in the second row. By requiring multiple rows for something that, we could argue, should be a single thing (the header), it makes it harder to modify (and particularly to add more elements) without impacting or needing to change other elements on the page.
 
-Let's start our modifications to this page by removing the unnecessary `RowDefinition`.
+Let's start modifying this page by removing the unnecessary `RowDefinition`.
 
 ```diff
 -        <Grid RowDefinitions="Auto,Auto,*">
@@ -237,7 +237,7 @@ And, remove the `Margin` from the `Label`.
 
 We can now add, remove, or reorder elements within the "header" without needing to do anything to ensure there is the desired space at the top and bottom of the header.
 
-There are further simplifications we can make to the `VerticalStackLayout` which is the container for the "header".
+There are further simplifications we can make to the `VerticalStackLayout`, which is the container for the "header".
 
 - Remove `Grid.RowSpan="2"` as it now only occupies a single row.
 - Remove `VerticalOptions="Fill` as the `VerticalStackLayout` will take as much space as it needs within the defined row, and setting this property now has no effect here.
@@ -251,7 +251,7 @@ We can also simplify the definition of the `Border`:
 
 Within the `Image` there are currently more properties specified than necessary and that can be removed.
 
-Because all the images that might be loaded are all square (or almost all--one of them is 422x456 or 1:1.0806) we don't need to account for moving the image to be in the center of the circle. For this reason, we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
+Because all the images that might be loaded are square (or almost all--one of them is 422x456 or 1:1.0806), we don't need to account for moving the image to be in the center of the circle. For this reason, we can remove the specification of `HorizontalOptions` and `VerticalOptions`.
 
 ```diff
         <Image
@@ -264,7 +264,7 @@ Because all the images that might be loaded are all square (or almost all--one o
 ```
 
 > **Note**:  
-> When loading images that are of unknown aspect ratios, you must carefully consider how they will be aligned and/or stretched into the space you have within the app. In an ideal world, you'd always be guaranteed images of known dimensions. Sadly, in your apps, you will be unlikely to always be guaranteed this. There's more on the considerations when working with images of different sizes in chapter 8 of https://www.manning.com/books/usability-matters ;)
+> When loading images that are of unknown aspect ratios, you must carefully consider how they will be aligned and/or stretched into the space you have within the app. In an ideal world, you'd always be guaranteed images of known dimensions. Sadly, in your apps, you will be unlikely always to be guaranteed this. There's more on the considerations when working with images of different sizes in chapter 8 of https://www.manning.com/books/usability-matters ;)
 
 There's an improvement we can make to the `Label` too:
 
@@ -328,10 +328,10 @@ More importantly, we've:
 
 This whole part has been about making the XAML simpler for those (possibly including ourselves) who may have to try and understand and modify the code in the future.
 
-Try and forget everything you know about this code and imagine you're coming to it without having seen it before or in a long time. In trying to understand a piece of code so that you can change it, wouldn't you rather that code was shorter rather than longer? And, wouldn't you rather that the code didn't have unnecessary internal connections and dependencies that aren't immediately obvious? Of course, you would, and that's what we've created.
+Try to forget everything you know about this code and imagine you're coming to it without having seen it before or in a long time. In trying to understand a piece of code so that you can change it, wouldn't you rather that code was shorter rather than longer? And, wouldn't you rather that the code didn't have unnecessary internal connections and dependencies that aren't immediately obvious? Of course, you would, and that's what we've created.
 
 As with the last part, if you run the app now, you'll see no behavioral difference with the app. There is a small visual difference in the size of the buttons on the MainPage. Unless you were running the app on Windows, you probably wouldn't have noticed the change in button size but they're now no longer massive when running on a desktop.
 
- At this point, it might not be obvious of the benefits of the changes you've made. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part, and they will become clearer as we continue and build on what we've just done.
+ At this point, the benefits of the changes you've made might not be obvious. After all, a large part of the reason for them is to for when future changes are needed. There are more immediate benefits to the changes made in this part, and they will become clearer as we continue and build on what we've just done.
 
 [Now, head over to Part 3, and we'll look at the use of "magic values"](../Part%203%20-%20Magic%20Values/README.md)!
