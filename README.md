@@ -1,6 +1,6 @@
 # .NET MAUI - Workshop: Focus on XAML
 
-Today, we will take the app you created in the [.NET MAUI Workshop](https://github.com/mrlacey/dotnet-maui-workshop) and focus on improving the XAML.
+Today, we will take the app you created in the [.NET MAUI Workshop](https://github.com/dotnet-presentations/dotnet-maui-workshop) and focus on improving the XAML.
 
 While the XAML you created as part of that workshop is functional, there are many opportunities to improve the XAML that it uses.
 
@@ -11,7 +11,7 @@ While this workshop exclusively focuses on .NET MAUI, the principles can be appl
 ## Setup
 
 This workshop is a direct follow-up to the [.NET MAUI Workshop](https://github.com/dotnet-presentations/dotnet-maui-workshop). After you've completed that workshop, you'll be all set to do this one.  
-You can follow their [setup guide](https://github.comdotnet-presentations/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're coming straight to this workshop.
+You can follow their [setup guide](https://github.com/dotnet-presentations/dotnet-maui-workshop/blob/main/README.md#setup-guide) if you're coming straight to this workshop.
 
 **Note** The code used as the starting point for this workshop was taken some months ago and has not yet been updated to reflect the latest changes made there. Any differences should be minor.
 
