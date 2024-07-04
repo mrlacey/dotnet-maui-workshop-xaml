@@ -426,8 +426,6 @@ An "implicit Style" is applied to a type without specifying its name (or key). W
 
 In this section, we'll set some new implicit styles to simplify the XAML on each page.
 
-[[point 4 example and steps]]
-
 Across the two pages of the app, there are three images. Of these, two set the `Aspect` to the value of `AspectFill`. The other leaves the default value of `AspectFit` but produces the same output when set to `AspectFill` because the correct Height and Width of that image are specified.  
 With this knowledge, we can say that if the default value for `Image.Aspect` was changed to `AspectFill`; we wouldn't have to specify this property anywhere in the app. So, let's change the app so it works that way.
 
@@ -527,8 +525,6 @@ With these changes now complete, the XAML on our two pages is now more consisten
 For the final section in this part, let's look at one of the most common places to use strings within an app: the displayed text.
 
 ## 3.5 - Text resources do more than enable localization
-
-[[point 5 introduction]]
 
 There are three common ways to work with localized text inside XAML files:
 
