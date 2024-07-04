@@ -424,7 +424,7 @@ You've seen how creating custom types based on the Styles being applied makes th
 
 We've now made substantial changes to the code used to create the app's UI. We changed both pages, but the biggest difference is shown on `DetailsPage.xaml`.
 
-Look back at [what we started with](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%201%20-%20Fundamentals/Start/MonkeyFinder/View/DetailsPage.xaml) and compare it to [how we finished](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%205%20-%20Custom%20Types/Start/MonkeyFinder/View/DetailsPage.xaml).
+Look back at [what we started with](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%201%20-%20Fundamentals/Start/MonkeyFinder/View/DetailsPage.xaml) and compare it to [how we finished](https://github.com/mrlacey/dotnet-maui-workshop-xaml/blob/main/Part%205%20-%20Custom%20Types/Finish/MonkeyFinder/View/DetailsPage.xaml).
 
 All these changes have been made without changing the functionality and look of the UI.
 
